@@ -11,6 +11,24 @@ Submitted to *Journal of the Royal Statistical Society, Series C*.
 
 ---
 
+
+## Which DOI to use
+
+| Purpose | DOI |
+|---|---|
+| Cite the archive generally (always resolves to the newest release) | `10.5281/zenodo.21900114` — the concept DOI, and what the badge above points at |
+| The exact snapshot the submitted manuscript cites | `10.5281/zenodo.21903202` — release `v1.0.2` |
+
+The manuscript's data-availability statement names the **version** DOI, so that a reader
+lands on the precise code that produced its numbers. One consequence is unavoidable and
+worth stating plainly: the copy of `paper.tex` *inside* the `v1.0.2` archive still prints
+the previous release's DOI, because a release cannot contain its own identifier. The
+repository head is the corrected one.
+
+Releases `v1.0.0` and `v1.0.1` point at the same commit and predate the corrections of
+12 August 2026; do not reproduce from them.
+
+
 ## What is here
 
 Everything needed to reproduce every number, table and figure in the paper and its

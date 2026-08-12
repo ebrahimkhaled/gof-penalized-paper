@@ -75,7 +75,7 @@ The work is original and is not under consideration elsewhere. I declare no conf
 `GlaucomaM` and `GlaucomaMVF` data are publicly available in the R packages `TH.data` and
 `ipred`; all code, seeds and intermediate results are available at
 https://github.com/ebrahimkhaled/gof-penalized-paper and deposited at
-https://doi.org/10.5281/zenodo.21900115. The EDGE basis is implemented in the R package
+https://doi.org/10.5281/zenodo.21903202. The EDGE basis is implemented in the R package
 `ebrahim.gof` on CRAN.
 
 I would be glad to suggest referees if that would help.
@@ -91,7 +91,7 @@ ebrahimkhaled@alexu.edu.eg · ORCID 0009-0006-7839-8778
 
 ## Checklist before sending
 
-- [x] Zenodo DOI 10.5281/zenodo.21900115 in the letter, the paper and the supplement
+- [x] Zenodo DOI 10.5281/zenodo.21903202 in the letter, the paper and the supplement
 - [x] Title matches the manuscript
 - [ ] Upload: `paper.pdf`, `supplement.pdf`, source `.tex` + `Fig/` + `oup-authoring-template.cls` + `oup-abbrvnat.bst`
 - [ ] Alt text is already in the source via `\figalttext` — check the system does not ask for it separately
