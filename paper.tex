@@ -1088,13 +1088,52 @@ assumed it had not been, the verdict on record may be a verdict about the estima
 rather than about the model.
 
 
+\section*{Data availability}
+The \texttt{GlaucomaM} data are distributed in the R package \texttt{TH.data} on the
+Comprehensive R Archive Network. The predictors are standardized to zero mean and unit
+variance before fitting; the data are otherwise unmodified. The second dataset,
+\texttt{GlaucomaMVF}, is distributed in the R package \texttt{ipred}. All code, seeds and
+intermediate results required to reproduce every number and figure in this paper, together
+with the per-replication $p$-values described in the supplementary material, are available
+at \url{https://github.com/ebrahimkhaled/gof-penalized-paper} and archived at
+\url{https://doi.org/10.5281/zenodo.21900115}.
+
+\section*{Acknowledgements}
+All praise and thanks are due to Allah, the Almighty, for every blessing that made this
+work possible.
+
+The authors thank the Department of Applied Statistics, Faculty of Business, Alexandria
+University. We are grateful to Torsten Hothorn and the maintainers of the
+\texttt{TH.data} and \texttt{ipred} packages for making the glaucoma data publicly
+available, and to the maintainers of \texttt{glmnet} and \texttt{GRPtests}.
+
+\section*{Funding}
+No funding was received for this work.
+
+\section*{Conflict of interest}
+None declared.
+
+
 %% ===================================================================
 %% RSS house style: TABLES AT THE END OF THE MAIN TEXT (skill line 172).
+%% Let the float algorithm pack these tightly: with nothing but tables left, the
+%% default fractions reserve space for body text that does not exist and leave
+%% half-empty pages.
+
+\renewcommand{\topfraction}{0.97}
+
+\renewcommand{\bottomfraction}{0.97}
+
+\renewcommand{\textfraction}{0.03}
+
+\renewcommand{\floatpagefraction}{0.90}
+\setcounter{topnumber}{4}
+\setcounter{totalnumber}{6}
 %% \label resolution is unaffected; every \ref in the body still resolves.
 %% ===================================================================
 \clearpage
 
-\begin{table}[!t]
+\begin{table}[!ht]
 \centering
 \caption{Grouping on the fitted index against grouping on the true one, design~B, with
 each arm calibrated to exact size by direct Monte Carlo so that the comparison is of
@@ -1114,7 +1153,7 @@ quadratic (coordinate-wise) & 1.0 & 0.059 & 0.061 & 0.067 & 0.059 \\
 \end{table}
 
 % MANIFEST section 8f -- GREEN. Supersedes the earlier B=300 table.
-\begin{table}[!t]
+\begin{table}[!ht]
 \centering
 \caption{Rejection rate of the \emph{prepivoted corrected} test under a correctly
 specified model, at nominal level $0.05$, with $149$ bootstrap replicates. Design~A uses
@@ -1144,7 +1183,7 @@ B & 1000 & 0.0520 & 0.0070 & 0.0610 & 0.0076 \\
 \end{table}
 
 % MANIFEST section 6.2 -- GREEN. B=200, paired on identical fits and refits.
-\begin{table}[!t]
+\begin{table}[!ht]
 \centering
 \caption{Power of the prepivoted corrected test on the decile and EDGE bases, paired on
 identical fits and refits with the classical test on the maximum likelihood fit. Two
@@ -1184,7 +1223,7 @@ B & quadratic    & 1.50 & 0.0740 & 0.0630 & --- & --- \\
 \end{tabular}
 \end{table}
 
-\begin{table}[!t]
+\begin{table}[!ht]
 \centering
 \caption{What the correction costs in power. Each entry is the mean difference between
 the corrected test on a penalized fit and the classical test on a maximum likelihood fit,
@@ -1200,10 +1239,10 @@ decile & $-0.0250$ \ (s.e.\ $0.0044$) & $-5.70$, $p = 0.0007$ & $-13.0\%$ \\
 EDGE   & $-0.0115$ \ (s.e.\ $0.0038$) & $-3.00$, $p = 0.020$ & $-3.9\%$ \\
 \bottomrule
 \end{tabular}
-\end{table} On the decile basis it costs about two and a half
+\end{table}
 
 % MANIFEST section 8b -- GREEN. NB = 499.
-\begin{table}[!t]
+\begin{table}[!ht]
 \centering
 \caption{Uncorrected and corrected $p$-values for the glaucoma model, over four
 penalties and three group counts. The uncorrected test rejects in all twelve
@@ -1237,31 +1276,9 @@ $2\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & $<10^{-5}$
 \end{tabular}
 \end{table}
 
-\section*{Data availability}
-The \texttt{GlaucomaM} data are distributed in the R package \texttt{TH.data} on the
-Comprehensive R Archive Network. The predictors are standardized to zero mean and unit
-variance before fitting; the data are otherwise unmodified. The second dataset,
-\texttt{GlaucomaMVF}, is distributed in the R package \texttt{ipred}. All code, seeds and
-intermediate results required to reproduce every number and figure in this paper, together
-with the per-replication $p$-values described in the supplementary material, are available
-at \url{https://github.com/ebrahimkhaled/gof-penalized-paper} and archived at
-\url{https://doi.org/10.5281/zenodo.21900114}.
-
-\section*{Acknowledgements}
-All praise and thanks are due to Allah, the Almighty, for every blessing that made this
-work possible.
-
-The authors thank the Department of Applied Statistics, Faculty of Business, Alexandria
-University. We are grateful to Torsten Hothorn and the maintainers of the
-\texttt{TH.data} and \texttt{ipred} packages for making the glaucoma data publicly
-available, and to the maintainers of \texttt{glmnet} and \texttt{GRPtests}.
-
-\section*{Funding}
-No funding was received for this work.
-
-\section*{Conflict of interest}
-None declared.
-
+%% flush every remaining table before the references, so no table can drift onto the
+%% reference pages and none of them is left sitting alone.
+\clearpage
 
 \bibliographystyle{oup-abbrvnat}
 \begin{thebibliography}{99}
