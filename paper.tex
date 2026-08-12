@@ -375,7 +375,7 @@ marks the penalty at which the probabilities are most accurate and the test reje
 99\% of the time.}
 \end{figure}
 
-Three features of Figure~\ref{fig:penalty} deserve comment.
+Four features of Figure~\ref{fig:penalty} deserve comment.
 
 (a) The distortion is not a small-sample curiosity; it reaches certainty. A test whose
 size is $1.000$ carries no information at all: its $p$-value is a deterministic function
@@ -583,7 +583,8 @@ random. The catalogue of neighbouring constructions, with the size of each failu
 the supplementary material. It is also worth stating that an oracle which knows $\bb_0$
 cannot be built on a bootstrap reference at all, because the truth of the bootstrap
 world is $\bbt$ and not $\bb_0$; oracle comparisons in
-Section~\ref{sec:scope} therefore use known-null Monte Carlo instead.
+Section~\ref{sec:scope} therefore take their critical value by direct Monte Carlo from
+the true model instead.
 
 
 % =====================================================================
@@ -1211,7 +1212,7 @@ useful than one whose scope is assumed.
 
 The last word belongs to the eyes. A model built to detect glaucoma early, from
 measurements a machine already takes, was reported by the standard check as badly
-misspecified --- at every penalty, at every grouping, without exception. On that reading
+misspecified --- at every penalty and at every grouping we tried. On that reading
 it would have been rebuilt or abandoned, and in a disease whose damage cannot be
 reversed, the cost of abandoning a usable screening model is counted in sight that was
 not saved. The corrected analysis says something different and more useful: the fitted
@@ -1239,10 +1240,10 @@ at \url{https://github.com/ebrahimkhaled/gof-penalized-paper} and archived at
 All praise and thanks are due to Allah, the Almighty, for every blessing that made this
 work possible.
 
-The authors thank the Department of Applied Statistics, Faculty of Business, Alexandria
-University. We are grateful to Torsten Hothorn and the maintainers of the
-\texttt{TH.data} and \texttt{ipred} packages for making the glaucoma data publicly
-available, and to the maintainers of \texttt{glmnet} and \texttt{GRPtests}.
+I thank the Department of Applied Statistics, Faculty of Business, Alexandria University.
+I am grateful to Torsten Hothorn and the maintainers of the \texttt{TH.data} and
+\texttt{ipred} packages for making the glaucoma data publicly available, and to the
+maintainers of \texttt{glmnet} and \texttt{GRPtests}.
 
 \section*{Funding}
 No funding was received for this work.
@@ -1299,7 +1300,8 @@ The well-calibrated Bayesian.
 \bibitem[Ebrahim and El-Kotory(2026)]{ebrahim2026edge}
 Ebrahim, E.K. and El-Kotory, A. (2026).
 EDGE: a closed-form directed test for the calibration of probabilistic binary classifiers.
-Submitted to \emph{Advances in Data Analysis and Classification}.
+Submitted to \emph{Advances in Data Analysis and Classification}. Preprint,
+\url{https://doi.org/10.5281/zenodo.21902134}.
 
 \bibitem[Firth(1993)]{firth1993}
 Firth, D. (1993).

@@ -35,6 +35,10 @@ pA <- ggplot(A, aes(y = lab)) +
   geom_point(aes(x = dec,  y = as.numeric(lab) + 0.17), shape = 19, size = 1.9, colour = GREY) +
   geom_point(aes(x = dec,  y = as.numeric(lab) - 0.17), shape = 19, size = 1.9, colour = GREY) +
   geom_point(aes(x = edge, y = as.numeric(lab) - 0.17), shape = 19, size = 1.9, colour = GRN) +
+  ## positions are numeric so the two arrows can sit on separate half-rows, so the y
+  ## labels must be restored by hand -- otherwise the axis prints 2, 4, 6, 8.
+  scale_y_continuous(breaks = seq_along(levels(A$lab)), labels = levels(A$lab),
+                     expand = expansion(add = 0.55)) +
   scale_x_continuous(limits = c(0, 0.52), breaks = seq(0, 0.5, 0.1)) +
   labs(title = "A.  Design A: what the correction costs, and what the basis buys back",
        x = "power (rejection rate)", y = NULL) +
