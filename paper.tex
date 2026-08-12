@@ -526,7 +526,7 @@ might otherwise seem separate from. The penalized stationarity condition is
 $X^{\top}(\by - \hat\bpi) = K\bbh$. Substituting that into the generic one-step debiased
 estimator $\bbh + F^{-1}X^{\top}(\by - \hat\bpi)$ returns $\bbh + F^{-1}K\bbh$, which is
 $\bbt$. So $\bbt$ is the debiased estimator of \citet{zhangzhang2014} and
-\citet{vandegeer2014}, specialised to ridge --- and in the ridge case two things that are
+\citet{vandegeer2014}, specialized to ridge --- and in the ridge case two things that are
 approximations in that literature become exact: the score residual is a deterministic
 function of $\bbh$, and $F^{-1}$ is available directly rather than through a
 nodewise-lasso approximation. That is why the cancellation of
@@ -1156,14 +1156,14 @@ before deployment \citep{vancalster2020}.
 \section{Software}\label{sec:software}
 % =====================================================================
 
-The corrected test is implemented as \texttt{gof.pen()} in the R package
-\texttt{ebrahim.gof}, available from the Comprehensive R Archive Network. The EDGE basis
-of \citet{ebrahim2026edge} is available through the same interface, and the EDGE
-statistic computed by the code used here agrees exactly with the package on three
-datasets. The simulations reported above use a self-contained implementation of the
-penalized fit, so that the replication archive does not depend on a package version; the
-scale identity $\lambda = n\lambda_{\mathrm{g}}$ against \citet{friedman2010} was checked
-numerically to $1.6\times10^{-9}$.
+The EDGE basis of \citet{ebrahim2026edge} is implemented as \texttt{edge.gof()} in the R
+package \texttt{ebrahim.gof} (version 2.4.0) on the Comprehensive R Archive Network, and
+the EDGE statistic computed by the code used here agrees with that implementation exactly
+on three datasets. The shrinkage correction itself is not yet in a released version of
+that package. A reference implementation is included in the replication archive; it is
+self-contained, so that reproducing the results here does not depend on any package
+version. The scale identity $\lambda = n\lambda_{\mathrm{g}}$ against
+\citet{friedman2010} was checked numerically to $1.6\times10^{-9}$.
 
 
 % =====================================================================

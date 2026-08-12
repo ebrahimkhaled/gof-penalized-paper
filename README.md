@@ -1,5 +1,4 @@
 # Replication archive
-
 [![DOI](https://zenodo.org/badge/1331749712.svg)](https://doi.org/10.5281/zenodo.21900114)
 
 **Shrinkage invalidates the Hosmer–Lemeshow test: goodness of fit for penalized
@@ -21,7 +20,7 @@ supplement. All computation is in R.
 paper.tex, supplement.tex      the manuscript sources
 oup-authoring-template.cls     the OUP class (build: pdflatex twice, no bibtex)
 Fig/                           figures as they appear in the paper
-R/                             the two figure scripts + _ek_theme.R (self-contained)
+R/                             all scripts + _ek_theme.R (self-contained)
 *.R                            the simulation and application scripts
 *_pvalues*.csv                 per-replication p-values — power study + rivals only
                                (T25_power_pvalues.csv, T24_rivals_pvalues.csv)
@@ -42,25 +41,31 @@ The two secondary datasets are `GlaucomaMVF` (package `ipred`) and `Sonar`
 
 ## Reproducing the paper
 
-Tables are named by content as well as number, because the numbering shifts if a table is
-added or moved. Current numbering is Table 1 uncorrected size, 2 oracle grouping,
-3 corrected size, 4 power, 5 power cost, 6 glaucoma grid.
+Current numbering: **Tables** 1 oracle grouping · 2 corrected size · 3 power · 4 power cost ·
+5 glaucoma grid. **Figures** 1 penalty path · 2 cost and gain · 3 power · 4 glaucoma calibration.
+Figure files and their scripts carry the same numbers.
 
 | Paper item | Script | Cost |
 |---|---|---|
 | Proposition 1 numerical check | `corrected_test.R` | seconds |
-| Covariance ordering Ω_K ⪰ Ω_MLE | `check_omega_sign.R` | seconds |
-| Table 1, uncorrected size | `lambda_sweep.R`, `hd_sweep.R` | minutes |
-| Table 2, oracle vs fitted grouping | `oracle_knownnull.R` | minutes |
-| Table 3, corrected size | `T23_rerun.R` | 11 min, 22 workers |
-| Table 3, the λ=50 row (pooled) | `verify_E13.R` | 15 min, 22 workers |
-| Tables 4 and 5, power and its cost | `T25_power_highB.R` | ~37 min, 22 workers |
-| Figure 1, data then rendering | `T22_tau.R` → `R/fig1_power_ek.R` | minutes |
-| Table 6 and Figure 2, glaucoma | `glaucoma_deep.R`, `R/fig2_calib_ek.R` | minutes |
+| Covariance ordering Omega_K >= Omega_MLE | `check_omega_sign.R` | seconds |
+| Figure 1, the penalty path | `lambda_sweep.R`, `hd_sweep.R` -> `R/fig1_penaltypath_ek.R` | minutes |
+| Table 1, oracle vs fitted grouping | `oracle_knownnull.R` | minutes |
+| Table 2, corrected size | `T23_rerun.R` | 11 min, 22 workers |
+| Table 2, the lambda=50 row (pooled) | `verify_E13.R` | 15 min, 22 workers |
+| Tables 3-4 and Figure 2, power and its cost | `T25_power_highB.R` -> `R/fig2_costgain_ek.R` | ~37 min, 22 workers |
+| Figure 3, the visible effect size | `T22_tau.R`, `plot_tau.R` -> `R/fig3_power_ek.R` | minutes |
+| Table 5 and Figure 4, glaucoma | `glaucoma_deep.R` -> `R/fig4_calib_ek.R` | minutes |
 | Uncorrected variants on GlaucomaM | `naive_glaucoma_both.R` | seconds |
-| Table S2, residual geometry | `omega_spectrum.R` | 26 s, 22 workers |
-| §S4.3, overshoot intervention | `overshoot_test.R` | 4 min, 22 workers |
-| Table S1, the failed repairs | `round2.R`, `cand_C.R` | minutes |
+| Second dataset (GlaucomaMVF) | `extract_T26b.R` | minutes |
+| The one-fit screen (S2.5) | `shrinkage_screen.R` | minutes |
+| Conditioning and the generator | `glaucoma_conditioning.R`, `check_generator.R` | seconds |
+| Table S3, residual geometry | `omega_spectrum.R` | 26 s, 22 workers |
+| S4.3, overshoot intervention | `overshoot_test.R` | 4 min, 22 workers |
+| Table S1, the failed repairs | `round2.R`, `prepivot_cost.R` | minutes |
+
+All four figure scripts run from `R/` and source `_ek_theme.R`, which ships with this archive;
+each ends in `stopifnot()` guards asserting the claims its figure makes.
 
 Parallel scripts use PSOCK clusters sized `detectCores() - 2` and set their stream with
 `parallel::clusterSetRNGStream`; the stream seed is written at the top of each script and
@@ -99,11 +104,11 @@ tapply(b$p_pre_edge <= thr, b$gamma, mean)
 
 ## Software
 
-The corrected test is implemented as `gof.pen()` in the R package `ebrahim.gof` on CRAN;
-it accepts a fitted `glmnet` object directly. The scripts here use a self-contained
-implementation so that the archive does not depend on a package version; it was verified
-identical to `ebrahim.gof::edge.gof` to a difference of 0.00e+00 on three datasets
-(`verify_edge.R`).
+The EDGE basis is implemented as `edge.gof()` in the R package `ebrahim.gof` (2.4.0) on
+CRAN. **The shrinkage correction itself is not yet in a released version of that package** —
+the reference implementation is in this archive, self-contained so that reproduction does
+not depend on any package version. The EDGE statistic computed here was verified identical
+to `ebrahim.gof::edge.gof` to a difference of 0.00e+00 on three datasets (`verify_edge.R`).
 
 Session: R 4.4.x on Windows 11, packages `glmnet`, `TH.data`, `ggplot2`, `patchwork`,
 `parallel`.
