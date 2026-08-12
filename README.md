@@ -2,8 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/1331749712.svg)](https://doi.org/10.5281/zenodo.21900114)
 
-**The Hosmer–Lemeshow test after shrinkage: a valid goodness-of-fit test for penalized
-logistic regression, applied to glaucoma diagnosis**
+**Shrinkage invalidates the Hosmer–Lemeshow test: goodness of fit for penalized
+logistic regression, with an application to glaucoma diagnosis**
 
 Ebrahim Khaled Ebrahim (ORCID 0009-0006-7839-8778) and Ahmed El-Kotory
 Department of Applied Statistics, Faculty of Business, Alexandria University, Egypt
