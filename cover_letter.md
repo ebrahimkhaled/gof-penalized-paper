@@ -71,7 +71,7 @@ two tests reject on disjoint datasets. And I report a dataset I rejected as an e
 because cross-validation had selected an essentially intercept-only model there, which
 would have flattered the method.
 
-The work is original and is not under consideration elsewhere. I declare no conflict of interest and received no funding. The
+The work is original and is not under consideration elsewhere. I declare no conflict of interest and received no funding. In line with the journal's policy on AI tools: an AI assistant (Claude, Anthropic) was used to draft and check the simulation code, prepare figures, and edit prose; all derivations, numerical results and conclusions were verified by the author, who takes full responsibility for the content. The same disclosure appears in the Acknowledgements. The
 `GlaucomaM` and `GlaucomaMVF` data are publicly available in the R packages `TH.data` and
 `ipred`; all code, seeds and intermediate results are available at
 https://github.com/ebrahimkhaled/gof-penalized-paper and deposited at

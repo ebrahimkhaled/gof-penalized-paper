@@ -292,7 +292,7 @@ answered by recalibration, not by rebuilding the model.
 Under the regularity conditions given in the supplementary material, with the penalty
 contributing $K \succeq 0$ to the curvature,
 \[
-  \bbh - \bb = M^{-1}\{X^{\top}(\boldsymbol{y}-\boldsymbol{\pi}) - K\bb\} + o_p(1),
+  \bbh - \bb = M^{-1}\{X^{\top}(\boldsymbol{y}-\boldsymbol{\pi}) - K\bb\} + o_p(n^{-1/2}),
 \]
 and consequently
 $\boldsymbol{r} \adist \mathcal{N}(\boldsymbol{\mu}_K, \Omega_K)$ with
@@ -475,7 +475,7 @@ Since $I + F^{-1}K = F^{-1}(F+K) = F^{-1}M$, the debiased estimate is
 $\bbt = F^{-1}M\bbh$. Substituting the expansion of Proposition~\ref{prop:law} and using
 $F^{-1}M\bb = \bb + F^{-1}K\bb$, the two penalty terms cancel and
 \begin{equation}\label{eq:btilde}
-  \bbt = \bb + F^{-1}X^{\top}(\by-\bpi) + o_p(1),
+  \bbt = \bb + F^{-1}X^{\top}(\by-\bpi) + o_p(n^{-1/2}),
 \end{equation}
 which is the first-order expansion of the \emph{unpenalized} maximum likelihood
 estimator in the regime of the regularity conditions. Where that estimate does not exist,
@@ -780,7 +780,7 @@ $7/150 = 0.0467$ and $8/150 = 0.0533$.}
 \label{tab:size}
 \begin{tabular}{llrrrr}
 \toprule
-& & \multicolumn{2}{c}{Decile basis} & \multicolumn{2}{c}{EDGE basis} \\
+& & \multicolumn{2}{c}{\texttt{SC.HL}} & \multicolumn{2}{c}{\texttt{SC.EDGE}} \\
 \cmidrule(lr){3-4}\cmidrule(lr){5-6}
 Design & $\lambda$ & rate & s.e. & rate & s.e. \\
 \midrule
@@ -1249,6 +1249,11 @@ I thank the Department of Applied Statistics, Faculty of Business, Alexandria Un
 I am grateful to Torsten Hothorn and the maintainers of the \texttt{TH.data} and
 \texttt{ipred} packages for making the glaucoma data publicly available, and to the
 maintainers of \texttt{glmnet} and \texttt{GRPtests}.
+
+In line with the journal's policy on artificial intelligence tools: an AI assistant
+(Claude, Anthropic) was used to draft and check the simulation code, prepare figures,
+and edit the prose. All derivations, numerical results and conclusions were verified by
+the author, who takes full responsibility for the content.
 
 \section*{Funding}
 No funding was received for this work.

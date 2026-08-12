@@ -112,7 +112,7 @@ their conclusion once those two conditions are dropped.
 
 \begin{proposition}\label{prop:law}
 Under (C1)--(C4),
-$\bbh - \bb = M^{-1}\{X^{\top}(\by-\bpi) - K\bb\} + o_p(1)$ and
+$\bbh - \bb = M^{-1}\{X^{\top}(\by-\bpi) - K\bb\} + o_p(n^{-1/2})$ and
 $\br \mathrel{\dot\sim} \mathcal{N}(\bmu_K, \Omega_K)$ with
 \begin{align*}
   \Omega_K &= I_G - UM^{-1}U^{\top} - UM^{-1}KM^{-1}U^{\top}
@@ -128,8 +128,8 @@ $-\partial s/\partial \bb = F + K = M$,
 \[
   \boldsymbol{0} = s(\bbh) = X^{\top}(\by-\bpi) - K\bb - M(\bbh - \bb) + o_p(n^{1/2}),
 \]
-which on rearranging gives the stated expansion, the remainder being $o_p(1)$ after
-scaling by $n^{-1/2}$ under (C2).
+which on rearranging gives the stated expansion, the score remainder becoming
+$o_p(n^{-1/2})$ after multiplication by $M^{-1} = O(n^{-1})$ under (C2).
 
 For the residuals, expand $\hat\bpi = \bpi(\bbh)$ about $\bpi = \bpi(\bb)$:
 $\hat\bpi = \bpi + WX(\bbh-\bb) + o_p(n^{-1/2})$, so that
@@ -209,12 +209,12 @@ The key is that $\bbt$ is exactly unbiased to first order. Since
 $I + F^{-1}K = F^{-1}(F+K) = F^{-1}M$,
 \[
   \bbt = (I + F^{-1}K)\bbh = F^{-1}M\bbh
-       = F^{-1}M\bigl[\bb + M^{-1}\{X^{\top}(\by-\bpi) - K\bb\}\bigr] + o_p(1),
+       = F^{-1}M\bigl[\bb + M^{-1}\{X^{\top}(\by-\bpi) - K\bb\}\bigr] + o_p(n^{-1/2}),
 \]
 and expanding, $F^{-1}M\bb = F^{-1}(F+K)\bb = \bb + F^{-1}K\bb$, so the $F^{-1}K\bb$
 terms cancel and
 \begin{equation}\label{eq:btilde}
-  \bbt = \bb + F^{-1}X^{\top}(\by-\bpi) + o_p(1).
+  \bbt = \bb + F^{-1}X^{\top}(\by-\bpi) + o_p(n^{-1/2}).
 \end{equation}
 That is, the one-step correction returns precisely the first-order expansion of the
 unpenalized maximum likelihood estimator, whether or not that estimator exists.
