@@ -99,7 +99,7 @@ Hosmer--Lemeshow test; ridge regression}
 
 
 % =====================================================================
-\section{A glaucoma model that cannot be fitted by maximum likelihood}\label{sec:intro}
+\section{Introduction}\label{sec:intro}
 % =====================================================================
 
 Glaucoma is a leading cause of \emph{irreversible} blindness worldwide, and it is
@@ -129,7 +129,7 @@ last step is not valid after its second, so a model reported as badly calibrated
 development paper may have been condemned for using the estimator that the same guidance
 recommended.
 
-\subsection{Maximum likelihood is not available}\label{sec:cannotfit}
+\subsection{Non-existence of the maximum likelihood estimate}\label{sec:cannotfit}
 
 The variables are repeated geometric summaries of the same optic disc, so they are
 collinear by construction rather than by accident: the largest pairwise correlation is
@@ -147,7 +147,7 @@ estimation for logistic regression, in the form we use, is due to
 discriminates well, with an area under the receiver operating characteristic curve of
 $0.905$, and which a clinician might reasonably consider using.
 
-\subsection{The routine check, and what it reports}\label{sec:routinecheck}
+\subsection{Assessment by the Hosmer--Lemeshow test}\label{sec:routinecheck}
 
 Having fitted the model, the analyst asks whether it fits. In clinical prediction the
 near-universal answer is a grouped goodness-of-fit test, and in practice almost always
@@ -173,7 +173,7 @@ under penalized estimation it is wrong in a specific and quantifiable way. At th
 penalty that cross-validation selects, that test rejects models we know to be correct
 with probability approaching one.
 
-\subsection{Why this matters beyond one dataset}\label{sec:whymatters}
+\subsection{Relevance beyond a single dataset}\label{sec:whymatters}
 
 Penalized regression is recommended whenever the number of candidate predictors is large
 relative to the number of events \citep{riley2021,pavlou2024}, and the resulting model is
@@ -213,7 +213,7 @@ analysis concludes.
 
 
 % =====================================================================
-\section{Why the reported \emph{p}-value is not valid}\label{sec:invalid}
+\section{Invalidity of the uncorrected test}\label{sec:invalid}
 % =====================================================================
 
 \subsection{Notation}\label{sec:notation}
@@ -286,7 +286,7 @@ paper lies in that gap. Our object is a valid test of \eqref{eq:h0str}. A test o
 \eqref{eq:h0cal} is also useful --- it is what one wants before deployment --- but it is
 answered by recalibration, not by rebuilding the model.
 
-\subsection{The corrected law}\label{sec:law}
+\subsection{The corrected null distribution}\label{sec:law}
 
 \begin{proposition}\label{prop:law}
 Under the regularity conditions given in the supplementary material, with the penalty
@@ -343,7 +343,7 @@ condition; a penalized estimator with $\lambda$ growing satisfies neither, which
 precisely why their conclusions do not transfer.
 \end{remark}
 
-\subsection{How large the error is}\label{sec:howlarge}
+\subsection{Magnitude of the size distortion}\label{sec:howlarge}
 
 % MANIFEST section 2 -- GREEN. lambda on the glmnet scale. The exact grid behind this
 % figure is the uncorrected-size grid in the supplement (do not hard-code its number).
@@ -407,7 +407,7 @@ $\bpi_0$ is known, which is precisely why the practitioner reaches for a
 goodness-of-fit test instead.
 
 
-\subsection{A screen an analyst can run on their own fit}\label{sec:screen}
+\subsection{A one-fit diagnostic screen}\label{sec:screen}
 
 % MANIFEST section 8j -- GREEN. shrinkage_screen.R, 200 design draws per cell.
 Everything needed to predict the distortion is already computed inside the correction, so
@@ -449,7 +449,7 @@ raise an alarm.
 \section{The shrinkage-corrected Hosmer--Lemeshow test}\label{sec:valid}
 % =====================================================================
 
-\subsection{Removing the displacement}\label{sec:remove}
+\subsection{Removal of the shrinkage displacement}\label{sec:remove}
 
 Proposition~\ref{prop:law} suggests an obvious remedy: estimate the shrinkage
 non-centrality $\boldsymbol{\mu}_K$ and subtract it. We call the resulting procedure the
@@ -588,7 +588,7 @@ the true model instead.
 
 
 % =====================================================================
-\section{What the test can and cannot detect}\label{sec:scope}
+\section{Detectable and undetectable departures}\label{sec:scope}
 % =====================================================================
 
 A valid test is not automatically a useful one. This section gives the law that governs
@@ -656,7 +656,7 @@ regard as excellent --- a cubic departure retains only $53\%$ of its non-central
 $\rho = 0.7$, only $12\%$. Higher-order departures are therefore intrinsically hard to
 see through an estimated index, for \emph{any} test that groups on that index.
 
-\subsection{Two mechanisms, not one}\label{sec:mechanisms}
+\subsection{Dilution and index-estimation noise}\label{sec:mechanisms}
 
 It is tempting to collapse the high-dimensional difficulty into a single statement about
 $p/n$. That would be wrong, and the distinction is practically useful because the two
@@ -715,7 +715,7 @@ departures at a rate governed by $\nu\sqrt{n}$ in any dimension, and detects
 coordinate-wise departures at a rate that also depends on how much of the index that
 coordinate carries.
 
-\subsection{A division of labour, measured}\label{sec:rivals}
+\subsection{Comparison with residual-prediction tests}\label{sec:rivals}
 
 % MANIFEST section 8c -- GREEN. Paired, B = 200 per cell, MC SE 0.0154.
 Tests for high-dimensional generalized linear models built by other routes
@@ -751,7 +751,7 @@ handicapped by a tuning choice. GRASP has no package and was not attempted.
 
 
 % =====================================================================
-\section{Simulation}\label{sec:sim}
+\section{Simulation study}\label{sec:sim}
 % =====================================================================
 
 Two designs are used throughout. Design~A has $n = 500$, $p = 5$ and independent
@@ -965,12 +965,12 @@ above decile over most of design~A and below it throughout design~B.}
 
 
 % =====================================================================
-\section{The glaucoma model, reconsidered}\label{sec:app}
+\section{Reanalysis of the glaucoma model}\label{sec:app}
 % =====================================================================
 
 We now return to the model of Section~\ref{sec:intro} and apply the corrected test.
 
-\subsection{What the uncorrected test was reacting to}\label{sec:whatitsaw}
+\subsection{The source of the uncorrected rejection}\label{sec:whatitsaw}
 
 Figure~\ref{fig:calib} shows the calibration of the ridge fit at the cross-validated
 penalty. The pattern is not random. In the lowest deciles of predicted risk the observed
@@ -1088,7 +1088,7 @@ replacing the grouping with a fixed partition of the probability scale, which is
 complementary to the correction developed here. We report the whole grid rather than a
 single cell, and we would encourage the same practice generally.
 
-\subsection{A second dataset, and a different verdict}\label{sec:mvf}
+\subsection{Reanalysis of a second dataset}\label{sec:mvf}
 
 % MANIFEST section 8b-ter -- GREEN. Full 12-cell grid; the table is in the supplement.
 A reader is entitled to ask whether one dataset carries this much weight. We therefore
@@ -1114,7 +1114,7 @@ contain. On one dataset that residue is real but modest; on the other there is n
 find. An analyst who applied the uncorrected test to both would have concluded that both
 models were badly misspecified, and would have been wrong about at least one of them.
 
-\subsection{What changes for the clinician}\label{sec:clinicalchange}
+\subsection{Implications for clinical practice}\label{sec:clinicalchange}
 
 The two analyses support different actions.
 
@@ -1143,7 +1143,7 @@ is therefore likely to be one whose miscalibration was, in decision-analytic ter
 benign kind. The cost of the invalid test is not that it protects patients too
 zealously; it is that it discards usable models for the wrong reason.
 
-\subsection{A limitation of this application}\label{sec:applimit}
+\subsection{Limitations of the application}\label{sec:applimit}
 
 These are development data, and every quantity we report is apparent rather than
 validated. Our purpose is a like-for-like comparison of two tests on the same fit, which
