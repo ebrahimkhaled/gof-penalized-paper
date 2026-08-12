@@ -1,0 +1,837 @@
+% =====================================================================
+%  WEB-BASED SUPPORTING MATERIALS for the Series C paper.
+%  Series C explicitly invites proofs into the supplement; they are here,
+%  not in the main text.
+%
+%  BUILD: pdflatex supplement ; pdflatex supplement
+%
+%  NUMBERS: every value is registered in ../paper1_speckit/08_RESULTS_MANIFEST.md.
+%  The manifest section is named in a comment at each use.
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[authoryear,round]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\bb}{\boldsymbol{\beta}}
+\newcommand{\bbh}{\hat{\boldsymbol{\beta}}}
+\newcommand{\bbt}{\tilde{\boldsymbol{\beta}}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\title{\bfseries Supplementary material for\\
+``Shrinkage invalidates the Hosmer--Lemeshow test: goodness of fit for penalized
+logistic regression, with an application to glaucoma diagnosis''}
+\author{Ebrahim Khaled Ebrahim \and Ahmed El-Kotory}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+Numbering of propositions matches the main text. Section~\ref{sec:proofs} gives the
+regularity conditions and the proofs. Section~\ref{sec:failures} catalogues the
+neighbouring constructions that fail, with the size of each failure, because the
+question ``why not the obvious thing?'' has four different answers.
+Section~\ref{sec:designs} specifies the simulation designs.
+Section~\ref{sec:grids} gives the full grids and the sensitivity analyses.
+Section~\ref{sec:repro} lists the scripts and seeds.
+
+\tableofcontents
+
+
+% =====================================================================
+\section{Regularity conditions and proofs}\label{sec:proofs}
+% =====================================================================
+
+\subsection{Conditions}\label{sec:conditions}
+
+Throughout, $y_i \in \{0,1\}$ are independent given $\boldsymbol{x}_i$, and
+$\pi_i(\bb) = \{1+\exp(-\boldsymbol{x}_i^{\top}\bb)\}^{-1}$. Write
+$W = \mathrm{diag}\{\hat\pi_i(1-\hat\pi_i)\}$, $F = X^{\top}WX$, $K = \lambda D$ with
+$D = \mathrm{diag}(0,1,\dots,1)$, and $M = F+K$. We assume:
+
+(C1) the true parameter $\bb_0$ lies in the interior of a compact parameter set, and
+$\pi_i(\bb_0) \in [\epsilon, 1-\epsilon]$ for some $\epsilon > 0$ uniformly in $i$;
+
+(C2) $n^{-1}F \to \Sigma$, positive definite, and $\lambda$ is non-random with
+$\lambda = o(n)$, so that $n^{-1}M \to \Sigma$ and the shrinkage displacement
+$M^{-1}K\bb = o(1)$;
+
+(C3) the grouping matrix $C$ has $G$ fixed, each group receiving a fixed positive
+fraction of the sample, and $V = CWC^{\top}$ is positive definite;
+
+(C3$'$) the group boundaries converge in probability to the population quantiles of the
+linear predictor at rate $O_p(n^{-1/2})$, with limiting cell probabilities bounded away
+from zero. This is an assumption, not something we discharge: in practice the groups are
+equal-frequency cells of the \emph{fitted} index, so $C$ is random. \citet{moore1975}
+establish the corresponding statement for the unpenalized case; it is untested at
+$p/n = 0.25$;
+
+(C4) $p$ is fixed as $n \to \infty$.
+
+Condition (C4) is what confines the results of this section to the fixed-dimension
+regime. It is not satisfied by design~B, where $p/n = 0.25$, and this is exactly why the
+validity we claim there rests on prepivoting and on the simulation evidence of
+Section~\ref{sec:grids}, not on Propositions 1 and 2. We are explicit about this in the
+discussion of the main text.
+
+\begin{remark}
+Conditions (C1)--(C3) are those of \citet{moore1975} with one deletion and one addition.
+Moore and Spruill require the estimator to be $\sqrt{n}$-consistent for $\bb_0$ and to
+satisfy an orthogonality condition on the estimating function. A penalized estimator
+satisfies neither when $\lambda$ grows with $n$: it is $\sqrt{n}$-consistent for a
+shrunken pseudo-parameter, not for $\bb_0$. Proposition~\ref{prop:law} is what replaces
+their conclusion once those two conditions are dropped.
+\end{remark}
+
+\subsection{Proof of Proposition 1}\label{sec:proof1}
+
+\begin{proposition}\label{prop:law}
+Under (C1)--(C4),
+$\bbh - \bb = M^{-1}\{X^{\top}(\by-\bpi) - K\bb\} + o_p(1)$ and
+$\br \mathrel{\dot\sim} \mathcal{N}(\bmu_K, \Omega_K)$ with
+\begin{align*}
+  \Omega_K &= I_G - UM^{-1}U^{\top} - UM^{-1}KM^{-1}U^{\top}
+            = I_G - UM^{-1}(F+2K)M^{-1}U^{\top}, \\
+  \bmu_K   &= UM^{-1}K\bb + \text{(second-order remainder)}.
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+The penalized score is $s(\bb) = X^{\top}\{\by - \bpi(\bb)\} - K\bb$, and $\bbh$ solves
+$s(\bbh) = \boldsymbol{0}$. Expanding about the true $\bb$ and using
+$-\partial s/\partial \bb = F + K = M$,
+\[
+  \boldsymbol{0} = s(\bbh) = X^{\top}(\by-\bpi) - K\bb - M(\bbh - \bb) + o_p(n^{1/2}),
+\]
+which on rearranging gives the stated expansion, the remainder being $o_p(1)$ after
+scaling by $n^{-1/2}$ under (C2).
+
+For the residuals, expand $\hat\bpi = \bpi(\bbh)$ about $\bpi = \bpi(\bb)$:
+$\hat\bpi = \bpi + WX(\bbh-\bb) + o_p(n^{-1/2})$, so that
+\[
+  \br = V^{-1/2}C(\by - \hat\bpi)
+      = V^{-1/2}C(\by-\bpi) - U(\bbh - \bb) + o_p(1),
+\]
+using $U = V^{-1/2}CWX$. Substituting the expansion for $\bbh - \bb$,
+\begin{equation}\label{eq:rlinear}
+  \br = \underbrace{\bigl(V^{-1/2}C - UM^{-1}X^{\top}\bigr)}_{=:A}(\by-\bpi)
+        \; + \; UM^{-1}K\bb + o_p(1).
+\end{equation}
+Under $H_0^{\mathrm{str}}$ we have $\mathbb{E}(\by-\bpi) = \boldsymbol{0}$, so
+$\mathbb{E}(\br) = UM^{-1}K\bb$, which is $\bmu_K$. We write the remainder in words rather
+than as an order symbol because $\|K\bb\| = O(\lambda)$, so $O(\|K\bb\|^{2})$ is not a useful
+bound against a leading term of order $n^{-1/2}$. What we can say is measured rather than
+proved: at design~A with $\lambda = 100$ the largest discrepancy between the empirical mean
+of $\br$ and $\bmu_K$ is $0.1137$ against $\|\bmu_K\| = 3.871$, about $3\%$; and at
+$\lambda = 416$ in design~B the second-order term overshoots the empirical mean by roughly a
+factor of two, which is why Section~\ref{sec:failures} row~(b) fails.
+
+For the variance, $\var(\by-\bpi) = W$, so $\var(\br) = AWA^{\top}$. Expanding, and using
+the three identities $V^{-1/2}CWC^{\top}V^{-1/2} = I_G$, $V^{-1/2}CWX = U$ and
+$X^{\top}WX = F$,
+\[
+  AWA^{\top}
+  = I_G - UM^{-1}U^{\top} - UM^{-1}U^{\top} + UM^{-1}FM^{-1}U^{\top}
+  = I_G - 2UM^{-1}U^{\top} + UM^{-1}FM^{-1}U^{\top}.
+\]
+Since $F = M - K$,
+$UM^{-1}FM^{-1}U^{\top} = UM^{-1}U^{\top} - UM^{-1}KM^{-1}U^{\top}$, and substituting
+gives $\Omega_K = I_G - UM^{-1}U^{\top} - UM^{-1}KM^{-1}U^{\top}$. For the second form,
+$UM^{-1}(F+2K)M^{-1}U^{\top} = UM^{-1}(M+K)M^{-1}U^{\top}
+= UM^{-1}U^{\top} + UM^{-1}KM^{-1}U^{\top}$. Asymptotic normality follows from the
+Lindeberg--Feller theorem applied to the linear form in \eqref{eq:rlinear} under
+(C1)--(C3).
+\end{proof}
+
+\begin{remark}\label{rem:sign}
+Setting $K = 0$ recovers $I_G - UF^{-1}U^{\top}$, the classical
+\citet{chernoff1954,moore1975} form. The ordering against that form is the opposite of
+what a first glance at Proposition~\ref{prop:law} suggests, and it is worth deriving because the
+wrong sign here would misdirect the whole diagnosis. Since $M = F + K$ gives
+$F^{-1} - M^{-1} = F^{-1}KM^{-1} = M^{-1}KF^{-1}$, and
+$M^{-1}(F+2K)M^{-1} = M^{-1}(M+K)M^{-1} = M^{-1} + M^{-1}KM^{-1}$,
+\[
+  F^{-1} - M^{-1}(F+2K)M^{-1}
+  = \bigl(F^{-1} - M^{-1}\bigr) - M^{-1}KM^{-1}
+  = M^{-1}K\bigl(F^{-1} - M^{-1}\bigr)
+  = M^{-1}KF^{-1}KM^{-1} \succeq 0 ,
+\]
+the last matrix being a congruence of $F^{-1} \succ 0$. Hence
+$\Omega_K \succeq I_G - UF^{-1}U^{\top}$: the penalized covariance is \emph{larger} than
+the maximum likelihood one, so a test referred to the classical covariance understates
+the residual variance and is anti-conservative on that account alone.
+Table~\ref{tab:geometry} confirms it empirically --- $\tr(\Omega_K)$ exceeds
+$\tr(\Omega_{\mathrm{MLE}})$ in every row.
+
+The covariance therefore pushes in the \emph{same} direction as the non-centrality rather
+than against it. It is nevertheless the much smaller of the two effects --- the trace gap
+is $0.23$ in design~A and $0.92$ in design~B, against a size distortion that reaches
+$1.000$ --- and Proposition~\ref{prop:cancel} disposes of it entirely, since after
+$\hat\bmu$ is subtracted the covariance is exactly the maximum likelihood one. The
+non-centrality $\bmu_K$ is what has to be removed by hand.
+\end{remark}
+
+\subsection{Proof of Proposition 2}\label{sec:proof2}
+
+\begin{proposition}\label{prop:cancel}
+Let $\bbt = \bbh + F^{-1}K\bbh$ and $\hat\bmu = UM^{-1}K\bbt$. Then, to first order,
+$\mathbb{E}(\br - \hat\bmu) = \boldsymbol{0}$ and
+$\var(\br - \hat\bmu) = I_G - UF^{-1}U^{\top}$.
+\end{proposition}
+
+\begin{proof}
+The key is that $\bbt$ is exactly unbiased to first order. Since
+$I + F^{-1}K = F^{-1}(F+K) = F^{-1}M$,
+\[
+  \bbt = (I + F^{-1}K)\bbh = F^{-1}M\bbh
+       = F^{-1}M\bigl[\bb + M^{-1}\{X^{\top}(\by-\bpi) - K\bb\}\bigr] + o_p(1),
+\]
+and expanding, $F^{-1}M\bb = F^{-1}(F+K)\bb = \bb + F^{-1}K\bb$, so the $F^{-1}K\bb$
+terms cancel and
+\begin{equation}\label{eq:btilde}
+  \bbt = \bb + F^{-1}X^{\top}(\by-\bpi) + o_p(1).
+\end{equation}
+That is, the one-step correction returns precisely the first-order expansion of the
+unpenalized maximum likelihood estimator, whether or not that estimator exists.
+
+Hence $\hat\bmu = UM^{-1}K\bb + UM^{-1}KF^{-1}X^{\top}(\by-\bpi) + o_p(1)$, and
+subtracting from \eqref{eq:rlinear} the non-random terms cancel exactly:
+\begin{align*}
+  \br - \hat\bmu &= \bigl(A - UM^{-1}KF^{-1}X^{\top}\bigr)(\by - \bpi) + o_p(1), \\
+  A - UM^{-1}KF^{-1}X^{\top} &= V^{-1/2}C - UM^{-1}(I + KF^{-1})X^{\top}.
+\end{align*}
+Now the cancellation that gives the proposition its content:
+\begin{equation}\label{eq:cancel}
+  M^{-1}(I + KF^{-1}) = M^{-1}(F+K)F^{-1} = M^{-1}MF^{-1} = F^{-1}.
+\end{equation}
+So $\br - \hat\bmu = A^{*}(\by-\bpi) + o_p(1)$ with
+$A^{*} = V^{-1/2}C - UF^{-1}X^{\top}$, whose mean is zero and whose variance is
+\[
+  A^{*}WA^{*\top} = I_G - UF^{-1}U^{\top} - UF^{-1}U^{\top} + UF^{-1}FF^{-1}U^{\top}
+                  = I_G - UF^{-1}U^{\top}. \qedhere
+\]
+\end{proof}
+
+\begin{remark}
+The estimation noise that the plug-in $\hat\bmu$ injects is exactly the amount needed to
+convert the penalized covariance back into the maximum likelihood covariance. This is a
+cancellation, not an approximation: \eqref{eq:cancel} is an algebraic identity. It is the
+reason the practitioner does not have to learn a new reference distribution.
+
+It also identifies the one quantity the procedure depends on badly, namely $F^{-1}$. When
+$F$ is near-singular --- light penalty with $p/n$ large --- the correction
+$F^{-1}K\bbh$ can overshoot. Section~\ref{sec:overshoot} measures this.
+\end{remark}
+
+\subsection{Proof of Proposition 3}\label{sec:proof3}
+
+\begin{proposition}\label{prop:atten}
+Let $(\eta^{\ast},\hat\eta^{\ast})$ be standard bivariate normal with correlation $\rho$.
+Then $\mathbb{E}\{\mathrm{He}_k(\eta^{\ast}) \mid \hat\eta^{\ast}\}
+= \rho^{k}\,\mathrm{He}_k(\hat\eta^{\ast})$, and consequently a departure equal to the
+degree-$k$ Hermite component of the true linear predictor contributes non-centrality
+attenuated by $\rho^{2k}$ to a test that groups on the fitted predictor.
+\end{proposition}
+
+\begin{proof}
+Use the generating function $\sum_{k\ge0} (t^k/k!)\,\mathrm{He}_k(x) = \exp(tx - t^2/2)$.
+Given $\hat\eta^{\ast} = v$, we have $\eta^{\ast} \sim \mathcal{N}(\rho v, 1-\rho^{2})$, so
+\begin{align*}
+  \mathbb{E}\bigl\{\exp(t\eta^{\ast} - t^{2}/2) \mid \hat\eta^{\ast} = v\bigr\}
+  &= \exp(-t^{2}/2)\exp\bigl\{t\rho v + \tfrac12 t^{2}(1-\rho^{2})\bigr\} \\
+  &= \exp\bigl\{(t\rho)v - (t\rho)^{2}/2\bigr\}
+   = \sum_{k\ge0}\frac{(t\rho)^{k}}{k!}\mathrm{He}_k(v).
+\end{align*}
+Comparing coefficients of $t^{k}$ gives the conditional expectation. For the second
+claim, a grouped test on $\hat\eta^{\ast}$ is a function of the data only through group
+means, so the departure it responds to is
+$\mathbb{E}\{g(\eta^{\ast}) \mid \hat\eta^{\ast}\}$. Taking
+$g = \mathrm{He}_k$ gives $\rho^{k}\mathrm{He}_k(\hat\eta^{\ast})$; the non-centrality of a
+quadratic-form statistic is proportional to the squared norm of that mean vector, hence
+to $\rho^{2k}$.
+\end{proof}
+
+\begin{remark}\label{rem:tauabsorbs}
+The visible effect size $\tau$ of the main text has
+$\sd[\mathbb{E}\{g(\boldsymbol{x})\mid\hat\eta\}]$ in its numerator, which already
+contains the factor $\rho^{k}$. So $\tau$ absorbs the attenuation by construction, and no
+residual dimensional offset should be expected on a $\tau$ axis --- as
+the index-aligned panel of the power figure in the main text confirms. Proposition~\ref{prop:atten} governs how much
+$\tau$ a given nominal $\gamma$ buys, not the shape of power as a function of $\tau$.
+\end{remark}
+
+
+% =====================================================================
+\section{Why the obvious repairs fail}\label{sec:failures}
+% =====================================================================
+
+% MANIFEST section 4 -- GREEN throughout except the last row.
+The prepivoted procedure of the main text has four neighbouring constructions that are
+simpler and that do not work. We report them because each failure is diagnostic, and
+because a reader's first reaction to Proposition~\ref{prop:cancel} is reasonably ``why
+not just subtract $\hat\bmu$ and use the $\chi^2$ reference?''.
+
+\begin{table}[htbp]
+\centering
+\caption{Rejection rate under a correctly specified model, nominal level $0.05$, for the
+constructions that fail. Design~B entries are given at the penalties stated. Every row
+was run on the same designs and groupings as the main results.}
+\label{tab:failures}
+\begin{tabular}{p{6.0cm}p{5.0cm}p{2.7cm}}
+\toprule
+Construction & Rejection rate under $H_0$ & Verdict \\
+\midrule
+(a) Analytic corrected statistic referred to $\Omega_{\mathrm{MLE}}$
+  & A: $0.036$--$0.064$; B: $0.050 / 0.026 / 0.016$ at $\lambda = 20/50/416$
+  & conservative in B \\
+(b) Second-order Taylor expansion of $\bmu$
+  & A: $0.043$--$0.057$; B: $0.240 / 0.107 / 0.103$
+  & overshoots by $\approx 2\times$ \\
+(c) Debiased bootstrap with the \emph{plain} (uncorrected) statistic
+  & $0.000$--$0.060$
+  & conservative everywhere \\
+(d) Prepivoting with the generator $\hat\bpi_K$ from the \emph{penalized} fit
+  & $0.008 / 0.025$
+  & conservative \\
+\midrule
+\textbf{(e) Prepivoting with generator $\bpi(\bbt)$ and the corrected statistic in
+  \emph{both} worlds}
+  & see the corrected-size table of the main text
+  & \textbf{valid} \\
+\midrule
+(f) Wild Rademacher multiplier bootstrap of $\br - \hat\bmu$, refit-free
+  & $0.058 / 0.033$
+  & promising; one run only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three comments on Table~\ref{tab:failures}.
+
+(a) The analytic correction is enough in design~A and not in design~B. This is the
+boundary of the first-order theory, and it is the reason the paper does not stop at
+Proposition~\ref{prop:cancel}.
+
+(b) It is natural to respond to (a) by taking the expansion one term further. This makes
+matters worse, not better, and the diagnostic shows why: at $\lambda = 416$ the
+first-order $\bmu_1$ tracks the empirical mean of the grouped residuals closely --- the
+empirical mean ranges over $(-3.79, 3.65)$ and $\bmu_1$ over $(-3.41, 3.36)$ --- whereas
+the second-order $\bmu_2$ ranges over $(-6.32, 6.53)$, roughly twice too large. The
+expansion is at its radius of convergence, so adding terms diverges rather than refines.
+This is the clearest single piece of evidence that the problem at $p/n = 0.25$ is not one
+that a better expansion solves.
+
+(d) The generator matters as much as the statistic. Generating from the penalized fit
+builds the shrinkage into the null world, so the bootstrap statistics carry the same
+displacement as the observed one and the test loses its ability to reject. Generating
+from $\bpi(\bbt)$ instead is what makes the null world the \emph{structural} null of
+$H_0^{\mathrm{str}}$ of Section~2.2 of the main text, which is the hypothesis we mean to
+test, rather than the calibration null $H_0^{\mathrm{cal}}$, which the penalized fit
+violates by construction.
+
+Row (f) is a genuinely attractive alternative because it avoids refitting entirely, and
+therefore costs a fraction of the computation. We report it as promising rather than
+established: it rests on a single run at $B = 120$, which gives a Monte Carlo standard
+error of about $0.02$, and we have not examined its power. It is the natural subject of
+follow-up work.
+
+
+% =====================================================================
+\section{Simulation designs}\label{sec:designs}
+% =====================================================================
+
+\textbf{Design~A} ($n = 500$, $p = 5$). Covariates are independent standard normal. The
+linear predictor is $\eta_i = \boldsymbol{x}_i^{\top}\bb_0$ with
+$\bb_0 = (0.5, -0.4, 0.3, -0.3, 0.2)^{\top}$ and no intercept, giving
+$\sd(\eta) \approx 0.79$ and a balanced response. Penalties examined are
+$\lambda \in \{100, 137, 200\}$, equivalently
+$\lambda_{\mathrm{g}} \in \{0.20, 0.274, 0.40\}$.
+
+\textbf{Design~B} ($n = 400$, $p = 100$, $p/n = 0.25$). Covariates are multivariate
+normal with an autoregressive correlation $\Sigma_{jk} = 0.7^{|j-k|}$. The coefficient
+vector cycles $(0.35, -0.30, 0.25, -0.20, 0.15)$ over the $100$ coordinates and is scaled
+by $0.8887$ so that $\|\bb_0\| = 2.31$. Penalties examined are
+$\lambda \in \{50, 416, 1000\}$, equivalently
+$\lambda_{\mathrm{g}} \in \{0.125, 1.04, 2.5\}$.
+
+In both designs the fitting is ridge logistic regression by iteratively reweighted least
+squares on the penalized normal equations, with the intercept unpenalized, to a tolerance
+of $10^{-9}$ and at most $60$ iterations. The penalty scale identity
+$\lambda = n\lambda_{\mathrm{g}}$ against \texttt{glmnet} was verified numerically to
+$1.6\times10^{-9}$.
+
+Grouping is by equal-frequency deciles of the fitted probability throughout unless stated
+otherwise. The EDGE basis is the orthogonal cubic polynomial basis in the group-mean
+fitted probability, giving a three-dimensional quadratic form; the implementation used
+here was verified against \texttt{ebrahim.gof::edge.gof} to a difference of
+$0.00\times10^{0}$ on three datasets.
+
+Under the null, data are generated from the design's own logistic model, so every
+rejection reported as ``size'' is a false rejection of a model that is exactly correct.
+
+
+% =====================================================================
+\section{Full grids and sensitivity}\label{sec:grids}
+% =====================================================================
+
+\subsection{Size of the uncorrected tests}\label{sec:naivegrid}
+
+% MANIFEST section 2 -- GREEN. This is the exact grid drawn as the penalty-path figure
+% of the main text; it lives here so the figure does not have to carry five digits.
+\begin{table}[htbp]
+\centering
+\caption{Rejection rate of the uncorrected tests under a \emph{correctly specified}
+model, at nominal level $0.05$, over the ridge penalty. This is the grid plotted in
+panels~A and~B of the penalty-path figure of the main text. Design~A has $n = 500$ and
+$p = 5$; design~B has $n = 400$ and $p = 100$ with an autoregressive covariate
+correlation of $0.7$. Penalties are on the \citet{friedman2010} scale
+$\lambda_{\mathrm{g}} = \lambda/n$. Based on $500$ replications, Monte Carlo standard
+error at most $0.022$. The design~B mean absolute error row is the quantity plotted on
+the horizontal axis of panel~C.}
+\label{tab:naivegrid}
+\begin{tabular}{lcccccc}
+\toprule
+Design A: $\lambda_{\mathrm{g}}$ & 0 & 0.02 & 0.05 & 0.10 & 0.20 & 0.274 \\
+\midrule
+Hosmer--Lemeshow & 0.068 & 0.068 & 0.118 & 0.362 & 0.916 & 0.988 \\
+EDGE basis       & 0.034 & 0.046 & 0.170 & 0.888 & 1.000 & 1.000 \\
+\midrule
+Design B: $\lambda_{\mathrm{g}}$ & 0 & 0.01 & 0.05 & 0.124 & 0.513 & 1.5 \\
+\midrule
+Hosmer--Lemeshow & 0.178 & 0.432 & 0.990 & 0.994 & 1.000 & 1.000 \\
+EDGE basis       & 0.284 & 0.994 & 1.000 & 1.000 & 1.000 & 1.000 \\
+$\mathrm{MAE}(\hat{\bpi},\bpi_0)$ & 0.1859 & 0.1469 & \textbf{0.1330} & 0.1336 & 0.1606 & 0.1840 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:naivegrid} gives the headline grid. Two features of it are worth recording
+here. Over $500$ replications of both designs, the one-standard-error cross-validation
+rule selected $\lambda_{\mathrm{g}} > 0.05$ in \emph{every} replication, so the columns at
+which the uncorrected test has already failed are the columns practice actually visits.
+And in design~B the unpenalized column is itself invalid, at $0.178$ and $0.284$; this is
+the \citet{sur2019} and \citet{candes2020} phenomenon and it means that declining to
+penalize is not an escape.
+
+\subsection{The effect of the correction on the residual geometry}\label{sec:geometry}
+
+% MANIFEST 8h(a) -- GREEN (deterministic given the design).
+\begin{table}[htbp]
+\centering
+\caption{Effective degrees of freedom of the grouped residual vector, $G = 10$. ``Removed''
+is $\mathrm{tr}(UF^{-1}U^{\top})$, the number of decile directions absorbed by estimation.
+``EDGE-3'' is the effective dimension the three EDGE directions actually receive out of a
+nominal three. Averaged over $60$ replications; these are geometric quantities and vary
+little between replications.}
+\label{tab:geometry}
+\begin{tabular}{llccccc}
+\toprule
+Design & $\lambda$ & $\mathrm{df}(\Omega_K)$ & $\mathrm{df}(\Omega_{\mathrm{MLE}})$
+& Removed & EDGE-3 & $\max\mathrm{eig}(\Omega_{\mathrm{MLE}})$ \\
+\midrule
+A & 100  & 8.20 & 7.97 & 2.03 & 2.020 & 1.000 \\
+A & 137  & 8.27 & 7.97 & 2.03 & 2.021 & 1.000 \\
+A & 200  & 8.37 & 7.97 & 2.03 & 2.021 & 1.000 \\
+\midrule
+B & 50   & 6.89 & 5.97 & 4.03 & 1.568 & 0.853 \\
+B & 416  & 7.80 & 6.03 & 3.97 & 1.546 & 0.845 \\
+B & 1000 & 8.19 & 6.04 & 3.96 & 1.539 & 0.844 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:geometry} quantifies what dimension costs a grouped test, independently of
+any particular alternative.
+
+(a) Estimation absorbs $2.03$ of the ten decile directions in design~A and $4.03$ in
+design~B --- almost exactly twice as many. A test with ten groups is effectively a
+six-dimensional test at $p/n = 0.25$.
+
+(b) In design~A the largest eigenvalue of $\Omega_{\mathrm{MLE}}$ is exactly $1.000$:
+some direction of the grouped residual vector is left entirely untouched by estimation.
+In design~B the largest eigenvalue never exceeds $0.853$. No direction survives intact,
+which is a compact way of saying what $p/n$ costs.
+
+(c) The three EDGE directions receive only about $1.55$ effective dimensions in design~B
+against $2.02$ in design~A.
+
+\subsection{Behaviour of the debiasing at light penalty}\label{sec:overshoot}
+
+% MANIFEST 8h(b) -- GREEN for the norms.
+Proposition~\ref{prop:cancel} depends on $F^{-1}$, which is poorly conditioned when the
+penalty is light and $p/n$ is large. Table~\ref{tab:overshoot} measures the consequence.
+
+\begin{table}[htbp]
+\centering
+\caption{Norm of the debiased estimate relative to the truth, averaged over $60$
+replications. The debiasing recovers the scale of $\bb_0$ almost exactly except at the
+lightest penalty in design~B, where it overshoots by $26\%$.}
+\label{tab:overshoot}
+\begin{tabular}{llccc}
+\toprule
+Design & $\lambda$ & $\|\bb_0\|$ & $\|\bbh\|$ & $\|\bbt\|/\|\bb_0\|$ \\
+\midrule
+A & 100  & 0.79 & 0.42 & 0.99 \\
+A & 137  & 0.79 & 0.36 & 0.98 \\
+A & 200  & 0.79 & 0.29 & 0.96 \\
+\midrule
+B & 50   & 2.31 & 0.84 & \textbf{1.26} \\
+B & 416  & 2.31 & 0.27 & 1.05 \\
+B & 1000 & 2.31 & 0.17 & 1.02 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The overshoot is confined to design~B at $\lambda = 50$ and is within $5\%$ of the truth
+in all five other cells, which is what the conditioning argument predicts: heavier
+penalties make $M = F + K$ better conditioned, so the correction is stable again.
+
+We tested whether the overshoot is consequential by intervening on it directly, which is
+a stronger design than correlating it with anything. Holding the statistic, the grouping
+and the observed data fixed, we replaced the generator $\bpi(\bbt)$ by
+$\bpi\{\bbh + s(\bbt - \bbh)\}$ with $s = 0.71$, chosen so that the generator has the
+same norm as $\bb_0$; the achieved ratio moved from $1.26$ to $1.00$. Over $400$
+replications at $\lambda = 50$ the rejection rate on the EDGE basis was $0.0500$ before
+the intervention and $0.0550$ after it, a difference well inside the Monte Carlo standard
+error of $0.011$, and the ratio of bootstrap to observed statistic variance moved from
+$0.72$ to $0.74$. Removing the overshoot does not remove the conservatism.
+
+Two cautions about how far this intervention settles the question, because it does not
+settle it as cleanly as the arithmetic above suggests. First, the pre-intervention arm
+returned $0.0500$, whereas the pooled size of that same cell over $4000$ replications is
+$0.0370$; the $400$-replication block used here did not itself display the conservatism
+the intervention was meant to remove. Second, the quoted $0.011$ is an unpaired Monte
+Carlo standard error, whereas the design is paired --- the statistic, the grouping and the
+data are held fixed --- so the experiment's true resolution is finer than $0.011$ and we
+have not measured it. What can be said without either caveat is that the bootstrap
+reference is \emph{less} dispersed than the observed statistic, $\var(S^{*})/\var(S) = 0.72$,
+which pushes towards over-rejection and so cannot account for under-rejection either.
+
+We therefore record the overshoot as an unexplained correlate rather than a refuted
+hypothesis. It is large, it is confined to exactly the anomalous cell, and it has a clean
+mechanism in the conditioning of $F$; what we can show is that removing it does not remove
+the conservatism. The overshoot is a real caution about the
+behaviour of $\bbt$ at light penalty when $p/n$ is large, and it is worth knowing for
+anyone who wants to use $\bbt$ for its own sake, but it does not affect the size of the
+test and we do not offer it as an account of Section~\ref{sec:contested}'s residual
+conservatism, which remains unexplained.
+
+\subsection{Size-adjusted power}\label{sec:sizeadj}
+
+% MANIFEST 6.3 -- GREEN.
+Because the EDGE basis under-rejects in design~B at light penalty
+(Section~\ref{sec:contested}), a comparison at the nominal level is not quite a
+comparison of like with like. We therefore repeated every power comparison at a
+size-adjusted level: the $\gamma = 0$ cell of each panel supplies the null distribution
+of the $p$-value, and the alternative cells are thresholded at its fifth percentile.
+The thresholds were $0.0533$ in design~A on both bases, and $0.0400$ (decile) and
+$0.0533$ (EDGE) in design~B.
+
+\begin{table}[htbp]
+\centering
+\caption{Nominal and size-adjusted power, $2000$ replications per cell. The adjustment
+moves no entry by more than $0.02$ and reverses no comparison, so the conclusions of
+the power table of the main text do not depend on it.}
+\label{tab:sizeadj}
+\begin{tabular}{lllcccc}
+\toprule
+& & & \multicolumn{2}{c}{Nominal} & \multicolumn{2}{c}{Size-adjusted} \\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Design & Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
+\midrule
+A & ---         & 0.00 & 0.0445 & 0.0460 & 0.0520 & 0.0530 \\
+A & quadratic   & 0.25 & 0.0760 & 0.1150 & 0.0820 & 0.1305 \\
+A & quadratic   & 0.50 & 0.1475 & 0.2615 & 0.1660 & 0.2820 \\
+A & quadratic   & 0.75 & 0.2015 & 0.3755 & 0.2175 & 0.3940 \\
+A & quadratic   & 1.00 & 0.2700 & 0.4150 & 0.2885 & 0.4300 \\
+A & interaction & 0.25 & 0.0595 & 0.0750 & 0.0680 & 0.0830 \\
+A & interaction & 0.50 & 0.1055 & 0.1885 & 0.1185 & 0.2045 \\
+A & interaction & 0.75 & 0.1940 & 0.3555 & 0.2140 & 0.3745 \\
+A & interaction & 1.00 & 0.2835 & 0.4615 & 0.3080 & 0.4855 \\
+\midrule
+B & ---         & 0.00 & 0.0640 & 0.0495 & 0.0560 & 0.0580 \\
+B & quadratic   & 0.50 & 0.0595 & 0.0485 & 0.0535 & 0.0570 \\
+B & quadratic   & 1.00 & 0.0635 & 0.0600 & 0.0525 & 0.0670 \\
+B & quadratic   & 1.50 & 0.0740 & 0.0630 & 0.0655 & 0.0675 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{What the procedure costs, and what prepivoting costs}\label{sec:cost}
+
+% MANIFEST sections 8e and 7.6 -- GREEN.
+The obvious objection to a procedure that refits inside a bootstrap loop is its price, so
+we state it. On the machine and worker count given in Table~\ref{tab:repro}, one
+prepivoted test at $N_B = 149$ takes about $0.26$ seconds in design~A and about $3.3$
+seconds in design~B, the difference being the cost of $149$ ridge refits at $p = 100$.
+Two independent timings agree to within $2\%$. For a single analysis --- which is what a
+practitioner runs --- the cost is seconds, and the simulation studies in this paper are
+expensive only because they repeat that analysis thousands of times.
+
+Prepivoting itself is not the expensive part, and it is not a statistical tax either. In
+design~A at $\lambda = 100$, referring the corrected statistic to the analytic
+$\Omega_{\mathrm{MLE}}$ reference gives rejection rates $0.023$, $0.147$ and $0.227$ at
+$\gamma = 0$, $0.5$ and $1.0$, while prepivoting the same statistic gives $0.040$,
+$0.163$ and $0.250$. Prepivoting is closer to nominal under the null \emph{and}
+higher under both alternatives. This is a smaller run than the size study --- $300$
+replications, so a Monte Carlo standard error of about $0.029$ --- and we would not read
+the individual gaps as established; the point is only that resampling does not buy
+validity at the price of power here.
+
+\subsection{Re-estimation of the contested cell}\label{sec:contested}
+
+% MANIFEST 8i -- GREEN.
+The EDGE basis in design~B at $\lambda = 50$ is the one cell of the corrected-size table of the main text
+that we estimated more than once, and we set out the sequence because it bears on how
+such tables should be read.
+
+Our first estimate, from a single block of $1000$ replications, was $0.0270$ with a
+standard error of $0.0051$: four and a half standard errors below nominal, and outside
+the range $[0.03, 0.08]$ that we had fixed in advance as acceptable. Before writing about
+it we re-estimated the cell on two further blocks of $1500$, disjoint from the first and
+from each other. Table~\ref{tab:contested} gives all three.
+
+\begin{table}[htbp]
+\centering
+\caption{The contested cell, design~B at $\lambda = 50$, estimated on three independent
+replication blocks. The decile basis was never in doubt. On the EDGE basis the first
+block is the lowest of the three; the three are homogeneous and the pooled estimate lies
+inside the acceptable range.}
+\label{tab:contested}
+\begin{tabular}{lccccc}
+\toprule
+Basis & Block 1 ($1000$) & Block 2 ($1500$) & Block 3 ($1500$)
+& Homogeneity & Pooled ($4000$) \\
+\midrule
+Decile & 0.0630 & 0.0587 & 0.0580 & $p = 0.86$ & 0.0595 (0.0037) \\
+EDGE   & 0.0270 & 0.0440 & 0.0367 & $p = 0.09$ & 0.0370 (0.0030) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three conclusions. The conservatism on the EDGE basis is \emph{real}: pooled over $4000$
+replications the size is $0.0370$, with an exact $95\%$ interval of $[0.0314, 0.0433]$
+and $z = -4.36$ against nominal, so it is not the kind of blemish that disappears with
+more computation. Its \emph{magnitude} was nonetheless overstated by the first block by
+about a third. And the pooled value lies inside $[0.03, 0.08]$, so the qualitative
+verdict on the cell changes even though the direction does not.
+
+We draw the obvious methodological moral. A rejection rate near $0.03$ estimated on
+$1000$ replications has a standard error of $0.005$, so blocks will disagree by more than
+one might expect, and the residual heterogeneity here ($p = 0.09$) suggests $1000$ is
+thin for a tail probability this small. Any cell that falls outside a pre-specified range
+should be re-estimated on an independent block before conclusions are drawn from it.
+
+\subsection{Sensitivity to the number of groups and to the number of bootstrap
+replicates}\label{sec:sensitivity}
+
+On the glaucoma data the corrected $p$-value varies from $0.026$ at $G = 10$ to $0.172$
+at $G = 20$ on the decile basis. This sensitivity is inherited from the
+Hosmer--Lemeshow family and the correction does not remove it; the full $\lambda\times G$
+grid is the full $\lambda\times G$ glaucoma table of the main text, and we report all twelve cells rather than a selected
+one. On the same data, repeating the cross-validated cell at $G=10$ with $N_B = 999$
+under different seeds gave corrected $p$-values in the range $0.015$--$0.026$ on the
+decile basis and $0.034$--$0.049$ on the EDGE basis, so the reported figures are stable
+to the bootstrap size.
+
+
+% =====================================================================
+\section{The glaucoma analysis in detail}\label{sec:glaucoma}
+% =====================================================================
+
+The \texttt{GlaucomaM} data are distributed in the R package \texttt{TH.data}. There are
+$n = 196$ eyes, $98$ glaucomatous and $98$ normal, matched by age and sex, with $p = 62$
+morphometric variables derived from confocal laser scanning tomography of the optic nerve
+head. All variables were centred and scaled before fitting.
+
+Design facts: $\mathrm{cond}(X^{\top}X) = 4.97\times10^{7}$, largest absolute pairwise
+correlation $0.9961$, and $p/n = 0.316$. The unpenalized logistic fit does not converge;
+the maximum likelihood estimate does not exist. Ten-fold cross-validation gives
+$\hat\lambda_{\min} = 19.9$ and $\hat\lambda_{1\mathrm{se}} = 295.3$ on the theory scale,
+the latter corresponding to $\lambda_{\mathrm{g}} = 1.51$. At
+$\hat\lambda_{1\mathrm{se}}$ the fit has area under the curve $0.905$,
+$\sd(\hat\pi) = 0.224$ and fitted probabilities spanning $[0.016, 0.911]$; at
+$\hat\lambda_{\min}$ the area under the curve is $0.942$. The apparent calibration slope
+at $\hat\lambda_{1\mathrm{se}}$ is $2.434$.
+
+\subsection{A second dataset}\label{sec:mvf}
+
+% MANIFEST section 8b-ter -- GREEN. Full 12-cell grid, NB = 499.
+The phenomenon is not confined to one dataset. \texttt{GlaucomaMVF} (package
+\texttt{ipred}) is a second confocal-tomography series, $n = 170$ eyes and $p = 63$
+morphometric variables, so $p/n = 0.371$; here too the maximum likelihood estimate does
+not exist. Cross-validation gives $\hat\lambda_{\min} = 10.2$ and
+$\hat\lambda_{1\mathrm{se}} = 54.6$ on the theory scale.
+Table~\ref{tab:mvf} reports the same grid we ran for \texttt{GlaucomaM}.
+
+\begin{table}[htbp]
+\centering
+\caption{The uncorrected and corrected tests on \texttt{GlaucomaMVF}, four penalties by
+three group counts, $499$ bootstrap replicates. The reversal is complete: the uncorrected
+EDGE test rejects in all twelve configurations, and the corrected test rejects in none of
+them on either basis.}
+\label{tab:mvf}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccccc}
+\toprule
+& \multicolumn{3}{c}{Uncorrected (dec / EDGE)} & & \multicolumn{3}{c}{Corrected (dec / EDGE)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){6-8}
+$\lambda$ & $G=5$ & $G=10$ & $G=20$ & & $G=5$ & $G=10$ & $G=20$ \\
+\midrule
+$\hat\lambda_{\min}$ & 0.077 / 0.041 & 0.023 / 0.003 & \textbf{0.218} / 0.005 & & 0.458 / 0.318 & 0.556 / 0.350 & 0.476 / 0.298 \\
+$\tfrac12\hat\lambda_{1\mathrm{se}}$ & 0.007 / 0.013 & 0.029 / 0.003 & \textbf{0.335} / 0.003 & & 0.224 / 0.826 & 0.706 / 0.552 & 0.808 / 0.636 \\
+$\hat\lambda_{1\mathrm{se}}$ & 0.000 / 0.000 & 0.016 / 0.001 & \textbf{0.327} / 0.001 & & 0.688 / 0.874 & 0.876 / 0.470 & 0.998 / 0.428 \\
+$2\hat\lambda_{1\mathrm{se}}$ & 0.000 / 0.000 & 0.001 / 0.000 & 0.027 / 0.000 & & 0.430 / 0.852 & 0.618 / 0.564 & 0.840 / 0.426 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three things should be said about Table~\ref{tab:mvf}.
+
+(a) The reversal is cleaner here than on \texttt{GlaucomaM}. The corrected test returns
+$p$ between $0.224$ and $0.998$ on the decile basis and between $0.298$ and $0.874$ on
+the EDGE basis, rejecting in none of the twelve cells, while the uncorrected EDGE test
+rejects in all twelve. Repeating the cross-validated cell at $G = 10$ with $N_B = 999$
+under five seeds gives corrected $p$-values in $[0.883, 0.916]$ on the decile basis and
+$[0.419, 0.465]$ on the EDGE basis, so the conclusion is not an artefact of the bootstrap
+size.
+
+(b) The uncorrected \emph{decile} test does not reject in four of the twelve cells,
+shown in bold, three of them at $G = 20$. We therefore do not claim that the uncorrected
+test rejects everywhere on this dataset; the claim holds on the EDGE basis, and on the
+decile basis at the finer groupings.
+
+(c) We report this dataset in the supplement rather than the main text because it adds
+corroboration rather than a new argument. A reader who doubts that \texttt{GlaucomaM} is
+representative should read it as the reply.
+
+We also examined \texttt{Sonar} (package \texttt{mlbench}; $n = 208$, $p = 60$,
+$p/n = 0.288$, maximum likelihood separates) and observed the same qualitative reversal,
+but only at a single penalty and group count. We do not report its $p$-values, because a
+single configuration cannot be distinguished from a favourable choice of one.
+
+We also examined \texttt{wpbc} and rejected it as an example. At the cross-validated
+penalty the largest fitted coefficient is $0.00099$ and the fitted probabilities span
+$[0.234, 0.242]$: cross-validation had selected an essentially intercept-only model, so
+its apparent clean reversal from $p = 0.0008$ to $p = 0.80$ is an artefact of having no
+model to test rather than a demonstration of the method. We report this because it is the
+kind of example that would flatter the method if reported uncritically.
+
+
+% =====================================================================
+\section{Reproducibility}\label{sec:repro}
+% =====================================================================
+
+All computation is in R. Penalized fits use the iteratively reweighted least squares
+routine described in Section~\ref{sec:designs}; \texttt{glmnet} \citep{friedman2010} is
+used for cross-validation and for the penalty-scale check. Parallel runs use PSOCK
+clusters with \texttt{parallel::clusterSetRNGStream} for reproducible streams; the stream
+seed is given with each result below.
+
+\begin{table}[htbp]
+\centering
+\caption{Scripts, seeds and cost for every reported experiment.}
+\label{tab:repro}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{4.0cm}p{4.3cm}p{4.0cm}p{2.2cm}}
+\toprule
+Result & Script & Seed / replication & Cost \\
+\midrule
+Proposition 1 numerical check & \texttt{corrected\_test.R} & fixed design & seconds \\
+Uncorrected size grid (Table 1) & \texttt{lambda\_sweep.R}, \texttt{hd\_sweep.R}
+  & $B = 500$ & minutes \\
+Corrected size (Table 2) & \texttt{T23\_rerun.R}
+  & stream $20260807$, seeds $1001$--$2000$ & $11.2$ min, 22 workers \\
+Contested cell (Table~\ref{tab:contested}) & \texttt{verify\_E13.R}
+  & seeds $1$--$1500$ and $100001$--$101500$ & $15$ min, 22 workers \\
+Power (Table 3, Table~\ref{tab:sizeadj}) & \texttt{T25\_power\_highB.R}
+  & stream $20260810$, $B = 2000$ & $37$ min, 22 workers \\
+Visible effect size (Figure 1) & \texttt{T22\_tau.R}, \texttt{plot\_tau.R},
+  \texttt{R/fig1\_power\_ek.R}
+  & known-null MC, $B = 2000$ null, $B_1 = 1000$ & minutes \\
+Oracle grouping (Table 5) & \texttt{oracle\_knownnull.R}
+  & $B_0 = 2000$, $B_1 = 1000$, both arms exact & minutes \\
+Residual geometry (Table~\ref{tab:geometry}) & \texttt{omega\_spectrum.R}
+  & stream $20260808$, $60$ reps & $26$ s, 22 workers \\
+Overshoot intervention (\S\ref{sec:overshoot}) & \texttt{overshoot\_test.R}
+  & stream $20260809$, $400$ reps & $244$ s, 22 workers \\
+Failed repairs (Table~\ref{tab:failures}) & \texttt{round2.R}, \texttt{cand\_C.R}
+  & $B = 120$--$300$ & minutes \\
+Glaucoma analysis & \texttt{glaucoma\_deep.R}, \texttt{R/fig3\_calib\_ek.R}
+  & \texttt{set.seed(1)}, $N_B = 499$ & minutes \\
+Second dataset (\S\ref{sec:mvf}) & \texttt{T26\_app.R}, \texttt{extract\_T26b.R}
+  & \texttt{set.seed(1)}, $N_B = 499$ & minutes \\
+Cost, and the price of prepivoting & \texttt{prepivot\_cost.R}
+  & $B = 300$, design~A $\lambda = 100$ & minutes \\
+Conditioning on the application & \texttt{glaucoma\_conditioning.R}
+  & \texttt{set.seed(1)} & seconds \\
+Generator diagnostic & \texttt{check\_generator.R}
+  & \texttt{set.seed(1)} & seconds \\
+Covariance ordering & \texttt{check\_omega\_sign.R}
+  & $500$ random $(F,K)$ draws & seconds \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Replication-level $p$-values are archived for the power study
+(\texttt{T25\_power\_pvalues.csv}) and for the head-to-head comparison with the
+high-dimensional alternatives (\texttt{T24\_rivals\_pvalues.csv}), so that every cell of
+the power tables and every size-adjusted threshold can be re-derived and its Monte Carlo
+standard error recomputed independently. The remaining experiments archive
+per-replication rejection indicators and the saved fitted objects
+(\texttt{*\_results.rds}), which is enough to reproduce each reported rate but not to
+re-threshold it at a different level. The complete archive, including these files, the
+figure scripts and \texttt{\_ek\_theme.R}, is deposited at [repository DOI, to be
+inserted at acceptance].
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{9}
+\bibitem[Cand\`es and Sur(2020)]{candes2020}
+Cand\`es, E.J. and Sur, P. (2020). The phase transition for the existence of the maximum
+likelihood estimate in high-dimensional logistic regression. \emph{The Annals of
+Statistics}, \textbf{48}(1), 27--42.
+\bibitem[Chernoff and Lehmann(1954)]{chernoff1954}
+Chernoff, H. and Lehmann, E.L. (1954). The use of maximum likelihood estimates in
+$\chi^2$ tests for goodness of fit. \emph{The Annals of Mathematical Statistics},
+\textbf{25}(3), 579--586.
+\bibitem[Friedman et~al.(2010)]{friedman2010}
+Friedman, J., Hastie, T. and Tibshirani, R. (2010). Regularization paths for generalized
+linear models via coordinate descent. \emph{Journal of Statistical Software},
+\textbf{33}(1), 1--22.
+\bibitem[Moore and Spruill(1975)]{moore1975}
+Moore, D.S. and Spruill, M.C. (1975). Unified large-sample theory of general chi-squared
+statistics for tests of fit. \emph{The Annals of Statistics}, \textbf{3}(3), 599--616.
+\bibitem[Sur and Cand\`es(2019)]{sur2019}
+Sur, P. and Cand\`es, E.J. (2019). A modern maximum-likelihood theory for
+high-dimensional logistic regression. \emph{Proceedings of the National Academy of
+Sciences}, \textbf{116}(29), 14516--14525.
+\end{thebibliography}
+
+\end{document}

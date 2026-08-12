@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite the paper."
+title: "Reproduction materials: Shrinkage invalidates the Hosmer-Lemeshow test"
+authors:
+  - family-names: Ebrahim
+    given-names: "Ebrahim Khaled"
+    orcid: "https://orcid.org/0009-0006-7839-8778"
+  - family-names: El-Kotory
+    given-names: Ahmed
+license: MIT
+repository-code: "https://github.com/ebrahimkhaled/gof-penalized-paper"
+preferred-citation:
+  type: article
+  title: "Shrinkage invalidates the Hosmer-Lemeshow test: goodness of fit for penalized logistic regression, with an application to glaucoma diagnosis"
+  authors:
+    - family-names: Ebrahim
+      given-names: "Ebrahim Khaled"
+    - family-names: El-Kotory
+      given-names: Ahmed
+  year: 2026
