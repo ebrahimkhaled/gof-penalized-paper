@@ -67,7 +67,6 @@ test: goodness of fit for penalized logistic regression, with an application to 
 diagnosis}
 
 \author[1,$\ast$]{Ebrahim Khaled Ebrahim}
-\author[1]{Ahmed El-Kotory}
 
 \address[1]{\orgdiv{Department of Applied Statistics, Faculty of Business},
 \orgname{Alexandria University}, \orgaddress{\country{Egypt}}}
@@ -121,7 +120,8 @@ Given these measurements for a new eye, what is the probability that it is glauc
 and can that probability be trusted enough to act on?
 
 Anyone who develops clinical prediction models will recognize the sequence that follows,
-because it is the one the reporting guidelines and the sample-size literature prescribe:
+because it is the one the reporting guidelines \citep{collins2015} and the sample-size
+literature \citep{riley2021} prescribe:
 penalize when the number of candidate predictors is large relative to the number of
 events, tune the penalty by cross-validation, then report calibration, almost always with
 a calibration plot and a Hosmer--Lemeshow test. This paper is about that sequence. Its
@@ -276,7 +276,10 @@ $\bbh$ converges to a shrunken pseudo-parameter, so a model whose structure is e
 right delivers a predictor that is exactly \emph{mis}calibrated, by an amount the analyst
 chose when selecting $\lambda$.
 
-This matters for reading the output. A test that rejects has told us that
+The second hypothesis is calibration in the sense of \citet{dawid1982}, and sits at the
+``moderate'' level of the hierarchy of \citet{vancalster2016}, which separates mean
+calibration and calibration in the large from the conditional statement in
+\eqref{eq:h0cal}. This matters for reading the output. A test that rejects has told us that
 \eqref{eq:h0cal} fails; practitioners read it as evidence that \eqref{eq:h0str} fails.
 Under penalization those are different statements, and the whole difficulty of this
 paper lies in that gap. Our object is a valid test of \eqref{eq:h0str}. A test of
@@ -389,8 +392,10 @@ which design~B has reached $0.990$.
 (c) In design~B the first column, which is the \emph{unpenalized} fit, is already
 invalid, at $0.178$ and $0.284$. This is the phenomenon described by \citet{sur2019} and
 \citet{candes2020}: at $p/n$ bounded away from zero the maximum likelihood estimator is
-itself biased away from the truth. It means no unpenalized comparator is available in
-that regime, and so a correction cannot be avoided by declining to penalize.
+itself biased away from the truth, and \citet{surchen2019} show that in the same regime
+the likelihood ratio statistic is no longer asymptotically $\chi^{2}$ but a rescaled one,
+so a wrong chi-squared reference in high dimension is not peculiar to grouped tests. It
+means no unpenalized comparator is available in that regime, and so a correction cannot be avoided by declining to penalize.
 
 (d) The distortion is worst exactly where the penalty is doing the most good. In
 design~B the mean absolute error of the fitted probabilities, $\mathrm{MAE}(\hat{\bpi},
@@ -947,7 +952,9 @@ number with an interpretable one.
 
 (c) The corrected $p$-value varies with the number of groups, from $0.026$ at ten groups
 to $0.172$ at twenty. Sensitivity to grouping is inherited from the Hosmer--Lemeshow
-family and our correction does not remove it. We report the whole grid rather than a
+family and our correction does not remove it; \citet{nattino2020} address it directly by
+replacing the grouping with a fixed partition of the probability scale, which is
+complementary to the correction developed here. We report the whole grid rather than a
 single cell, and we would encourage the same practice generally.
 
 \subsection{A second dataset, and a different verdict}\label{sec:mvf}
@@ -1309,10 +1316,21 @@ Coan, L.J., Williams, B.M., Krishna Adithya, V. et~al. (2023).
 Automatic detection of glaucoma via fundus imaging and artificial intelligence: a review.
 \emph{Survey of Ophthalmology}, \textbf{68}(1), 17--41.
 
+\bibitem[Collins et~al.(2015)]{collins2015}
+Collins, G.S., Reitsma, J.B., Altman, D.G. and Moons, K.G.M. (2015).
+Transparent reporting of a multivariable prediction model for individual prognosis or
+diagnosis (TRIPOD): the TRIPOD statement.
+\emph{BMJ}, \textbf{350}, g7594.
+
 \bibitem[Copas(1989)]{copas1989}
 Copas, J.B. (1989).
 Unweighted sum of squares test for proportions.
 \emph{Journal of the Royal Statistical Society, Series C}, \textbf{38}(1), 71--80.
+
+\bibitem[Dawid(1982)]{dawid1982}
+Dawid, A.P. (1982).
+The well-calibrated Bayesian.
+\emph{Journal of the American Statistical Association}, \textbf{77}(379), 605--613.
 
 \bibitem[Ebrahim and El-Kotory(2026)]{ebrahim2026edge}
 Ebrahim, E.K. and El-Kotory, A. (2026).
@@ -1375,6 +1393,12 @@ Moore, D.S. and Spruill, M.C. (1975).
 Unified large-sample theory of general chi-squared statistics for tests of fit.
 \emph{The Annals of Statistics}, \textbf{3}(3), 599--616.
 
+\bibitem[Nattino et~al.(2020)]{nattino2020}
+Nattino, G., Pennell, M.L. and Lemeshow, S. (2020).
+Assessing the goodness of fit of logistic regression models in large samples: a
+modification of the Hosmer--Lemeshow test.
+\emph{Biometrics}, \textbf{76}(2), 549--560.
+
 \bibitem[Pavlou et~al.(2024)]{pavlou2024}
 Pavlou, M., Omar, R.Z. and Ambler, G. (2024).
 Penalized regression methods with modified cross-validation and bootstrap tuning produce
@@ -1403,10 +1427,22 @@ Sur, P. and Cand\`es, E.J. (2019).
 A modern maximum-likelihood theory for high-dimensional logistic regression.
 \emph{Proceedings of the National Academy of Sciences}, \textbf{116}(29), 14516--14525.
 
+\bibitem[Sur et~al.(2019)]{surchen2019}
+Sur, P., Chen, Y. and Cand\`es, E.J. (2019).
+The likelihood ratio test in high-dimensional logistic regression is asymptotically a
+rescaled chi-square.
+\emph{Probability Theory and Related Fields}, \textbf{175}(1--2), 487--558.
+
 \bibitem[Van Calster and Vickers(2015)]{vancalster2015}
 Van Calster, B. and Vickers, A.J. (2015).
 Calibration of risk prediction models: impact on decision-analytic performance.
 \emph{Medical Decision Making}, \textbf{35}(2), 162--169.
+
+\bibitem[Van Calster et~al.(2016)]{vancalster2016}
+Van Calster, B., Nieboer, D., Vergouwe, Y., De~Cock, B., Pencina, M.J. and
+Steyerberg, E.W. (2016).
+A calibration hierarchy for risk models was defined: from utopia to empirical data.
+\emph{Journal of Clinical Epidemiology}, \textbf{74}, 167--176.
 
 \bibitem[Van Calster et~al.(2019)]{vancalster2019}
 Van Calster, B., McLernon, D.J., van~Smeden, M. et~al. (2019).

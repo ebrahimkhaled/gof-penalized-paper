@@ -5,7 +5,7 @@
 **Shrinkage invalidates the Hosmer–Lemeshow test: goodness of fit for penalized
 logistic regression, with an application to glaucoma diagnosis**
 
-Ebrahim Khaled Ebrahim (ORCID 0009-0006-7839-8778) and Ahmed El-Kotory
+Ebrahim Khaled Ebrahim (ORCID 0009-0006-7839-8778)
 Department of Applied Statistics, Faculty of Business, Alexandria University, Egypt
 
 Submitted to *Journal of the Royal Statistical Society, Series C*.
@@ -107,10 +107,6 @@ identical to `ebrahim.gof::edge.gof` to a difference of 0.00e+00 on three datase
 
 Session: R 4.4.x on Windows 11, packages `glmnet`, `TH.data`, `ggplot2`, `patchwork`,
 `parallel`.
-
-## Citing this archive
-
-Concept DOI (always resolves to the latest version): **10.5281/zenodo.21900114**
 
 ## Licence
 
