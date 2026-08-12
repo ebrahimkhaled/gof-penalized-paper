@@ -453,8 +453,10 @@ raise an alarm.
 
 Proposition~\ref{prop:law} suggests an obvious remedy: estimate the shrinkage
 non-centrality $\boldsymbol{\mu}_K$ and subtract it. We call the resulting procedure the
-\emph{shrinkage-corrected Hosmer--Lemeshow test}, and the remedy turns out to do more
-than it was asked to.
+\emph{shrinkage-corrected Hosmer--Lemeshow test}, writing \texttt{SC.HL} for it on the
+decile grouping and \texttt{SC.EDGE} for it on the EDGE basis of
+Section~\ref{sec:notation}. These are one procedure under two choices of basis, not two
+tests. The remedy turns out to do more than it was asked to.
 
 \begin{proposition}\label{prop:cancel}
 Let $\bbt = \bbh + F^{-1}K\bbh$ and $\hat{\boldsymbol{\mu}} = UM^{-1}K\bbt$. Then, to
@@ -837,9 +839,9 @@ $20260807$); the two agree to less than one Monte Carlo standard error.}
 \label{tab:power}
 \begin{tabular}{lllrrrr}
 \toprule
-& & & \multicolumn{2}{c}{Corrected test} & \multicolumn{2}{c}{Classical, on the MLE} \\
+& & & \multicolumn{2}{c}{Corrected} & \multicolumn{2}{c}{Classical, on the MLE} \\
 \cmidrule(lr){4-5}\cmidrule(lr){6-7}
-Design & Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
+Design & Departure & $\gamma$ & \texttt{SC.HL} & \texttt{SC.EDGE} & decile & EDGE \\
 \midrule
 A & ---          & 0.00 & 0.0445 & 0.0460 & 0.0440 & 0.0540 \\
 \addlinespace
@@ -884,10 +886,10 @@ basis.}
 \label{tab:cost}
 \begin{tabular}{lrrr}
 \toprule
-Basis & mean difference & $t$ ($7$ d.f.) & relative \\
+Test & mean difference & $t$ ($7$ d.f.) & relative \\
 \midrule
-decile & $-0.0250$ \ (s.e.\ $0.0044$) & $-5.70$, $p = 0.0007$ & $-13.0\%$ \\
-EDGE   & $-0.0115$ \ (s.e.\ $0.0038$) & $-3.00$, $p = 0.020$ & $-3.9\%$ \\
+\texttt{SC.HL}   & $-0.0250$ \ (s.e.\ $0.0044$) & $-5.70$, $p = 0.0007$ & $-13.0\%$ \\
+\texttt{SC.EDGE} & $-0.0115$ \ (s.e.\ $0.0038$) & $-3.00$, $p = 0.020$ & $-3.9\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -904,19 +906,19 @@ not need a different test; they need a better basis.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig2_costgain.pdf}
-\caption{Power of the classical test on a maximum likelihood fit, of the shrinkage-corrected test
-on the decile basis, and of the same test on the EDGE basis. In panel~A each alternative
+\caption{Power of the classical test on a maximum likelihood fit, of \texttt{SC.HL}, and
+of \texttt{SC.EDGE}. In panel~A each alternative
 occupies two half-rows: above, an orange arrow from the classical test (open circle) to
-the corrected decile test (filled grey circle); below, a green arrow from that point to
-the EDGE basis (filled green circle). The two arrows are drawn with identical weight.
+\texttt{SC.HL} (filled grey circle); below, a green arrow from that point to
+\texttt{SC.EDGE} (filled green circle). The two arrows are drawn with identical weight.
 Panel~B is design~B on a tight vertical scale, with two-standard-error bars and a grey
 band at the $\gamma = 0$ rejection rate plus or minus two standard errors. Based on
 $2000$ replications per cell.}
 \label{fig:costgain}
 \figalttext[Short orange cost arrows against much longer green gain arrows]{Panel A is a
 horizontal dot plot of eight alternatives. For each, a short orange arrow points left
-from the classical test to the corrected test, and a much longer green arrow points right
-from the corrected decile basis to the corrected EDGE basis. Panel B plots design B power
+from the classical test to SC.HL, and a much longer green arrow points right
+from SC.HL to SC.EDGE. Panel B plots design B power
 against gamma on a scale from zero to 0.15; all points lie within a shaded band marking
 the null rejection rate.}
 \end{figure}
@@ -1030,8 +1032,8 @@ $2\times10^{5}$ draws. Corrected $p$-values use $499$ bootstrap replicates.}
 \begin{tabular}{lrrrrrrrrr}
 \toprule
 & \multicolumn{3}{c}{Uncorrected}
-& \multicolumn{3}{c}{Corrected, decile basis}
-& \multicolumn{3}{c}{Corrected, EDGE basis} \\
+& \multicolumn{3}{c}{\texttt{SC.HL}}
+& \multicolumn{3}{c}{\texttt{SC.EDGE}} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
 $\lambda$ & $G=5$ & $G=10$ & $G=20$ & $G=5$ & $G=10$ & $G=20$
           & $G=5$ & $G=10$ & $G=20$ \\
@@ -1161,9 +1163,12 @@ The EDGE basis of \citet{ebrahim2026edge} is implemented as \texttt{edge.gof()} 
 package \texttt{ebrahim.gof} (version 2.4.0) on the Comprehensive R Archive Network, and
 the EDGE statistic computed by the code used here agrees with that implementation exactly
 on three datasets. The shrinkage correction itself is not yet in a released version of
-that package. A reference implementation is included in the replication archive; it is
-self-contained, so that reproducing the results here does not depend on any package
-version. The scale identity $\lambda = n\lambda_{\mathrm{g}}$ against
+that package. A reference implementation is included in the replication archive as
+\texttt{shrink.gof()}, which returns \texttt{SC.HL} and \texttt{SC.EDGE} for a fitted
+ridge model; it depends only on base \textsf{R}, so that reproducing the results here
+does not depend on any package version. On the glaucoma data of
+Section~\ref{sec:app} it returns the entries of Table~\ref{tab:glaucoma} to within
+bootstrap error. The scale identity $\lambda = n\lambda_{\mathrm{g}}$ against
 \citet{friedman2010} was checked numerically to $1.6\times10^{-9}$.
 
 

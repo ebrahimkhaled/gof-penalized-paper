@@ -65,6 +65,7 @@ Figure files and their scripts carry the same numbers.
 
 | Paper item | Script | Cost |
 |---|---|---|
+| **The test itself, as one callable function** | `shrink_gof.R` -> `shrink.gof()` | seconds |
 | Proposition 1 numerical check | `corrected_test.R` | seconds |
 | Covariance ordering Omega_K >= Omega_MLE | `check_omega_sign.R` | seconds |
 | Figure 1, the penalty path | `lambda_sweep.R`, `hd_sweep.R` -> `R/fig1_penaltypath_ek.R` | minutes |
@@ -124,8 +125,20 @@ tapply(b$p_pre_edge <= thr, b$gamma, mean)
 
 The EDGE basis is implemented as `edge.gof()` in the R package `ebrahim.gof` (2.4.0) on
 CRAN. **The shrinkage correction itself is not yet in a released version of that package** —
-the reference implementation is in this archive, self-contained so that reproduction does
-not depend on any package version. The EDGE statistic computed here was verified identical
+the reference implementation is in this archive as `R/shrink_gof.R`, self-contained (base R
+and `stats` only) so that reproduction does not depend on any package version.
+
+```r
+source("R/shrink_gof.R")
+shrink.gof(X, y, lambda = 295.3, G = 10, basis = c("edge", "decile"), B = 499)
+#   SC.HL    the correction on the decile (Hosmer-Lemeshow) grouping
+#   SC.EDGE  the correction on the EDGE basis
+```
+
+`lambda` is on the theory scale, `lambda = n * lambda_glmnet`. Checked against Table 5 of the
+paper on `GlaucomaM` at `lambda.1se` with `G = 10`: `SC.HL` returns 0.026, matching the
+published value exactly, and `SC.EDGE` returns 0.038 against a published 0.034 — a difference
+well inside bootstrap error at `B = 499`. The uncorrected p-value is 0.00000, as published. The EDGE statistic computed here was verified identical
 to `ebrahim.gof::edge.gof` to a difference of 0.00e+00 on three datasets (`verify_edge.R`).
 
 Session: R 4.4.x on Windows 11, packages `glmnet`, `TH.data`, `ggplot2`, `patchwork`,
