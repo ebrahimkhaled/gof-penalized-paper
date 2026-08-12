@@ -1,5 +1,7 @@
 # Replication archive
 
+[![DOI](https://zenodo.org/badge/1331749712.svg)](https://doi.org/10.5281/zenodo.21900114)
+
 **The Hosmer–Lemeshow test after shrinkage: a valid goodness-of-fit test for penalized
 logistic regression, applied to glaucoma diagnosis**
 
@@ -105,6 +107,10 @@ identical to `ebrahim.gof::edge.gof` to a difference of 0.00e+00 on three datase
 
 Session: R 4.4.x on Windows 11, packages `glmnet`, `TH.data`, `ggplot2`, `patchwork`,
 `parallel`.
+
+## Citing this archive
+
+Concept DOI (always resolves to the latest version): **10.5281/zenodo.21900114**
 
 ## Licence
 
