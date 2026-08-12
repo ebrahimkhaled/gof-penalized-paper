@@ -350,20 +350,17 @@ precisely why their conclusions do not transfer.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig1_penaltypath.pdf}
-\caption{Ridge shrinkage improves the fitted probabilities and destroys the
-goodness-of-fit test over the same stretch of the penalty path: in design~B the mean
-absolute error of the fitted probabilities falls by $28\%$ while the rejection rate of a
-model known to be correct rises from $0.178$ to $0.990$ (C), and the penalty
-cross-validation selects lies beyond the point at which the test has already failed (A).
-In panels~A and~B the solid grey curve is the decile basis and the dashed green curve
-the EDGE basis, the dotted and solid vertical rules mark the cross-validated
-$\hat\lambda_{\min}$ and $\hat\lambda_{1\mathrm{se}}$, and the shaded band in~A is the
-interquartile range of $\hat\lambda_{1\mathrm{se}}$ over replications; panel~C traces the
-six penalties of design~B, the diamond marking the penalty at which the fitted
-probabilities are most accurate. Based on $500$ replications, Monte Carlo standard error
-at most $0.022$; the exact grid is tabulated in the supplementary material. The corrected test is shown as isolated
-points because it is a separate experiment at a different replication count, and for the
-same reason those points are not joined.}
+\caption{Rejection rate of a correctly specified model against the ridge penalty, for design~A
+(A) and design~B (B), and against the mean absolute error of the fitted probabilities in
+design~B (C). In A and B the solid grey curve is the decile basis and the dashed green
+curve the EDGE basis; the dotted and solid vertical rules mark $\hat\lambda_{\min}$ and
+$\hat\lambda_{1\mathrm{se}}$, and the shaded band in~A is the interquartile range of
+$\hat\lambda_{1\mathrm{se}}$ over replications. Open blue squares are the
+shrinkage-corrected test, shown as isolated points because they come from a separate
+experiment. In~C the six points are the penalties of design~B in order, the error axis
+reversed so that better probabilities lie to the right, and the diamond marks the
+smallest error. Based on $500$ replications, Monte Carlo standard error at most $0.022$;
+the grid is tabulated in the supplementary material.}
 \label{fig:penalty}
 \figalttext[Rejection rate of a correct model rises to one along the ridge penalty path,
 while the error of the fitted probabilities falls]{Three panels. Panels A and B plot the
@@ -682,6 +679,25 @@ exactly correct in size by construction. Whatever power then changes is attribut
 the grouping alone. In design~B this gives Table~\ref{tab:oracle}.
 
 
+\begin{table}[!t]
+\centering
+\caption{Grouping on the fitted index against grouping on the true one, design~B, with
+each arm calibrated to exact size by direct Monte Carlo so that the comparison is of
+power only. Knowing the index transforms the index-aligned departure and does nothing at
+all for the coordinate-wise one, which is the two mechanisms separated.}
+\label{tab:oracle}
+\begin{tabular}{llrrrr}
+\toprule
+& & \multicolumn{2}{c}{Fitted index} & \multicolumn{2}{c}{True index} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
+\midrule
+cubic (index-aligned)     & 1.5 & 0.092 & 0.046 & 0.623 & 0.633 \\
+quadratic (coordinate-wise) & 1.0 & 0.059 & 0.061 & 0.067 & 0.059 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 The contrast is the whole argument of this section. For the index-aligned departure,
 knowing the true index raises power from $0.092$ to $0.623$ on the decile basis and from
 $0.046$ to $0.633$ on the EDGE basis, a factor of nearly fourteen. For the
@@ -746,6 +762,36 @@ specifications, seeds and code are in the supplementary material.
 \subsection{Size}\label{sec:size}
 
 
+% MANIFEST section 8f -- GREEN. Supersedes the earlier B=300 table.
+\begin{table}[!t]
+\centering
+\caption{Rejection rate of the \emph{prepivoted corrected} test under a correctly
+specified model, at nominal level $0.05$, with $149$ bootstrap replicates. Design~A uses
+$2000$ Monte Carlo replications and design~B uses $1000$, except the $\lambda = 50$ row,
+which is pooled over three independent replication blocks totalling $4000$ and is marked
+$\dagger$. Penalties are on the theory scale $\lambda$; the corresponding
+$\lambda_{\mathrm{g}}$ is $\lambda/n$. The uncorrected test on these same six cells
+rejects between $0.92$ and $1.00$. With $B = 149$ the bootstrap $p$-value takes the
+values $k/150$, so $0.05$ is not itself attainable; the adjacent attainable levels are
+$7/150 = 0.0467$ and $8/150 = 0.0533$.}
+\label{tab:size}
+\begin{tabular}{llrrrr}
+\toprule
+& & \multicolumn{2}{c}{Decile basis} & \multicolumn{2}{c}{EDGE basis} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Design & $\lambda$ & rate & s.e. & rate & s.e. \\
+\midrule
+A & 100  & 0.0435 & 0.0046 & 0.0500 & 0.0049 \\
+A & 137  & 0.0475 & 0.0048 & 0.0505 & 0.0049 \\
+A & 200  & 0.0465 & 0.0047 & 0.0505 & 0.0049 \\
+\midrule
+B & 50$^{\dagger}$ & 0.0595 & 0.0037 & 0.0370 & 0.0030 \\
+B & 416  & 0.0710 & 0.0081 & 0.0540 & 0.0071 \\
+B & 1000 & 0.0520 & 0.0070 & 0.0610 & 0.0076 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 Table~\ref{tab:size} is the central empirical claim of the paper. Against an uncorrected
 test that rejects correct models between $92\%$ and $100\%$ of the time on these same
 six configurations, the prepivoted corrected test holds its nominal level. In design~A
@@ -773,6 +819,47 @@ and we report both.
 \subsection{Power}\label{sec:power}
 
 
+% MANIFEST section 6.2 -- GREEN. B=200, paired on identical fits and refits.
+\begin{table}[!t]
+\centering
+\caption{Power of the prepivoted corrected test on the decile and EDGE bases, paired on
+identical fits and refits with the classical test on the maximum likelihood fit. Two
+departures are used: an omitted quadratic $\gamma(x_1^{2}-1)$ and an omitted interaction
+$\gamma x_1 x_2$. Based on $2000$ replications (Monte Carlo standard error at most
+$0.0112$). The $\gamma = 0$ row is size, and is the same simulation for both departures.
+No valid maximum likelihood comparator is available in design~B. Size-adjusted power is given in the
+supplementary material; it differs from the entries below by at most $0.02$ and reverses
+no comparison. Design~A is at $\lambda = 100$ and design~B at $\lambda = 416$. The
+$\gamma = 0$ rows come from a different run than the corrected-size table
+(\texttt{T25\_power\_highB.R}, stream $20260810$, against \texttt{T23\_rerun.R}, stream
+$20260807$); the two agree to less than one Monte Carlo standard error.}
+\label{tab:power}
+\begin{tabular}{lllrrrr}
+\toprule
+& & & \multicolumn{2}{c}{Corrected test} & \multicolumn{2}{c}{Classical, on the MLE} \\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Design & Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
+\midrule
+A & ---          & 0.00 & 0.0445 & 0.0460 & 0.0440 & 0.0540 \\
+\addlinespace
+A & quadratic    & 0.25 & 0.0760 & 0.1150 & 0.0890 & 0.1205 \\
+A & quadratic    & 0.50 & 0.1475 & 0.2615 & 0.1715 & 0.2675 \\
+A & quadratic    & 0.75 & 0.2015 & 0.3755 & 0.2350 & 0.3835 \\
+A & quadratic    & 1.00 & 0.2700 & 0.4150 & 0.2960 & 0.4080 \\
+\addlinespace
+A & interaction  & 0.25 & 0.0595 & 0.0750 & 0.0630 & 0.0870 \\
+A & interaction  & 0.50 & 0.1055 & 0.1885 & 0.1290 & 0.2065 \\
+A & interaction  & 0.75 & 0.1940 & 0.3555 & 0.2275 & 0.3780 \\
+A & interaction  & 1.00 & 0.2835 & 0.4615 & 0.3265 & 0.4885 \\
+\addlinespace
+B & ---          & 0.00 & 0.0640 & 0.0495 & --- & --- \\
+B & quadratic    & 0.50 & 0.0595 & 0.0485 & --- & --- \\
+B & quadratic    & 1.00 & 0.0635 & 0.0600 & --- & --- \\
+B & quadratic    & 1.50 & 0.0740 & 0.0630 & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 The comparison that matters is not corrected-versus-uncorrected under the null, where
 the uncorrected test is disqualified, but corrected-versus-classical where the classical
 test is legitimate. We therefore compare the corrected test on a penalized fit with the
@@ -786,30 +873,44 @@ this experiment, at $200$ replications, returned $-0.010$ with $p = 0.10$ and wo
 supported the more comfortable claim that the cost is indistinguishable from zero. It was
 simply too small to see the effect.
 
+\begin{table}[!t]
+\centering
+\caption{What the correction costs in power. Each entry is the mean difference between
+the corrected test on a penalized fit and the classical test on a maximum likelihood fit,
+paired over the eight design~A alternatives of Table~\ref{tab:power} and computed from
+$2000$ replications per cell. The cost is real on both bases and larger on the decile
+basis.}
+\label{tab:cost}
+\begin{tabular}{lrrr}
+\toprule
+Basis & mean difference & $t$ ($7$ d.f.) & relative \\
+\midrule
+decile & $-0.0250$ \ (s.e.\ $0.0044$) & $-5.70$, $p = 0.0007$ & $-13.0\%$ \\
+EDGE   & $-0.0115$ \ (s.e.\ $0.0038$) & $-3.00$, $p = 0.020$ & $-3.9\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 Two things put the cost in proportion. It is a cost paid only where there is a choice. In design~B no valid maximum likelihood
 comparator is available, because the unpenalized fit is itself invalid there; and on the
 glaucoma data the maximum likelihood estimate does not exist at all. In both the
 classical test is unavailable at any price, and the comparison has no second column. And it is much smaller than the gain available from the
 basis. Switching from the decile to the EDGE basis under the same correction raises mean
-power across these eight alternatives from $0.167$ to $0.281$, an increase of $68\%$ ---
-roughly five times what the correction costs. An analyst who wants the power back does
+power across these eight alternatives from $0.167$ to $0.281$, an increase of $0.114$ or $68\%$ --- about four and
+a half times what the correction costs. An analyst who wants the power back does
 not need a different test; they need a better basis.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig2_costgain.pdf}
-\caption{The correction costs power, and the choice of basis buys back more than it
-costs. In panel~A each alternative occupies two half-rows: above, an orange arrow runs
-from the classical test on a maximum likelihood fit (open circle) back to the
-shrinkage-corrected test on the decile basis (filled grey circle), and its length is the
-cost; below, a green arrow runs from that same point forward to the EDGE basis (filled
-green circle), and its length is the gain. The two are drawn with identical weight so
-that the lengths compare directly. Averaged over the eight alternatives the cost is
-$0.0250$ and the gain $0.1138$, about four and a half times larger. Panel~B is design~B
-on a deliberately tight vertical scale, with two-standard-error bars and a grey band at
-the $\gamma = 0$ rejection rate plus or minus two standard errors; every alternative lies
-inside that band, so there is no detectable power over this range. Based on $2000$
-replications per cell.}
+\caption{Power of the classical test on a maximum likelihood fit, of the shrinkage-corrected test
+on the decile basis, and of the same test on the EDGE basis. In panel~A each alternative
+occupies two half-rows: above, an orange arrow from the classical test (open circle) to
+the corrected decile test (filled grey circle); below, a green arrow from that point to
+the EDGE basis (filled green circle). The two arrows are drawn with identical weight.
+Panel~B is design~B on a tight vertical scale, with two-standard-error bars and a grey
+band at the $\gamma = 0$ rejection rate plus or minus two standard errors. Based on
+$2000$ replications per cell.}
 \label{fig:costgain}
 \figalttext[Short orange cost arrows against much longer green gain arrows]{Panel A is a
 horizontal dot plot of eight alternatives. For each, a short orange arrow points left
@@ -839,23 +940,17 @@ Tables~\ref{tab:size} and~\ref{tab:power}.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig3_power.pdf}
-\caption{Power is governed by the visible effect size, not the nominal one: on the decile
-basis, curves from designs of very different dimension collapse when the departure is
-aligned with the index (A), but a coordinate-wise departure is diluted and its power
-flattens in high dimension (B), and the advantage of the EDGE basis reverses with
-dimension (C). In panels~A and~B the solid blue curve with circles is design~A and the dashed orange
-curve with triangles is design~B; in panel~C the green curve with filled circles is the
+\caption{Power of the corrected test against $\nu\sqrt{n}$ for an index-aligned departure (A) and
+against the visible effect size $\tau$ for a coordinate-wise departure (B) and for the
+two bases (C). In A and B the solid blue curve with circles is design~A and the dashed
+orange curve with triangles design~B; in C the green curve with filled circles is the
 EDGE basis and the grey curve with open circles the decile basis, solid for design~A and
-dashed for design~B. Rejection rates in all three panels use a critical value obtained by
-direct Monte Carlo from the true model rather than by prepivoting, so that every cell is
-exactly $5\%$ under the null by construction and the comparison isolates the grouping;
-$B_1 = 1000$ replications per cell, Monte Carlo standard error at most $0.016$, shown as
-error bars in panel~A. This is a separate experiment from Tables~\ref{tab:size}
-and~\ref{tab:power}, which use a prepivoted bootstrap reference. In panel~A the third and
-fourth design~B points sit at almost the same value of $\nu\sqrt{n}$ ($8.16$ and $8.34$),
-because $\nu$ is not monotone in $\gamma$; the apparent dip between them is that, not a
-loss of power. One point of the design~A cubic series and three of the design~B cubic
-series lie beyond the monotonicity threshold of Section~\ref{sec:tau}.}
+dashed for design~B. Rejection rates use a critical value obtained by direct Monte Carlo
+from the true model rather than by prepivoting, so every cell is exactly $5\%$ under the
+null by construction; $B_1 = 1000$ replications per cell, Monte Carlo standard error at
+most $0.016$, shown as error bars in panel~A. In panel~A the third and fourth design~B
+points sit at almost the same value of $\nu\sqrt{n}$ ($8.16$ and $8.34$) because $\nu$ is
+not monotone in $\gamma$.}
 \label{fig:power}
 \figalttext[Three panels showing that power collapses onto one curve for index-aligned
 departures but not for coordinate-wise ones]{Three line charts. Panel A plots power
@@ -900,11 +995,11 @@ simulation evidence of Section~\ref{sec:sim}.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.72\textwidth]{fig4_calibration.pdf}
-\caption{The ridge fit is not mis-ordered, it is too flat: shrinkage pulls the predicted
-risks towards the centre, and it is that displacement, not misspecification, that the
-uncorrected test is reading. Deciles below the diagonal, drawn as orange circles, have
-their risk predicted too high; those above it, drawn as blue triangles, have it predicted
-too low. Vertical bars are Wilson intervals and the dashed line is equality.}
+\caption{Observed event rate against mean predicted probability within deciles of the ridge fit on
+the glaucoma data, at the cross-validated penalty. Deciles below the diagonal, drawn as
+orange circles, have their risk predicted too high; those above it, drawn as blue
+triangles, have it predicted too low. Vertical bars are Wilson intervals and the dashed
+line is equality.}
 \label{fig:calib}
 \figalttext[Calibration plot showing predicted risks compressed towards the centre]{
 Calibration plot of observed event rate against mean predicted probability for ten
@@ -916,6 +1011,41 @@ it, observed 0.526 against predicted 0.532. The apparent calibration slope is 2.
 
 \subsection{The corrected analysis}\label{sec:corrected}
 
+
+% MANIFEST section 8b -- GREEN. NB = 499.
+\begin{table}[!t]
+\centering
+\caption{Uncorrected and corrected $p$-values for the glaucoma model, over four
+penalties and three group counts. The uncorrected test rejects in all twelve
+configurations; the corrected test does not. Penalties are on the theory scale, with
+$\hat\lambda_{1\mathrm{se}} = 295.3$ and $\hat\lambda_{\min} = 19.9$ selected by
+ten-fold cross-validation. The uncorrected column refers the grouped statistic to the
+maximum likelihood covariance $I_G - UF^{-1}U^{\top}$ by Monte Carlo, which is the
+strongest form of the incumbent; entries below $10^{-5}$ are the resolution limit of
+$2\times10^{5}$ draws. Corrected $p$-values use $499$ bootstrap replicates.}
+\label{tab:glaucoma}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+& \multicolumn{3}{c}{Uncorrected}
+& \multicolumn{3}{c}{Corrected, decile basis}
+& \multicolumn{3}{c}{Corrected, EDGE basis} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+$\lambda$ & $G=5$ & $G=10$ & $G=20$ & $G=5$ & $G=10$ & $G=20$
+          & $G=5$ & $G=10$ & $G=20$ \\
+\midrule
+$\hat\lambda_{\min}$ & 0.0003 & 0.0005 & 0.0053
+  & 0.014 & 0.048 & 0.140 & 0.456 & 0.096 & 0.114 \\
+$\tfrac12\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & 0.0001
+  & 0.032 & 0.070 & 0.062 & 0.094 & 0.032 & 0.106 \\
+$\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & $<10^{-5}$
+  & 0.036 & 0.026 & 0.172 & 0.218 & 0.034 & 0.078 \\
+$2\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & $<10^{-5}$
+  & 0.294 & 0.276 & 0.678 & 0.500 & 0.038 & 0.096 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Table~\ref{tab:glaucoma} reports both tests across four penalties and three choices of
 the number of groups. Three things should be said about it, in order of how much they
@@ -1120,172 +1250,6 @@ No funding was received for this work.
 \section*{Conflict of interest}
 None declared.
 
-
-%% ===================================================================
-%% RSS house style: TABLES AT THE END OF THE MAIN TEXT (skill line 172).
-%% Let the float algorithm pack these tightly: with nothing but tables left, the
-%% default fractions reserve space for body text that does not exist and leave
-%% half-empty pages.
-
-\renewcommand{\topfraction}{0.97}
-
-\renewcommand{\bottomfraction}{0.97}
-
-\renewcommand{\textfraction}{0.03}
-
-\renewcommand{\floatpagefraction}{0.90}
-\setcounter{topnumber}{4}
-\setcounter{totalnumber}{6}
-%% \label resolution is unaffected; every \ref in the body still resolves.
-%% ===================================================================
-\clearpage
-
-\begin{table}[!ht]
-\centering
-\caption{Grouping on the fitted index against grouping on the true one, design~B, with
-each arm calibrated to exact size by direct Monte Carlo so that the comparison is of
-power only. Knowing the index transforms the index-aligned departure and does nothing at
-all for the coordinate-wise one, which is the two mechanisms separated.}
-\label{tab:oracle}
-\begin{tabular}{llrrrr}
-\toprule
-& & \multicolumn{2}{c}{Fitted index} & \multicolumn{2}{c}{True index} \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
-\midrule
-cubic (index-aligned)     & 1.5 & 0.092 & 0.046 & 0.623 & 0.633 \\
-quadratic (coordinate-wise) & 1.0 & 0.059 & 0.061 & 0.067 & 0.059 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-% MANIFEST section 8f -- GREEN. Supersedes the earlier B=300 table.
-\begin{table}[!ht]
-\centering
-\caption{Rejection rate of the \emph{prepivoted corrected} test under a correctly
-specified model, at nominal level $0.05$, with $149$ bootstrap replicates. Design~A uses
-$2000$ Monte Carlo replications and design~B uses $1000$, except the $\lambda = 50$ row,
-which is pooled over three independent replication blocks totalling $4000$ and is marked
-$\dagger$. Penalties are on the theory scale $\lambda$; the corresponding
-$\lambda_{\mathrm{g}}$ is $\lambda/n$. The uncorrected test on these same six cells
-rejects between $0.92$ and $1.00$. With $B = 149$ the bootstrap $p$-value takes the
-values $k/150$, so $0.05$ is not itself attainable; the adjacent attainable levels are
-$7/150 = 0.0467$ and $8/150 = 0.0533$.}
-\label{tab:size}
-\begin{tabular}{llrrrr}
-\toprule
-& & \multicolumn{2}{c}{Decile basis} & \multicolumn{2}{c}{EDGE basis} \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-Design & $\lambda$ & rate & s.e. & rate & s.e. \\
-\midrule
-A & 100  & 0.0435 & 0.0046 & 0.0500 & 0.0049 \\
-A & 137  & 0.0475 & 0.0048 & 0.0505 & 0.0049 \\
-A & 200  & 0.0465 & 0.0047 & 0.0505 & 0.0049 \\
-\midrule
-B & 50$^{\dagger}$ & 0.0595 & 0.0037 & 0.0370 & 0.0030 \\
-B & 416  & 0.0710 & 0.0081 & 0.0540 & 0.0071 \\
-B & 1000 & 0.0520 & 0.0070 & 0.0610 & 0.0076 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-% MANIFEST section 6.2 -- GREEN. B=200, paired on identical fits and refits.
-\begin{table}[!ht]
-\centering
-\caption{Power of the prepivoted corrected test on the decile and EDGE bases, paired on
-identical fits and refits with the classical test on the maximum likelihood fit. Two
-departures are used: an omitted quadratic $\gamma(x_1^{2}-1)$ and an omitted interaction
-$\gamma x_1 x_2$. Based on $2000$ replications (Monte Carlo standard error at most
-$0.0112$). The $\gamma = 0$ row is size, and is the same simulation for both departures.
-No valid maximum likelihood comparator is available in design~B. Size-adjusted power is given in the
-supplementary material; it differs from the entries below by at most $0.02$ and reverses
-no comparison. Design~A is at $\lambda = 100$ and design~B at $\lambda = 416$. The
-$\gamma = 0$ rows come from a different run than the corrected-size table
-(\texttt{T25\_power\_highB.R}, stream $20260810$, against \texttt{T23\_rerun.R}, stream
-$20260807$); the two agree to less than one Monte Carlo standard error.}
-\label{tab:power}
-\begin{tabular}{lllrrrr}
-\toprule
-& & & \multicolumn{2}{c}{Corrected test} & \multicolumn{2}{c}{Classical, on the MLE} \\
-\cmidrule(lr){4-5}\cmidrule(lr){6-7}
-Design & Departure & $\gamma$ & decile & EDGE & decile & EDGE \\
-\midrule
-A & ---          & 0.00 & 0.0445 & 0.0460 & 0.0440 & 0.0540 \\
-\addlinespace
-A & quadratic    & 0.25 & 0.0760 & 0.1150 & 0.0890 & 0.1205 \\
-A & quadratic    & 0.50 & 0.1475 & 0.2615 & 0.1715 & 0.2675 \\
-A & quadratic    & 0.75 & 0.2015 & 0.3755 & 0.2350 & 0.3835 \\
-A & quadratic    & 1.00 & 0.2700 & 0.4150 & 0.2960 & 0.4080 \\
-\addlinespace
-A & interaction  & 0.25 & 0.0595 & 0.0750 & 0.0630 & 0.0870 \\
-A & interaction  & 0.50 & 0.1055 & 0.1885 & 0.1290 & 0.2065 \\
-A & interaction  & 0.75 & 0.1940 & 0.3555 & 0.2275 & 0.3780 \\
-A & interaction  & 1.00 & 0.2835 & 0.4615 & 0.3265 & 0.4885 \\
-\addlinespace
-B & ---          & 0.00 & 0.0640 & 0.0495 & --- & --- \\
-B & quadratic    & 0.50 & 0.0595 & 0.0485 & --- & --- \\
-B & quadratic    & 1.00 & 0.0635 & 0.0600 & --- & --- \\
-B & quadratic    & 1.50 & 0.0740 & 0.0630 & --- & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[!ht]
-\centering
-\caption{What the correction costs in power. Each entry is the mean difference between
-the corrected test on a penalized fit and the classical test on a maximum likelihood fit,
-paired over the eight design~A alternatives of Table~\ref{tab:power} and computed from
-$2000$ replications per cell. The cost is real on both bases and larger on the decile
-basis.}
-\label{tab:cost}
-\begin{tabular}{lrrr}
-\toprule
-Basis & mean difference & $t$ ($7$ d.f.) & relative \\
-\midrule
-decile & $-0.0250$ \ (s.e.\ $0.0044$) & $-5.70$, $p = 0.0007$ & $-13.0\%$ \\
-EDGE   & $-0.0115$ \ (s.e.\ $0.0038$) & $-3.00$, $p = 0.020$ & $-3.9\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-% MANIFEST section 8b -- GREEN. NB = 499.
-\begin{table}[!ht]
-\centering
-\caption{Uncorrected and corrected $p$-values for the glaucoma model, over four
-penalties and three group counts. The uncorrected test rejects in all twelve
-configurations; the corrected test does not. Penalties are on the theory scale, with
-$\hat\lambda_{1\mathrm{se}} = 295.3$ and $\hat\lambda_{\min} = 19.9$ selected by
-ten-fold cross-validation. The uncorrected column refers the grouped statistic to the
-maximum likelihood covariance $I_G - UF^{-1}U^{\top}$ by Monte Carlo, which is the
-strongest form of the incumbent; entries below $10^{-5}$ are the resolution limit of
-$2\times10^{5}$ draws. Corrected $p$-values use $499$ bootstrap replicates.}
-\label{tab:glaucoma}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lrrrrrrrrr}
-\toprule
-& \multicolumn{3}{c}{Uncorrected}
-& \multicolumn{3}{c}{Corrected, decile basis}
-& \multicolumn{3}{c}{Corrected, EDGE basis} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
-$\lambda$ & $G=5$ & $G=10$ & $G=20$ & $G=5$ & $G=10$ & $G=20$
-          & $G=5$ & $G=10$ & $G=20$ \\
-\midrule
-$\hat\lambda_{\min}$ & 0.0003 & 0.0005 & 0.0053
-  & 0.014 & 0.048 & 0.140 & 0.456 & 0.096 & 0.114 \\
-$\tfrac12\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & 0.0001
-  & 0.032 & 0.070 & 0.062 & 0.094 & 0.032 & 0.106 \\
-$\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & $<10^{-5}$
-  & 0.036 & 0.026 & 0.172 & 0.218 & 0.034 & 0.078 \\
-$2\hat\lambda_{1\mathrm{se}}$ & $<10^{-5}$ & $<10^{-5}$ & $<10^{-5}$
-  & 0.294 & 0.276 & 0.678 & 0.500 & 0.038 & 0.096 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-%% flush every remaining table before the references, so no table can drift onto the
-%% reference pages and none of them is left sitting alone.
-\clearpage
 
 \bibliographystyle{oup-abbrvnat}
 \begin{thebibliography}{99}
