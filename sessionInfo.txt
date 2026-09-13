@@ -1,0 +1,62 @@
+Recorded on 2026-09-13 on the machine that ran the scripts, with every package the
+archived scripts load. Package versions may have been updated since the simulation runs of
+August 2026; the EDGE agreement check used ebrahim.gof 2.4.0 (see README, Software).
+
+Packages loaded by the archived scripts, and whether each is installed here:
+      glmnet      TH.data        ipred      ggplot2    patchwork       scales 
+        TRUE         TRUE         TRUE         TRUE         TRUE         TRUE 
+     ggrepel CompQuadForm  ebrahim.gof     GRPtests      RPtests 
+        TRUE         TRUE         TRUE         TRUE         TRUE 
+Warning messages:
+1: package 'glmnet' was built under R version 4.4.3 
+2: package 'ipred' was built under R version 4.4.3 
+3: package 'ggplot2' was built under R version 4.4.3 
+4: package 'scales' was built under R version 4.4.3 
+5: package 'ggrepel' was built under R version 4.4.3 
+6: package 'CompQuadForm' was built under R version 4.4.3 
+7: package 'RPtests' was built under R version 4.4.3 
+R version 4.4.1 (2024-06-14 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Africa/Cairo
+tzcode source: internal
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] RPtests_0.1.5      GRPtests_0.1.2     ebrahim.gof_2.8.0  CompQuadForm_1.4.4
+ [5] ggrepel_0.9.8      scales_1.4.0       patchwork_1.3.0    ggplot2_4.0.3     
+ [9] ipred_0.9-15       TH.data_1.1-2      MASS_7.3-61        survival_3.7-0    
+[13] glmnet_4.1-10      Matrix_1.7-0      
+
+loaded via a namespace (and not attached):
+ [1] future_1.75.0           generics_0.1.3          class_7.3-22           
+ [4] shape_1.4.6.1           lattice_0.22-6          BAGofT_1.0.0           
+ [7] listenv_0.9.1           digest_0.6.37           magrittr_2.0.3         
+[10] grid_4.4.1              RColorBrewer_1.1-3      iterators_1.0.14       
+[13] foreach_1.5.2           processx_3.8.4          givitiR_1.3            
+[16] nnet_7.3-19             ps_1.8.0                mgcv_1.9-4             
+[19] codetools_0.2-20        lava_1.9.2              cli_3.6.6              
+[22] rlang_1.2.0             ResourceSelection_0.3-6 parallelly_1.45.1      
+[25] future.apply_1.20.0     splines_4.4.1           withr_3.0.2            
+[28] prodlim_2026.03.11      tools_4.4.1             dplyr_1.1.4            
+[31] ranger_0.18.0           globals_0.19.1          vctrs_0.6.5            
+[34] R6_2.5.1                rpart_4.1.23            lifecycle_1.0.5        
+[37] randomForest_4.7-1.1    pkgconfig_2.0.3         callr_3.8.0            
+[40] pillar_1.11.1           gtable_0.3.6            data.table_1.15.4      
+[43] glue_1.8.1              Rcpp_1.0.13             statmod_1.5.2          
+[46] tibble_3.2.1            tidyselect_1.2.1        farver_2.1.2           
+[49] nlme_3.1-166            compiler_4.4.1          S7_0.2.2               
