@@ -41,8 +41,20 @@
   list(beta = beta, pi = 1 / (1 + exp(-drop(X1 %*% beta))))
 }
 
+# ---- F^{-1} b, with the eigenvalues of F optionally floored -----------
+# F is inverted in exactly one place, the debiasing step below, and on a
+# strongly collinear design that inversion is the fragile part of the whole
+# procedure. tau = 0 is a plain solve(); a positive tau raises every
+# eigenvalue below tau * (largest one) to that value before inverting.
+.sg_finv <- function(Fm, b, tau = 0) {
+  if (tau <= 0) return(drop(solve(Fm, b)))
+  e <- eigen(Fm, symmetric = TRUE)
+  d <- pmax(e$values, tau * e$values[1])
+  drop(e$vectors %*% (crossprod(e$vectors, b) / d))
+}
+
 # ---- grouped residuals, mu-hat, and both statistics -------------------
-.sg_pieces <- function(X1, y, fit, lambda, D, G) {
+.sg_pieces <- function(X1, y, fit, lambda, D, G, finv.floor = 0) {
   pi <- pmin(pmax(fit$pi, 1e-6), 1 - 1e-6)
   w  <- pmax(pi * (1 - pi), 1e-8)
   g  <- pmin(ceiling(rank(pi, ties.method = "first") / (length(y) / G)), G)
@@ -55,7 +67,7 @@
   Fm <- crossprod(X1, w * X1)
   K  <- lambda * D
   # one-step debias, then the shrinkage non-centrality it implies
-  bt <- fit$beta + drop(solve(Fm, K %*% fit$beta))
+  bt <- fit$beta + .sg_finv(Fm, drop(K %*% fit$beta), finv.floor)
   mu <- drop(U %*% solve(Fm + K, K %*% bt))
   v  <- r - mu                                   # the corrected residual
   pbar <- vapply(idx, function(I) mean(pi[I]), 0.0)
@@ -69,7 +81,7 @@
        S_edge_unc = if (is.null(Z)) NA_real_ else qf(r, Z),
        S_edge     = if (is.null(Z)) NA_real_ else qf(v, Z),
        Om = diag(G) - U %*% solve(Fm, t(U)),     # the MLE covariance
-       Z = Z, beta_tilde = bt)
+       Z = Z, beta_tilde = bt, Fm = Fm)
 }
 
 # ---- the uncorrected reference, by direct Monte Carlo -----------------
@@ -98,11 +110,18 @@
 #'   penalized. Defaults to all of them; the intercept is never penalized.
 #' @param uncorrected if TRUE, also return the uncorrected p-value, which is
 #'   the quantity the paper shows to be invalid. For comparison only.
+#' @param finv.floor eigenvalue floor for the inversion of F in the debiasing
+#'   step, as a fraction of the largest eigenvalue of F; 0, the default, is a
+#'   plain solve(). On a badly conditioned design, repeat the test at 1e-9 and
+#'   1e-7 and report the sensitivity: a floor changes the generator, so it is
+#'   not a neutral numerical safeguard.
 #'
-#' @return a list with the statistic and p-value for each basis requested.
+#' @return a list with the statistic and p-value for each basis requested, and
+#'   a $diagnostics element to report alongside them.
 shrink.gof <- function(X, y, lambda, G = 10,
                        basis = c("edge", "decile"), B = 999,
-                       seed = NULL, penalize = NULL, uncorrected = FALSE) {
+                       seed = NULL, penalize = NULL, uncorrected = FALSE,
+                       finv.floor = 0) {
   basis <- match.arg(basis, c("edge", "decile"), several.ok = TRUE)
   X <- as.matrix(X); y <- as.numeric(y)
   stopifnot(all(y %in% c(0, 1)), nrow(X) == length(y), lambda >= 0, G >= 3)
@@ -113,7 +132,7 @@ shrink.gof <- function(X, y, lambda, G = 10,
   D  <- diag(c(0, as.numeric(penalize)))       # intercept never penalized
 
   fit <- .sg_ridge(X1, y, lambda, D)
-  st  <- .sg_pieces(X1, y, fit, lambda, D, G)
+  st  <- .sg_pieces(X1, y, fit, lambda, D, G, finv.floor)
   if ("edge" %in% basis && is.null(st$Z))
     stop("the EDGE basis needs at least 4 distinct group means; raise G")
 
@@ -122,7 +141,8 @@ shrink.gof <- function(X, y, lambda, G = 10,
   Sd <- Se <- numeric(B)
   for (b in seq_len(B)) {
     ys <- rbinom(n, 1, gen)
-    s2 <- .sg_pieces(X1, ys, .sg_ridge(X1, ys, lambda, D), lambda, D, G)
+    s2 <- .sg_pieces(X1, ys, .sg_ridge(X1, ys, lambda, D), lambda, D, G,
+                     finv.floor)
     Sd[b] <- s2$S_dec; Se[b] <- s2$S_edge
   }
 
@@ -139,6 +159,29 @@ shrink.gof <- function(X, y, lambda, G = 10,
     if (uncorrected)
       out$SC.EDGE$p.uncorrected <- .sg_mc_p(st$S_edge_unc, st$Om, st$Z)
   }
+  # ---- diagnostics, to be reported with the p-value -------------------
+  # ||beta.tilde|| is NOT the quantity to watch: it is huge whenever X has a
+  # near-null space, and that on its own costs the test nothing. beta.tilde
+  # enters only through the generator, so the generator is what to check. If
+  # it pins observations at 0 or 1, or implies a number of events far from
+  # the observed one, the bootstrap is not sampling the null world you meant.
+  out$diagnostics <- list(
+    cond.F     = kappa(st$Fm, exact = TRUE),
+    gen.range  = range(gen),
+    gen.sd     = sd(gen),
+    pinned     = sum(gen <= 1e-6 | gen >= 1 - 1e-6),
+    events.gen = sum(gen),
+    events.obs = sum(y),
+    norm.ratio = sqrt(sum(st$beta_tilde[-1]^2)) / sqrt(sum(fit$beta[-1]^2)),
+    finv.floor = finv.floor)
+  if (out$diagnostics$cond.F > 1e10 || out$diagnostics$pinned > 0)
+    warning("F is ill conditioned (cond = ",
+            signif(out$diagnostics$cond.F, 3), "; ",
+            out$diagnostics$pinned,
+            " generator probabilities pinned at 0 or 1). Repeat the test ",
+            "with finv.floor = 1e-9 and 1e-7 and report the sensitivity.",
+            call. = FALSE)
+
   class(out) <- "shrink.gof"
   out
 }
@@ -153,6 +196,14 @@ print.shrink.gof <- function(x, ...) {
     if (!is.null(x[[nm]]$p.uncorrected))
       cat(sprintf("   (uncorrected p = %.5f)", x[[nm]]$p.uncorrected))
     cat("\n")
+  }
+  if (!is.null(x$diagnostics)) {
+    d <- x$diagnostics
+    cat(sprintf("\n  cond(F) = %.3g, F inverse floored at %g\n",
+                d$cond.F, d$finv.floor))
+    cat(sprintf("  generator in [%.4f, %.4f], %d pinned, %.1f events against %d observed\n",
+                d$gen.range[1], d$gen.range[2], d$pinned,
+                d$events.gen, d$events.obs))
   }
   cat("\n")
   invisible(x)
