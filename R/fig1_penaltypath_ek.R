@@ -1,4 +1,4 @@
-# Figure 1 for the Series C paper — THE PENALTY PATH. EK house style.
+# Figure 1 for the paper — THE PENALTY PATH. EK house style.
 #
 # Replaces Table 1. Its job is to render, as a SHAPE, the fact a table cannot show:
 # ridge shrinkage improves the fitted probabilities and destroys the goodness-of-fit test
@@ -112,9 +112,9 @@ pC <- ggplot(dC, aes(mae, rej)) +
         plot.subtitle = element_blank())
 
 pl <- pA | pB | pC
-OUP_W <- 446.70827/72.27
-ggsave("../Fig/fig1_penaltypath.pdf", pl, width = OUP_W, height = OUP_W*0.40, device = cairo_pdf)
-ggsave("../Fig/fig1_penaltypath.png", pl, width = OUP_W, height = OUP_W*0.40, dpi = EK_DPI)
+BJ_W <- 423.72342/72.27
+ggsave("../Fig/fig1_penaltypath.pdf", pl, width = BJ_W, height = BJ_W*0.40, device = cairo_pdf)
+ggsave("../Fig/fig1_penaltypath.png", pl, width = BJ_W, height = BJ_W*0.40, dpi = EK_DPI)
 
 ## ---- guards: every claim the caption makes -----------------------------------------
 stopifnot(lgB[which.min(maeB)] == 0.05,              # the MAE minimum is at lambda_g = 0.05

@@ -1,4 +1,4 @@
-# Figure 3 for the Series C paper — the three power facts, EK house style.
+# Figure 3 for the paper — the three power facts, EK house style.
 # Replaces the base-R three-panel plot (plot_tau.R), which looked like default output.
 #
 # Data: manifest 8g / T2.2. df-CORRECTED tau (manifest E12 — the raw plug-in overstates
@@ -103,18 +103,18 @@ pC <- ggplot(lg, aes(tau, power, colour = basis, linetype = design,
         legend.spacing.y = unit(0, "pt"),
         plot.title = element_text(hjust = 0, face = "bold", size = rel(0.95)),
         plot.subtitle = element_blank())
-## (no corner annotation in panel C: at the true OUP text width it collided with the
+## (no corner annotation in panel C: at the true text width it collided with the
 ##  four-row legend, and the subtitle already carries the message)
 
 pl <- pA | pB | pC
-## GEOMETRY: build at the OUP Series C text width EXACTLY (446.70827pt = 6.181in),
+## GEOMETRY: build at the Biometrical Journal text width EXACTLY (423.72342pt = 5.863in),
 ## so includegraphics[width=textwidth] applies NO rescaling and the 9pt base type
 ## stays 9pt on the page. Building at Springer's EK_W2 and letting LaTeX shrink it was
 ## rendering the annotations at about 5pt.
-OUP_W <- 446.70827/72.27
-ggsave("../Fig/fig3_power.pdf", pl, width = OUP_W, height = OUP_W * 0.375,
+BJ_W <- 423.72342/72.27
+ggsave("../Fig/fig3_power.pdf", pl, width = BJ_W, height = BJ_W * 0.375,
        device = cairo_pdf)
-ggsave("../Fig/fig3_power.png", pl, width = OUP_W, height = OUP_W * 0.375,
+ggsave("../Fig/fig3_power.png", pl, width = BJ_W, height = BJ_W * 0.375,
        dpi = EK_DPI)
 
 ## the collapse arithmetic, printed for the caption

@@ -1,4 +1,4 @@
-# Figure 2 for the Series C paper — THE COST AND THE GAIN. EK house style.
+# Figure 2 for the paper — THE COST AND THE GAIN. EK house style.
 #
 # The paper's most unusual virtue is that it reports a power cost it could have hidden.
 # As a table that virtue is four numbers; as a shape it is two arrows of visibly
@@ -72,10 +72,10 @@ pB <- ggplot(Bl, aes(gamma, r, colour = basis, shape = basis, linetype = basis))
   theme(legend.position = "none", plot.title.position = "panel",
         plot.title = element_text(hjust = 0, face = "bold", size = rel(0.95)))
 
-OUP_W <- 446.70827/72.27
+BJ_W <- 423.72342/72.27
 pl <- pA / pB + plot_layout(heights = c(1.35, 1))
-ggsave("../Fig/fig2_costgain.pdf", pl, width = OUP_W, height = OUP_W*0.78, device = cairo_pdf)
-ggsave("../Fig/fig2_costgain.png", pl, width = OUP_W, height = OUP_W*0.78, dpi = EK_DPI)
+ggsave("../Fig/fig2_costgain.pdf", pl, width = BJ_W, height = BJ_W*0.78, device = cairo_pdf)
+ggsave("../Fig/fig2_costgain.png", pl, width = BJ_W, height = BJ_W*0.78, dpi = EK_DPI)
 
 ## ---- guards -----------------------------------------------------------------------
 ## The cost arrow must point BACKWARDS at every alternative and the gain arrow FORWARDS

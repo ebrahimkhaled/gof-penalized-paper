@@ -76,7 +76,7 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | Section 4.4 and Section S5.2, residual-prediction tests | `T24_rivals.R` | not recorded |
 | Table 5 and Figure 4, glaucoma | `glaucoma_deep.R` -> `R/fig4_calib_ek.R` | minutes |
 | Uncorrected variants on GlaucomaM | `naive_glaucoma_both.R` | seconds |
-| Second dataset, GlaucomaMVF (Table S7) | `T26_app.R` -> `extract_T26b.R` | minutes |
+| Second dataset, GlaucomaMVF (Table S8) | `T26_app.R` -> `extract_T26b.R` | minutes |
 | The one-fit screen (Section S3) | `shrinkage_screen.R` | minutes |
 | Conditioning and the generator (Section S6) | `glaucoma_conditioning.R`, `check_generator.R` | seconds |
 | Table S1, the failed repairs | `round2.R`, `cand_C.R` | minutes |
@@ -96,7 +96,7 @@ each ends in `stopifnot()` guards asserting the claims its figure makes.
 
 Parallel scripts use PSOCK clusters sized `detectCores() - 2` and set their stream with
 `parallel::clusterSetRNGStream`; the stream seed is written at the top of each script and
-listed in Table S8 of the Supporting Information. **Results do not depend on the number of
+listed in Table S9 of the Supporting Information. **Results do not depend on the number of
 workers**, because each replication is seeded individually by `set.seed(seed)` inside the
 worker.
 

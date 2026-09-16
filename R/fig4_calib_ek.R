@@ -1,4 +1,4 @@
-# Figure 4 for the Series C paper — GlaucomaM calibration, EK house style.
+# Figure 4 for the paper — GlaucomaM calibration, EK house style.
 # Replaces the default base-R plot. One declarative message: the ridge fit is too
 # FLAT, and that flatness is what the uncorrected test is reading as misfit.
 suppressPackageStartupMessages({library(glmnet); library(TH.data); library(ggplot2)})
@@ -71,12 +71,12 @@ pl <- ggplot(d, aes(pbar, obs)) +
   theme(legend.position = "none",
         plot.margin = margin(6, 8, 4, 4))
 
-## GEOMETRY: the paper sets this at 0.58 x textwidth of the OUP Series C page
-## (0.58 x 446.70827pt = 3.585in). BUILD AT THAT SIZE -- do not build large and let
+## GEOMETRY: the paper sets this at 0.72 x textwidth of the Biometrical Journal page
+## (0.72 x 423.72342pt = 4.222in). BUILD AT THAT SIZE -- do not build large and let
 ## \includegraphics shrink it, or the type shrinks with the plot.
-OUP_W <- 446.70827/72.27
-ggsave("../Fig/fig4_calibration.pdf", pl, width = 0.58*OUP_W, height = 0.58*OUP_W*1.015, device = cairo_pdf)
-ggsave("../Fig/fig4_calibration.png", pl, width = 0.58*OUP_W, height = 0.58*OUP_W*1.015, dpi = EK_DPI)
+BJ_W <- 423.72342/72.27
+ggsave("../Fig/fig4_calibration.pdf", pl, width = 0.72*BJ_W, height = 0.72*BJ_W*1.015, device = cairo_pdf)
+ggsave("../Fig/fig4_calibration.png", pl, width = 0.72*BJ_W, height = 0.72*BJ_W*1.015, dpi = EK_DPI)
 cat(sprintf("n=%d p=%d kappa=%.3f slope=%.3f lambda.1se(theory)=%.1f\n",
             n, p, p/n, slope, cv$lambda.1se*n))
 cat("wrote ../Fig/fig4_calibration.pdf/.png\n")
