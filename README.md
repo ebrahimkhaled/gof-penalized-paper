@@ -7,6 +7,9 @@ logistic regression, with an application to glaucoma diagnosis**
 Ebrahim Khaled Ebrahim (ORCID 0009-0006-7839-8778)
 Department of Applied Statistics, Faculty of Business, Alexandria University, Egypt
 
+Mohammad Arashi (ORCID 0000-0002-5881-9241)
+Department of Statistics, Faculty of Mathematical Sciences, Ferdowsi University of Mashhad, Iran
+
 An earlier version of the paper is available as a preprint: https://arxiv.org/abs/2609.06413.
 
 ---

@@ -6,19 +6,20 @@
 #
 # This is the reference implementation for
 #
-#   Ebrahim, E.K. (2026). Shrinkage invalidates the Hosmer-Lemeshow test:
-#   goodness of fit for penalized logistic regression, with an application
-#   to glaucoma diagnosis.
+#   Ebrahim, E.K. and Arashi, M. (2026). Shrinkage invalidates the
+#   Hosmer-Lemeshow test: goodness of fit for penalized logistic regression,
+#   with an application to glaucoma diagnosis.
 #
 # It is SELF-CONTAINED: it depends only on base R and stats, so reproducing
-# the paper does not depend on any package version. It is the code that will
-# be released as shrink.gof() in a future version of the 'ebrahim.gof'
-# package; that package does NOT currently export it.
+# the paper does not depend on any package version. The same test is
+# exported as shrink.gof() by the 'ebrahim.gof' package on CRAN from version
+# 2.6.0; this copy adds the eigenvalue floor and the diagnostics that the
+# revised paper reports, which the package does not yet have.
 #
 # The procedure (Sections 3.1 and 3.2 of the paper):
 #   1. fit the ridge model by penalized IRLS;
 #   2. form the grouped standardized residuals r;
-#   3. subtract the estimated shrinkage non-centrality mu-hat (Proposition 2);
+#   3. subtract the estimated shrinkage non-centrality mu-hat (Proposition 3.1);
 #   4. refer the result to a bootstrap built from the debiased generator
 #      pi(beta-tilde) -- Beran prepivoting.
 #
