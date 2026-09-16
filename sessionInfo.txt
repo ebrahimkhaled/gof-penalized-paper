@@ -1,6 +1,7 @@
 Recorded on 2026-09-13 on the machine that ran the scripts, with every package the
-archived scripts load. Package versions may have been updated since the simulation runs of
-August 2026; the EDGE agreement check used ebrahim.gof 2.4.0 (see README, Software).
+archived scripts load, and unchanged on 2026-09-16 when the revision studies (T30 to T37)
+were run on the same machine. Package versions may have been updated since the simulation
+runs of August 2026; the EDGE agreement check used ebrahim.gof 2.4.0 (see README, Software).
 
 Packages loaded by the archived scripts, and whether each is installed here:
       glmnet      TH.data        ipred      ggplot2    patchwork       scales 
