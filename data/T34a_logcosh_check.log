@@ -1,0 +1,17 @@
+=== Check 1: log-cosh with large delta against ridge (same data, same lambda) ===
+  design A delta=50    : max|beta diff| 8.06e-07 | dec 4.75718941 vs 4.75718948 | edge 1.62909072 vs 1.62908824 | Newton iters 4
+  design A delta=10000 : max|beta diff| 1.63e-11 | dec 4.75718948 vs 4.75718948 | edge 1.62908825 vs 1.62908824 | Newton iters 4
+  design B delta=50    : max|beta diff| 2.17e-08 | dec 2.49657227 vs 2.49650146 | edge 0.18983536 vs 0.18975031 | Newton iters 4
+  design B delta=10000 : max|beta diff| 1.10e-10 | dec 2.49650146 vs 2.49650146 | edge 0.18975031 vs 0.18975031 | Newton iters 4
+
+=== Check 3: design B, lambda = 416, choice of delta ===
+  delta=0.02   | median |beta.hat|/delta 0.78 | ||beta.hat|| log-cosh 0.612 vs ridge 0.228 | Newton iters 8
+  delta=0.01   | median |beta.hat|/delta 2.42 | ||beta.hat|| log-cosh 1.281 vs ridge 0.228 | Newton iters 16
+  delta=0.005  | median |beta.hat|/delta 23.86 | ||beta.hat|| log-cosh 2.269 vs ridge 0.228 | Newton iters 15
+
+=== Check 2: mean and covariance trace of r and r - mu.hat under a correct model ===
+  design A ridge   lambda=137 delta=1      | ||mean r|| 4.414  ||mean(r-mu)|| 0.295 | tr cov(r-mu) 7.25 vs mean tr(I-UF^-1U') 7.97 | median |beta|/delta 0.14
+  design A logcosh lambda=137 delta=0.1    | ||mean r|| 2.541  ||mean(r-mu)|| 0.168 | tr cov(r-mu) 7.51 vs mean tr(I-UF^-1U') 7.97 | median |beta|/delta 2.01
+  design B ridge   lambda=416 delta=1      | ||mean r|| 5.761  ||mean(r-mu)|| 0.570 | tr cov(r-mu) 4.58 vs mean tr(I-UF^-1U') 6.02 | median |beta|/delta 0.02
+  design B logcosh lambda=416 delta=0.01   | ||mean r|| 3.865  ||mean(r-mu)|| 0.704 | tr cov(r-mu) 5.27 vs mean tr(I-UF^-1U') 5.97 | median |beta|/delta 2.34
+  design B logcosh lambda=416 delta=0.005  | ||mean r|| 3.418  ||mean(r-mu)|| 0.870 | tr cov(r-mu) 5.24 vs mean tr(I-UF^-1U') 5.97 | median |beta|/delta 21.75

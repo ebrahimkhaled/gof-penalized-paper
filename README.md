@@ -76,7 +76,7 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | Section 4.4 and Section S5.2, residual-prediction tests | `T24_rivals.R` | not recorded |
 | Table 5 and Figure 4, glaucoma | `glaucoma_deep.R` -> `R/fig4_calib_ek.R` | minutes |
 | Uncorrected variants on GlaucomaM | `naive_glaucoma_both.R` | seconds |
-| Second dataset, GlaucomaMVF (Table S8) | `T26_app.R` -> `extract_T26b.R` | minutes |
+| Second dataset, GlaucomaMVF (Table S11) | `T26_app.R` -> `extract_T26b.R` | minutes |
 | The one-fit screen (Section S3) | `shrinkage_screen.R` | minutes |
 | Conditioning and the generator (Section S6) | `glaucoma_conditioning.R`, `check_generator.R` | seconds |
 | Table S1, the failed repairs | `round2.R`, `cand_C.R` | minutes |
@@ -84,6 +84,11 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | Section S4.3, overshoot intervention | `overshoot_test.R` | 4 min, 22 workers |
 | Section S4.5, cost and the price of prepivoting | `prepivot_cost.R` | minutes |
 | EDGE statistic against `ebrahim.gof::edge.gof` | `verify_edge.R` | seconds |
+| Section 5.1 and Table S7, the bootstrap size | `T30_keycells_NB499.R` | 218 min, 22 workers |
+| Section 5.3 and Table S8, a cross-validated penalty | `T31_cv_lambda_size.R`, `T32_glaucoma_design_size.R`, `T37_glaucoma_T1_replication.R` | 106 + 32 + 17 min, 22 workers |
+| Section 3.1 and Table S9, a smooth non-ridge penalty | `T34_logcosh_size.R` -> `T34a_logcosh_check.R` | 131 min, 22 workers |
+| Section 3.1 and Table S10, sensitivity to the inverse of F | `T33_finv_stability.R` | 9 min |
+| Section S6, spread over bootstrap streams | `T35_seed_spread.R`, `T36_draw_construction.R` | 5 min |
 
 Development checks kept for completeness, whose results the current manuscript does not report
 or reports only through a later run: `confirm_P1.R` (first size confirmation of the prepivoted
@@ -96,7 +101,7 @@ each ends in `stopifnot()` guards asserting the claims its figure makes.
 
 Parallel scripts use PSOCK clusters sized `detectCores() - 2` and set their stream with
 `parallel::clusterSetRNGStream`; the stream seed is written at the top of each script and
-listed in Table S9 of the Supporting Information. **Results do not depend on the number of
+listed in Table S12 of the Supporting Information. **Results do not depend on the number of
 workers**, because each replication is seeded individually by `set.seed(seed)` inside the
 worker.
 
@@ -114,12 +119,15 @@ pooled. If you re-run a cell on seeds 1–1000 expecting to match Table 2, you w
 
 ## Per-replication p-values
 
-Two experiments archive their individual p-values rather than only the rejection rate:
-the power study (`data/T25_power_pvalues.csv`) and the head-to-head comparison
-(`data/T24_rivals_pvalues.csv`). For those, any cell can be re-derived and any Monte Carlo
-standard error recomputed independently, and any threshold re-applied. The remaining
-experiments archive rejection indicators and their fitted objects (`*_results.rds`),
-which reproduce each reported rate but do not permit re-thresholding.
+Ten experiments archive their individual p-values rather than only the rejection rate: the
+power study (`data/T25_power_pvalues.csv`), the head-to-head comparison
+(`data/T24_rivals_pvalues.csv`), and every study written for the revision — `T30_keycells`
+(both bootstrap sizes, one row per replicate), `T31_cv_lambda`, `T32_glaucoma_design`,
+`T33_finv_stability`, `T34_logcosh`, `T35_seed_spread`, `T36_draw_construction` and
+`T37_glaucoma_T1`. For those, any cell can be re-derived, any Monte Carlo standard error
+recomputed independently, and any threshold re-applied. The remaining experiments archive
+rejection indicators and their fitted objects (`*_results.rds`), which reproduce each
+reported rate but do not permit re-thresholding.
 
 For example, to recover the size-adjusted power of the EDGE basis in design B:
 
