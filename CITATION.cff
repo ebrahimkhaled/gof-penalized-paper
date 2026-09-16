@@ -10,7 +10,7 @@ license: MIT
 repository-code: "https://github.com/ebrahimkhaled/gof-penalized-paper"
 preferred-citation:
   type: article
-  title: "Shrinkage invalidates the Hosmer-Lemeshow test: goodness of fit for penalized logistic regression, with an application to glaucoma diagnosis"
+  title: "Shrinkage invalidates the Hosmer-Lemeshow test: goodness of fit for ridge logistic regression, with an application to glaucoma diagnosis"
   authors:
     - family-names: Ebrahim
       given-names: "Ebrahim Khaled"

@@ -1,7 +1,7 @@
 # Replication archive
 [![DOI](https://zenodo.org/badge/1331749712.svg)](https://doi.org/10.5281/zenodo.21900114)
 
-**Shrinkage invalidates the Hosmer–Lemeshow test: goodness of fit for penalized
+**Shrinkage invalidates the Hosmer–Lemeshow test: goodness of fit for ridge
 logistic regression, with an application to glaucoma diagnosis**
 
 Ebrahim Khaled Ebrahim (ORCID 0009-0006-7839-8778)
@@ -40,7 +40,7 @@ data/              saved results (*_results.rds), per-replication p-values
 Fig/               figures as they appear in the paper
 sessionInfo.txt    R and package versions used
 paper.tex, supplement.tex, oup-authoring-template.cls, oup-abbrvnat.bst
-                   manuscript sources of an earlier version
+                   manuscript sources of the earlier version posted as arXiv:2609.06413
 ```
 
 Scripts write their results to the working directory; the archived copies of those results
@@ -88,7 +88,7 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | Section S4.5, cost and the price of prepivoting | `prepivot_cost.R` | minutes |
 | EDGE statistic against `ebrahim.gof::edge.gof` | `verify_edge.R` | seconds |
 | Section 5.1 and Table S7, the bootstrap size | `T30_keycells_NB499.R` | 218 min, 22 workers |
-| Section 5.3 and Table S8, a cross-validated penalty | `T31_cv_lambda_size.R`, `T32_glaucoma_design_size.R`, `T37_glaucoma_T1_replication.R` | 106 + 32 + 17 min, 22 workers |
+| Section 5.3 and Table S8, a cross-validated penalty | `T31_cv_lambda_size.R`, `T32_glaucoma_design_size.R`, `T37_glaucoma_T1_replication.R` -> `summarise_cv_lambda.R` | 106 + 32 + 17 min, 22 workers; summary seconds |
 | Section 3.1 and Table S9, a smooth non-ridge penalty | `T34_logcosh_size.R` -> `T34a_logcosh_check.R` | 131 min, 22 workers |
 | Section 3.1 and Table S10, sensitivity to the inverse of F | `T33_finv_stability.R` | 9 min |
 | Section S6, spread over bootstrap streams | `T35_seed_spread.R`, `T36_draw_construction.R` | 5 min |

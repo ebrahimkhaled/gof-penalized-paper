@@ -7,7 +7,7 @@
 # This is the reference implementation for
 #
 #   Ebrahim, E.K. and Arashi, M. (2026). Shrinkage invalidates the
-#   Hosmer-Lemeshow test: goodness of fit for penalized logistic regression,
+#   Hosmer-Lemeshow test: goodness of fit for ridge logistic regression,
 #   with an application to glaucoma diagnosis.
 #
 # It is SELF-CONTAINED: it depends only on base R and stats, so reproducing
