@@ -1,13 +1,13 @@
 # T38 -- the lambda_g = 0.124 column of design B, measured rather than typed.
 # Identical to hd_sweep.R (same seed, same draws, same fits) with 0.124 added to the grid.
 # glmnet fits are deterministic, so every other column must reproduce data/hd_sweep_results.csv
-# exactly; the script stops if one does not. Written 2026-09-19 after a pre-submission audit found
+# exactly; the script stops if one does not. Written 2026-09-19 after a check found
 # that the design-B column labelled 0.124 in SI Table S2 and Figure 1 held the 0.064 row's MAE and
 # slope and an HL rate (0.994) that no archived run produced.
 # =====================================================================
 # HIGH-DIMENSIONAL ARM: n = 400, p = 100 (kappa = p/n = 0.25),
 # AR(1) correlated design with rho = 0.7 -- the regime where ridge is
-# the RIGHT estimator, and the regime Professor Arashi actually asked about.
+# the RIGHT estimator.
 # H0 IS TRUE: the linear logistic model is correctly specified.
 # =====================================================================
 suppressPackageStartupMessages({ library(ebrahim.gof); library(glmnet) })

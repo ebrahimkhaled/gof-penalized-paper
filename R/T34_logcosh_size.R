@@ -1,4 +1,4 @@
-# T3.4 -- BJ revision, co-author comment 4: size of the prepivoted corrected test under a smooth,
+# T3.4 -- size of the prepivoted corrected test under a smooth,
 # convex, non-quadratic penalty (log-cosh; definition and implementation checks in
 # T34a_logcosh_check.R). delta is set so that the median |beta.hat_j| / delta is about 2 at the
 # penalty used, so most coefficients sit where the penalty acts like a lasso rather than a ridge:

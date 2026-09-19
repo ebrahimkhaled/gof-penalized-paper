@@ -1,4 +1,4 @@
-# T3.4a -- BJ revision, co-author comment 4: a smooth penalty that is not quadratic.
+# T3.4a -- a smooth penalty that is not quadratic.
 # IMPLEMENTATION CHECK, run before any size study is trusted.
 #
 # Penalty on each penalized coefficient (the intercept is never penalized):

@@ -1,4 +1,4 @@
-# T3.0 -- BJ revision, co-author comment 3: are the size results sensitive to the number of
+# T3.0 -- are the size results sensitive to the number of
 # bootstrap replicates? The decisive cells of Table 2 are re-run with NB = 499 on EXACTLY the
 # datasets of the original runs: same seeds, same code, same RNG kind (clusterSetRNGStream sets
 # L'Ecuyer-CMRG on the workers before each set.seed, as in T23_rerun.R and verify_E13.R). The

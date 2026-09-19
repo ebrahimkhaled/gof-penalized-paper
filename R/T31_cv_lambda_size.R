@@ -1,4 +1,4 @@
-# T3.1 -- BJ revision, co-author comment 1: size of the prepivoted corrected test when lambda
+# T3.1 -- size of the prepivoted corrected test when lambda
 # is chosen by 10-fold cross-validation on every simulated dataset instead of being fixed.
 # Designs A and B exactly as in T23_rerun.R. Two rules, lambda.1se and lambda.min, on the theory
 # scale lambda = n * lambda_glmnet. lambda is chosen once per dataset and then held fixed inside

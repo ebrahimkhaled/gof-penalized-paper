@@ -1,4 +1,4 @@
-# T3.2 -- BJ revision (co-author comment 1; the application's support): size of the corrected
+# T3.2 -- the application's support: size of the corrected
 # test on the application's OWN design. The GlaucomaM predictors (n = 196, p = 62, pairwise
 # correlations up to 0.996) are held fixed and the response is simulated from a logistic model,
 # so every rejection is false. lambda.1se is chosen by 10-fold cross-validation on each simulated

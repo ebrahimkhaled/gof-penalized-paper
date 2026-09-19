@@ -1,5 +1,5 @@
 Recorded on 2026-09-13 on the machine that ran the scripts, with every package the
-archived scripts load, and unchanged on 2026-09-16 when the revision studies (T30 to T37)
+archived scripts load, and unchanged on 2026-09-16 when the studies T30 to T38
 were run on the same machine. Package versions may have been updated since the simulation
 runs of August 2026; the EDGE agreement check used ebrahim.gof 2.4.0 (see README, Software).
 

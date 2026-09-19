@@ -14,7 +14,7 @@
 # the paper does not depend on any package version. The same test is
 # exported as shrink.gof() by the 'ebrahim.gof' package on CRAN from version
 # 2.6.0; this copy adds the eigenvalue floor and the diagnostics that the
-# revised paper reports, which the package does not yet have.
+# paper reports, which the package does not yet have.
 #
 # The procedure (Sections 3.1 and 3.2 of the paper):
 #   1. fit the ridge model by penalized IRLS;

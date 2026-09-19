@@ -1,5 +1,5 @@
 # =====================================================================
-# Replacement pilot study for the Arashi proposal.
+# Pilot study: the uncorrected test along the ridge penalty path.
 #
 # Goal: replace the two-arbitrary-lambda table with a lambda SWEEP that
 #   (a) shows size distortion as a smooth function of the penalty,

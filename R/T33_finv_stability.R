@@ -1,4 +1,4 @@
-# T3.3 -- BJ revision, co-author comment 2: how much do the glaucoma p-values of Table 5 depend
+# T3.3 -- how much do the glaucoma p-values of Table 5 depend
 # on inverting a near-singular F? The whole 4 x 3 grid is re-run with F^{-1} replaced by an
 # eigenvalue-floored inverse (eigenvalues below tau * largest raised to that floor), tau in
 # {0 (plain solve, as in the paper), 1e-9, 1e-7, 1e-5}. Common random numbers: each cell draws

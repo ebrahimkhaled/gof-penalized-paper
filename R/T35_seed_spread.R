@@ -1,4 +1,4 @@
-# T3.5 -- BJ revision (co-author comment 3, the application's half): how much does one corrected
+# T3.5 -- the application's half: how much does one corrected
 # p-value on GlaucomaM move between bootstrap streams at NB = 499? Everything is held fixed --
 # the data, lambda, G, the statistic -- and only the random stream changes, eight seeds per cell.
 # This is the quantity a reader needs in order to know how far to trust a single entry of the

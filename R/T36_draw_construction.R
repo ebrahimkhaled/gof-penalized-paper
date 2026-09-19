@@ -1,4 +1,4 @@
-# T3.6 -- a referee-style challenge to T33: its tau = 0 column does not reproduce the glaucoma table
+# T3.6 -- a check on T33: its tau = 0 column does not reproduce the glaucoma table
 # cell for cell, and at lambda.min, G = 10 it sits above the eight-stream range that T35 measured
 # with rbinom draws (0.076 and 0.166 against [0.036, 0.066] and [0.096, 0.136]). The two studies
 # differ in how the bootstrap response is drawn -- T33 compares one shared n x NB matrix of uniforms

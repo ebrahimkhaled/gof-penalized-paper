@@ -22,10 +22,8 @@ An earlier version of the paper is available as a preprint: https://arxiv.org/ab
 | Cite the archive generally (always resolves to the newest release) | `10.5281/zenodo.21900114` — the concept DOI, and what the badge above points at |
 | Cite the exact code behind a manuscript | the **version** DOI of the release that manuscript names |
 
-Release `v1.0.3` adds the scripts that `v1.0.2` (`10.5281/zenodo.21903202`) did not contain,
-including `R/shrink_gof.R`, and brings this README up to date with the current manuscript.
-Releases `v1.0.0` and `v1.0.1` point at the same commit and predate the corrections of
-12 August 2026; do not reproduce from them.
+The manuscript cites release `v1.0.4`. Earlier releases do not contain every script listed
+below; do not reproduce from them.
 
 
 ## What is here
@@ -39,8 +37,6 @@ data/              saved results (*_results.rds), per-replication p-values
                    (T25_power_pvalues.csv, T24_rivals_pvalues.csv) and summary tables
 Fig/               figures as they appear in the paper
 sessionInfo.txt    R and package versions used
-paper.tex, supplement.tex, oup-authoring-template.cls, oup-abbrvnat.bst
-                   manuscript sources of the earlier version posted as arXiv:2609.06413
 ```
 
 Scripts write their results to the working directory; the archived copies of those results
@@ -70,7 +66,7 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | **The test itself, as one callable function** | `shrink_gof.R` -> `shrink.gof()` | seconds |
 | Proposition 2.1 numerical check | `corrected_test.R` | seconds |
 | Covariance ordering Omega_K >= Omega_MLE | `check_omega_sign.R` | seconds |
-| Figure 1, the penalty path | `lambda_sweep.R`, `hd_sweep.R` -> `R/fig1_penaltypath_ek.R` | minutes |
+| Figure 1, the penalty path | `lambda_sweep.R`, `hd_sweep.R`, `T38_hd_sweep_0124.R` -> `R/fig1_penaltypath_ek.R` | minutes |
 | Table 1, oracle vs fitted grouping | `oracle_knownnull.R` | minutes |
 | Table 2, corrected size | `T23_rerun.R` | 11 min, 22 workers |
 | Table 2, the lambda=50 row, pooled (Table S6) | `verify_E13.R` | 15 min, 22 workers |
@@ -124,7 +120,7 @@ pooled. If you re-run a cell on seeds 1–1000 expecting to match Table 2, you w
 
 Ten experiments archive their individual p-values rather than only the rejection rate: the
 power study (`data/T25_power_pvalues.csv`), the head-to-head comparison
-(`data/T24_rivals_pvalues.csv`), and every study written for the revision — `T30_keycells`
+(`data/T24_rivals_pvalues.csv`), and the later studies — `T30_keycells`
 (both bootstrap sizes, one row per replicate), `T31_cv_lambda`, `T32_glaucoma_design`,
 `T33_finv_stability`, `T34_logcosh`, `T35_seed_spread`, `T36_draw_construction` and
 `T37_glaucoma_T1`. For those, any cell can be re-derived, any Monte Carlo standard error
@@ -169,4 +165,4 @@ on 8 May 2022 and must be installed from the archived tarball.
 
 ## Licence
 
-Code: MIT. Manuscript text and figures: CC BY 4.0.
+Code: MIT. Figures: CC BY 4.0.

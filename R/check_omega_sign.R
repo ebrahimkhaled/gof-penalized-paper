@@ -1,5 +1,5 @@
 # Does Omega_K >= Omega_MLE or <= ?  The paper claims the penalized covariance is SMALLER.
-# The referee claims the identity  F^-1 - M^-1(F+2K)M^-1 = M^-1 K F^-1 K M^-1 >= 0
+# Checks the identity  F^-1 - M^-1(F+2K)M^-1 = M^-1 K F^-1 K M^-1 >= 0
 # makes it LARGER. Settle numerically on random well-conditioned F, K.
 set.seed(11)
 worst <- Inf; worstd <- Inf

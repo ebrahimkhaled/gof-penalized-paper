@@ -1,4 +1,4 @@
-# DEEP ROBUSTNESS CHECK on the primary Series C application: GlaucomaM.
+# DEEP ROBUSTNESS CHECK on the primary application: GlaucomaM.
 # The single-shot result was NAIVE p=0.0000 -> CORRECTED p=0.085 (conclusion flips).
 # Before that goes in a paper it must survive: choice of lambda, choice of G,
 # more bootstrap replicates, and the seed.

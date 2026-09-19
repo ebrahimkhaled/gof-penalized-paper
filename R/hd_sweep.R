@@ -1,7 +1,7 @@
 # =====================================================================
 # HIGH-DIMENSIONAL ARM: n = 400, p = 100 (kappa = p/n = 0.25),
 # AR(1) correlated design with rho = 0.7 -- the regime where ridge is
-# the RIGHT estimator, and the regime Professor Arashi actually asked about.
+# the RIGHT estimator.
 # H0 IS TRUE: the linear logistic model is correctly specified.
 # =====================================================================
 suppressPackageStartupMessages({ library(ebrahim.gof); library(glmnet) })
