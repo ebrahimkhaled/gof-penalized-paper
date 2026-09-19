@@ -1,0 +1,13 @@
+"dataset","lambda","lam_theory","G","naive_dec","corr_dec","naive_edge","corr_edge"
+"GlaucomaMVF","lambda.min",27.6,5,0.0149,0.342,0.0165,0.584
+"GlaucomaMVF","lambda.min",27.6,10,0.1536,0.774,0.014,0.882
+"GlaucomaMVF","lambda.min",27.6,20,0.217,0.574,0.0202,0.912
+"GlaucomaMVF","0.5*1se",61.2,5,0.0035,0.21,0.0034,0.438
+"GlaucomaMVF","0.5*1se",61.2,10,0.0916,0.638,0.0043,0.972
+"GlaucomaMVF","0.5*1se",61.2,20,0.5884,0.872,0.0048,0.828
+"GlaucomaMVF","lambda.1se",122.3,5,5e-04,0.452,8e-04,0.914
+"GlaucomaMVF","lambda.1se",122.3,10,0.0088,0.836,4e-04,0.82
+"GlaucomaMVF","lambda.1se",122.3,20,0.1644,0.894,1e-04,0.708
+"GlaucomaMVF","2*1se",244.7,5,0,0.454,1e-04,0.446
+"GlaucomaMVF","2*1se",244.7,10,0,0.472,0,0.54
+"GlaucomaMVF","2*1se",244.7,20,0.0012,0.634,0,0.432

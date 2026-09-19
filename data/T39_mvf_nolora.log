@@ -1,0 +1,43 @@
+Warning messages:
+1: package 'glmnet' was built under R version 4.4.3 
+2: package 'ipred' was built under R version 4.4.3 
+GlaucomaMVF: n=170 p=62 kappa=0.365 events=85 cond=3.42e+07 max|cor|=0.9965
+MLE: [1] "WARNING: glm.fit: algorithm did not converge"
+cv: lambda.min=0.1624 lambda.1se=0.7196 (theory scale 27.61 / 122.3)
+
+=== (b) GlaucomaMVF ROBUSTNESS GRID (NB=499) ===
+  lambda.min G= 5 | naive dec=0.0149 edge=0.0165 | corrected dec=0.3420 edge=0.5840
+  lambda.min G=10 | naive dec=0.1536 edge=0.0140 | corrected dec=0.7740 edge=0.8820
+  lambda.min G=20 | naive dec=0.2170 edge=0.0202 | corrected dec=0.5740 edge=0.9120
+  0.5*1se    G= 5 | naive dec=0.0035 edge=0.0034 | corrected dec=0.2100 edge=0.4380
+  0.5*1se    G=10 | naive dec=0.0916 edge=0.0043 | corrected dec=0.6380 edge=0.9720
+  0.5*1se    G=20 | naive dec=0.5884 edge=0.0047 | corrected dec=0.8720 edge=0.8280
+  lambda.1se G= 5 | naive dec=0.0005 edge=0.0008 | corrected dec=0.4520 edge=0.9140
+  lambda.1se G=10 | naive dec=0.0088 edge=0.0003 | corrected dec=0.8360 edge=0.8200
+  lambda.1se G=20 | naive dec=0.1644 edge=0.0001 | corrected dec=0.8940 edge=0.7080
+  2*1se      G= 5 | naive dec=0.0000 edge=0.0001 | corrected dec=0.4540 edge=0.4460
+  2*1se      G=10 | naive dec=0.0000 edge=0.0000 | corrected dec=0.4720 edge=0.5400
+  2*1se      G=20 | naive dec=0.0011 edge=0.0000 | corrected dec=0.6340 edge=0.4320
+
+=== (b) SEED STABILITY at lambda.1se, G=10, NB=999 (5 seeds) ===
+  seed 1 | corrected dec=0.8240 edge=0.7930
+  seed 2 | corrected dec=0.8290 edge=0.7940
+  seed 3 | corrected dec=0.8020 edge=0.7750
+  seed 4 | corrected dec=0.8180 edge=0.8100
+  seed 5 | corrected dec=0.8320 edge=0.7850
+     dataset     lambda lam_theory  G naive_dec corr_dec naive_edge corr_edge
+ GlaucomaMVF lambda.min       27.6  5    0.0149    0.342     0.0165     0.584
+ GlaucomaMVF lambda.min       27.6 10    0.1536    0.774     0.0140     0.882
+ GlaucomaMVF lambda.min       27.6 20    0.2170    0.574     0.0202     0.912
+ GlaucomaMVF    0.5*1se       61.2  5    0.0035    0.210     0.0034     0.438
+ GlaucomaMVF    0.5*1se       61.2 10    0.0916    0.638     0.0043     0.972
+ GlaucomaMVF    0.5*1se       61.2 20    0.5884    0.872     0.0048     0.828
+ GlaucomaMVF lambda.1se      122.3  5    0.0005    0.452     0.0008     0.914
+ GlaucomaMVF lambda.1se      122.3 10    0.0088    0.836     0.0004     0.820
+ GlaucomaMVF lambda.1se      122.3 20    0.1644    0.894     0.0001     0.708
+ GlaucomaMVF      2*1se      244.7  5    0.0000    0.454     0.0001     0.446
+ GlaucomaMVF      2*1se      244.7 10    0.0000    0.472     0.0000     0.540
+ GlaucomaMVF      2*1se      244.7 20    0.0012    0.634     0.0000     0.432
+  lambda.min lam=   27.61 | AUC=0.922 sd(pi.hat)=0.326 range=[0.001,0.982] max|beta|=0.1991
+  lambda.1se lam=  122.33 | AUC=0.905 sd(pi.hat)=0.273 range=[0.009,0.967] max|beta|=0.1012
+  2*1se      lam=  244.67 | AUC=0.898 sd(pi.hat)=0.237 range=[0.025,0.947] max|beta|=0.0732

@@ -22,7 +22,7 @@ An earlier version of the paper is available as a preprint: https://arxiv.org/ab
 | Cite the archive generally (always resolves to the newest release) | `10.5281/zenodo.21900114` — the concept DOI, and what the badge above points at |
 | Cite the exact code behind a manuscript | the **version** DOI of the release that manuscript names |
 
-The manuscript cites release `v1.0.4`. Earlier releases do not contain every script listed
+The manuscript cites release `v1.0.5`. Earlier releases do not contain every script listed
 below; do not reproduce from them.
 
 
@@ -75,7 +75,8 @@ the same numbers. The Supporting Information numbers its sections and tables S1,
 | Section 4.4 and Section S5.2, residual-prediction tests | `T24_rivals.R` | not recorded |
 | Table 5 and Figure 4, glaucoma | `glaucoma_deep.R` -> `R/fig4_calib_ek.R` | minutes |
 | Uncorrected variants on GlaucomaM | `naive_glaucoma_both.R` | seconds |
-| Second dataset, GlaucomaMVF (Table S11) | `T26_app.R` -> `extract_T26b.R` | minutes |
+| Second dataset, GlaucomaMVF (Table S11), without `lora` | `T39_mvf_nolora.R` | minutes |
+| The same with `lora` as a predictor (reported as a check) | `T26_app.R` -> `extract_T26b.R` | minutes |
 | The one-fit screen (Section S3) | `shrinkage_screen.R` | minutes |
 | Conditioning and the generator (Section S6) | `glaucoma_conditioning.R`, `check_generator.R` | seconds |
 | Table S1, the failed repairs | `round2.R`, `cand_C.R` | minutes |

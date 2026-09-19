@@ -63,7 +63,7 @@ pl <- ggplot(d, aes(pbar, obs)) +
   # annotation sits in the empty corner but is coloured to match the points it describes
   # (the two side keys moved to the caption: RSS puts keys there, not in the image)
   annotate("text", x = 0.50, y = 1.035, hjust = 0.5, size = 2.75, colour = "grey20",
-           label = sprintf("calibration slope %.2f: the fit is too flat", slope)) +
+           label = sprintf("apparent calibration slope %.2f: too flat", slope)) +
   coord_equal(xlim = c(0,1), ylim = c(0,1.06), expand = FALSE) +
   labs(x = "mean predicted probability within decile",
        y = "observed event rate within decile") +
