@@ -17,9 +17,9 @@ lgA  <- c(0, 0.02, 0.05, 0.10, 0.20, 0.274)
 hlA  <- c(0.068, 0.068, 0.118, 0.362, 0.916, 0.988)
 edA  <- c(0.034, 0.046, 0.170, 0.888, 1.000, 1.000)
 lgB  <- c(0, 0.01, 0.05, 0.124, 0.513, 1.5)
-hlB  <- c(0.178, 0.432, 0.990, 0.994, 1.000, 1.000)
+hlB  <- c(0.178, 0.432, 0.990, 0.998, 1.000, 1.000)   # 0.124 column measured by T38 (was typed 0.994)
 edB  <- c(0.284, 0.994, 1.000, 1.000, 1.000, 1.000)
-maeB <- c(0.1859, 0.1469, 0.1330, 0.1336, 0.1606, 0.1840)   # manifest 2, DGP B
+maeB <- c(0.1859, 0.1469, 0.1330, 0.1388, 0.1606, 0.1840)   # manifest 2, DGP B; 0.124 from T38
 
 ## manifest 2: cross-validated penalties (medians; IQR registered for A only)
 cvA_min <- 0.0197; cvA_1se <- 0.2331; cvA_lo <- 0.185; cvA_hi <- 0.295
@@ -74,12 +74,12 @@ pA <- panel_size(lgA, hlA, edA, c(0, 0.05, 0.1, 0.274), "A.  Design A  (p = 5)",
                  "fails before CV stops",
                  corA_x, corA_y, corA_s, cvA_min, cvA_1se,
                  band = c(cvA_lo, cvA_hi), ylab = "rejection rate of a CORRECT model") +
-      annotate("text", x = 0.22, y = 0.40, hjust = 1, size = 2.2, colour = "grey35",
-           lineheight = 0.95, label = "cross-validation\nlands here") +
-  annotate("text", x = 0.006, y = 0.135, hjust = 0, size = 2.2, colour = BLU,
+      annotate("text", x = 0.023, y = 0.92, hjust = 0, size = 2.2, colour = "grey35",
+           lineheight = 0.95, label = "cross-validation\nlands in\nthe band") +
+  annotate("text", x = 0.30, y = 0.135, hjust = 0.5, size = 2.2, colour = BLU,
            label = "corrected")
 
-pB <- panel_size(lgB, hlB, edB, c(0, 0.05, 0.124, 0.513, 1.5), "B.  Design B  (p = 100)",
+pB <- panel_size(lgB, hlB, edB, c(0, 0.124, 0.513, 1.5), "B.  Design B  (p = 100)",
                  "invalid even unpenalized",
                  corB_x, corB_y, corB_s, cvB_min, cvB_1se) +
   annotate("text", x = 0.055, y = 0.30, hjust = 0, size = 2.2, colour = "grey25",
@@ -98,13 +98,13 @@ pC <- ggplot(dC, aes(mae, rej)) +
   geom_text_repel(aes(label = sprintf("%.3g", lg)), size = 2.1, colour = "grey30",
                   min.segment.length = 0.1, segment.size = 0.2, segment.colour = "grey60",
                   box.padding = 0.28, seed = 7) +
-  annotate("text", x = 0.150, y = 0.80, hjust = 0.5, size = 2.15, colour = "grey20",
+  annotate("text", x = 0.152, y = 0.66, hjust = 0.5, size = 2.15, colour = "grey20",
            lineheight = 0.95,
            label = "the best probabilities this\nmodel ever produces,\nrejected 99% of the time") +
   scale_x_reverse(limits = c(0.196, 0.122)) +
   scale_y_continuous(limits = c(0, 1.06), breaks = seq(0, 1, 0.25), expand = c(0, 0)) +
   labs(title = "C.  The trade, design B",
-       x = expression(paste("MAE(", hat(pi), ", ", pi[0], ")   — better →")),
+       x = "MAE  (better →)",
        y = NULL) +
   theme_ek(base_size = 9) +
   theme(plot.title.position = "panel",
