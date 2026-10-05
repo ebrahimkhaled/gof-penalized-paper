@@ -22,7 +22,7 @@ An earlier version of the paper is available as a preprint: https://arxiv.org/ab
 | Cite the archive generally (always resolves to the newest release) | `10.5281/zenodo.21900114` — the concept DOI, and what the badge above points at |
 | Cite the exact code behind a manuscript | the **version** DOI of the release that manuscript names |
 
-The manuscript cites release `v1.0.7`; its version DOI is the one given in the manuscript's Data
+The manuscript cites release `v1.0.8`; its version DOI is the one given in the manuscript's Data
 Availability Statement and on the Zenodo page of this release. Earlier releases do not contain every script listed
 below; do not reproduce from them.
 
