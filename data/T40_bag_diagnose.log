@@ -1,0 +1,6 @@
+03:01:53  start cell 1 (p = 20)
+03:38:48  end   cell 1: 36.9 min, peak R memory 230 MB, p.value 0.48
+03:38:48  start cell 15 (p = 100)
+04:52:14  end   cell 15: 73.4 min, peak R memory 218 MB, p.value 0.24
+04:52:14  start cell 29 (p = 180)
+06:43:41  end   cell 29: 111.4 min, peak R memory 222 MB, p.value 0.92

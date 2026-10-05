@@ -1,0 +1,23 @@
+d0b9b8312510961e026db32d5bee34eb30610bf11d0db970a2694081fcbd3ce5 *PREDECLARATION_T40_highdim.md
+3adcf143f59eefed1df6db93e8f4e30601c69b92b12583384cbb7b23ebc36a61 *R/T40_highdim_grid.R
+# amendment 2 (2026-10-02): T41 added
+efe34c1e7941d785fc267f739281745acb5f9601df49b99879f7732ce72568b9 *PREDECLARATION_T40_highdim.md
+252324776fa86f833f4c27fb4f71b3a60ec67f0d2b524f2ebe3b09c27c464bb5 *R/T41_mle_baseline.R
+# amendment 3 (2026-10-02): BAGofT one process per test
+e544a67c7090c49c334d510211b07af3ccc7899e2b6b59dfab9ba001c124f48d *PREDECLARATION_T40_highdim.md
+dddf144204f212c21b0bea6b25d72c076005b8716f577cbf039258b6f4045d78 *R/T40_bag_one.R
+b882f613c81d378cd34c493b11a3396099dfcb93c537960aca65d0afa72708a6 *R/T40_bag_runner.R
+# amendment 4 (2026-10-02): T42 intercept cells + size-adjusted power
+ba6f95e06e9ae5ebd64c26234bdc0ec8611660f919697fbc3272a20d1230afba *.\PREDECLARATION_T40_highdim.md
+7c7b29d241daf2e3b8d9844d43c0856b429a1324bd958eeeedda3666aa0e6f92 *.\R\T42_intercept.R
+079f439308438727930ca8b2eabbdbf69daf943579687d25cc57b4eadd8b4a46 *.\R\T40_size_adjusted.R
+# amendment 5 (2026-10-02): independent second block, all p/n >= 0.25 null cells
+2ffa78af4c17a9105c6aa1dba0c94d731660068c5ed3031223df5f97c7c04117 *.\PREDECLARATION_T40_highdim.md
+69294ed9342bb1655e3576a8df992d238df3bb2cde7218bf8f02b4c3df8b58a2 *.\R\T40_highdim_grid.R
+bed5d86178d24a74dbd83f44dba3307112f90bd307c9c72fed949e39af90ca5a *.\R\T40_chain_bag.ps1
+# amendment 6 (2026-10-03): T42 p/n 0.25 null cell second block
+eaba5e524268ce5310a55cdbc7110ae9d8cb2a9cdfc82128e865a1f18eab631b *.\PREDECLARATION_T40_highdim.md
+8b04f8a8478bb9fc7faba3f705528b2c8880045081f4b829e5d61deb163a07a8 *.\R\T42_intercept.R
+c7bde3cfa6d5e5948c2e2961d6829b60c48a047c627d1239d54f7d69cc98867c *.\R\T40_chain_after_recheck.ps1
+# amendment 7 (2026-10-05): BAGofT reported at p/n 0.05 and 0.25 in the submitted paper
+78d12dfe1c52067179cd6ce40a9f41f1b8c232aa6451907aa82b4ad9a0d10a8b *.\PREDECLARATION_T40_highdim.md

@@ -1,0 +1,10 @@
+Warning message:
+package 'glmnet' was built under R version 4.4.3 
+T40_pilot_main.csv: 20 jobs to run (0 already on disk)
+[    0.8 min] T40_pilot_main.csv 20 / 20
+T40_pilot_bag.csv: 6 jobs to run (0 already on disk)
+Error in unserialize(socklist[[n]]) : error reading from connection
+Calls: run_jobs ... recvOneData -> recvOneData.SOCKcluster -> unserialize
+Error in serialize(data, node$con) : error writing to connection
+Calls: run_jobs ... postNode -> sendData -> sendData.SOCKnode -> serialize
+Execution halted

@@ -1,0 +1,13 @@
+T42_recheck_pvalues.csv: 1000 jobs to run (0 already on disk)
+[    2.4 min] T42_recheck_pvalues.csv 88 / 1000
+[    4.9 min] T42_recheck_pvalues.csv 176 / 1000
+[    7.2 min] T42_recheck_pvalues.csv 264 / 1000
+[    9.6 min] T42_recheck_pvalues.csv 352 / 1000
+[   11.9 min] T42_recheck_pvalues.csv 440 / 1000
+[   14.3 min] T42_recheck_pvalues.csv 528 / 1000
+[   16.6 min] T42_recheck_pvalues.csv 616 / 1000
+[   18.9 min] T42_recheck_pvalues.csv 704 / 1000
+[   21.1 min] T42_recheck_pvalues.csv 792 / 1000
+[   23.2 min] T42_recheck_pvalues.csv 880 / 1000
+[   25.3 min] T42_recheck_pvalues.csv 968 / 1000
+[   26.2 min] T42_recheck_pvalues.csv 1000 / 1000

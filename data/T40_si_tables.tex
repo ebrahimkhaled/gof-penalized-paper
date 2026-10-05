@@ -1,0 +1,165 @@
+\begin{table}[htbp]
+\centering
+\caption{Rejection rate of correctly specified models at nominal level $0.05$, $n = 400$, over the grid of Figure~\mref{fig:validity}. HL (MLE) is the classical test on the maximum likelihood fit, over the datasets in which that estimate exists; the last column gives that share. Cells at $p/n \ge 0.25$ pool two independent blocks of $1000$ replicates (Table~\ref{tab:t40blocks}); the others have $1000$.}
+\label{tab:t40size}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrrrrrrrr}
+\toprule
+Design & $p/n$ & \texttt{SC.HL} & \texttt{SC.EDGE} & HL & HL (MLE) & GRP5 & GRP1 & PLS & MLE exists \\
+\midrule
+dense 0.4 & 0.05 & 0.036 & 0.045 & 0.998 & 0.045 & 0.001 & 0.041 & 0.053 & 1.00 \\
+dense 0.4 & 0.10 & 0.048 & 0.044 & 1.000 & 0.044 & 0.007 & 0.098 & 0.053 & 1.00 \\
+dense 0.4 & 0.25 & 0.062 & 0.046 & 1.000 & 0.167 & 0.120 & 0.316 & 0.111 & 0.99 \\
+dense 0.4 & 0.35 & 0.059 & 0.049 & 1.000 & 0.399 & 0.135 & 0.362 & 0.130 & 0.34 \\
+dense 0.4 & 0.45 & 0.072 & 0.059 & 1.000 & --- & 0.132 & 0.352 & 0.123 & 0.00 \\
+\addlinespace
+dense 0.7 & 0.05 & 0.053 & 0.059 & 0.702 & 0.043 & 0.005 & 0.045 & 0.064 & 1.00 \\
+dense 0.7 & 0.10 & 0.043 & 0.048 & 0.940 & 0.053 & 0.006 & 0.044 & 0.084 & 1.00 \\
+dense 0.7 & 0.25 & 0.047 & 0.046 & 1.000 & 0.172 & 0.008 & 0.098 & 0.070 & 1.00 \\
+dense 0.7 & 0.35 & 0.068 & 0.069 & 1.000 & 0.411 & 0.035 & 0.170 & 0.087 & 0.37 \\
+dense 0.7 & 0.45 & 0.079 & 0.079 & 1.000 & --- & 0.058 & 0.244 & 0.092 & 0.00 \\
+\addlinespace
+dense 0.8 & 0.05 & 0.042 & 0.038 & 0.279 & 0.051 & 0.006 & 0.061 & 0.077 & 1.00 \\
+dense 0.8 & 0.10 & 0.044 & 0.039 & 0.698 & 0.049 & 0.002 & 0.064 & 0.076 & 1.00 \\
+dense 0.8 & 0.25 & 0.057 & 0.056 & 1.000 & 0.166 & 0.001 & 0.040 & 0.077 & 0.99 \\
+dense 0.8 & 0.35 & 0.086 & 0.073 & 1.000 & 0.437 & 0.003 & 0.054 & 0.069 & 0.33 \\
+dense 0.8 & 0.45 & 0.090 & 0.086 & 1.000 & --- & 0.010 & 0.099 & 0.069 & 0.00 \\
+\addlinespace
+sparse 0.7 & 0.05 & 0.058 & 0.046 & 0.996 & 0.054 & 0.002 & 0.034 & 0.084 & 1.00 \\
+sparse 0.7 & 0.10 & 0.046 & 0.053 & 1.000 & 0.061 & 0.002 & 0.029 & 0.101 & 1.00 \\
+sparse 0.7 & 0.25 & 0.090 & 0.083 & 1.000 & 0.170 & 0.001 & 0.027 & 0.095 & 1.00 \\
+sparse 0.7 & 0.35 & 0.121 & 0.113 & 1.000 & 0.369 & 0.001 & 0.025 & 0.099 & 0.32 \\
+sparse 0.7 & 0.45 & 0.157 & 0.165 & 1.000 & --- & 0.001 & 0.029 & 0.092 & 0.00 \\
+\addlinespace
+25\% events & 0.05 & 0.043 & 0.047 & 0.634 & 0.049 & 0.004 & 0.048 & 1.000 & 1.00 \\
+25\% events & 0.25 & 0.089 & 0.089 & 1.000 & 0.313 & 0.012 & 0.100 & 1.000 & 0.69 \\
+25\% events & 0.45 & 0.192 & 0.214 & 1.000 & --- & 0.048 & 0.211 & 1.000 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{The two independent blocks of every re-run correct-model cell (replicates $1$--$1000$ and $1001$--$2000$, seeds disjoint), declared before the second block was run. The blocks differ by less than two standard errors of their difference in every cell except the dense design under correlation $0.8$ at $p/n = 0.35$ on the decile basis, where the first block was the higher by $0.027$.}
+\label{tab:t40blocks}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+& & \multicolumn{2}{c}{\texttt{SC.HL}} & \multicolumn{2}{c}{\texttt{SC.EDGE}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Design & $p/n$ & block 1 & block 2 & block 1 & block 2 \\
+\midrule
+dense 0.7 & 0.25 & 0.047 & 0.047 & 0.043 & 0.049 \\
+dense 0.7 & 0.35 & 0.068 & 0.067 & 0.071 & 0.066 \\
+dense 0.7 & 0.45 & 0.078 & 0.080 & 0.078 & 0.080 \\
+dense 0.4 & 0.25 & 0.069 & 0.055 & 0.054 & 0.038 \\
+dense 0.4 & 0.35 & 0.059 & 0.058 & 0.049 & 0.048 \\
+dense 0.4 & 0.45 & 0.073 & 0.072 & 0.061 & 0.056 \\
+dense 0.8 & 0.25 & 0.059 & 0.055 & 0.049 & 0.062 \\
+dense 0.8 & 0.35 & 0.100 & 0.073 & 0.080 & 0.066 \\
+dense 0.8 & 0.45 & 0.094 & 0.086 & 0.088 & 0.084 \\
+sparse 0.7 & 0.25 & 0.086 & 0.095 & 0.078 & 0.087 \\
+sparse 0.7 & 0.35 & 0.134 & 0.109 & 0.114 & 0.112 \\
+sparse 0.7 & 0.45 & 0.166 & 0.148 & 0.172 & 0.157 \\
+25\% events & 0.25 & 0.084 & 0.094 & 0.091 & 0.088 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Size-adjusted power at departure strength $a = 1$ ($500$ replicates per cell): each test is thresholded at the fifth percentile of its own $p$-values in the matching correct-model cell. In the design with $25\%$ events PLStests rejects every correct model, so its $p$-values are all near zero and its size-adjusted power carries no information there (shown as ---).}
+\label{tab:t40power}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllrrrrr}
+\toprule
+Design & Departure & $p/n$ & \texttt{SC.HL} & \texttt{SC.EDGE} & GRP5 & GRP1 & PLS \\
+\midrule
+dense 0.4 & along risk & 0.05 & 0.632 & 0.822 & 0.134 & 0.108 & 0.658 \\
+dense 0.4 & along risk & 0.10 & 0.308 & 0.478 & 0.128 & 0.100 & 0.582 \\
+dense 0.4 & along risk & 0.25 & 0.050 & 0.090 & 0.032 & 0.044 & 0.492 \\
+dense 0.4 & along risk & 0.35 & 0.074 & 0.078 & 0.024 & 0.034 & 0.396 \\
+dense 0.4 & along risk & 0.45 & 0.058 & 0.056 & 0.030 & 0.022 & 0.426 \\
+\addlinespace
+dense 0.4 & one covariate & 0.05 & 0.094 & 0.086 & 0.872 & 0.716 & 0.122 \\
+dense 0.4 & one covariate & 0.10 & 0.064 & 0.042 & 0.798 & 0.526 & 0.084 \\
+dense 0.4 & one covariate & 0.25 & 0.038 & 0.036 & 0.354 & 0.232 & 0.090 \\
+dense 0.4 & one covariate & 0.35 & 0.062 & 0.048 & 0.212 & 0.156 & 0.056 \\
+dense 0.4 & one covariate & 0.45 & 0.072 & 0.060 & 0.194 & 0.116 & 0.058 \\
+\addlinespace
+dense 0.4 & interaction & 0.05 & 0.056 & 0.076 & 0.460 & 0.324 & 0.722 \\
+dense 0.4 & interaction & 0.10 & 0.054 & 0.044 & 0.310 & 0.194 & 0.694 \\
+dense 0.4 & interaction & 0.25 & 0.024 & 0.038 & 0.076 & 0.088 & 0.532 \\
+dense 0.4 & interaction & 0.35 & 0.058 & 0.040 & 0.052 & 0.034 & 0.472 \\
+dense 0.4 & interaction & 0.45 & 0.068 & 0.062 & 0.052 & 0.050 & 0.512 \\
+\addlinespace
+dense 0.7 & along risk & 0.05 & 0.430 & 0.730 & 0.226 & 0.208 & 0.716 \\
+dense 0.7 & along risk & 0.10 & 0.248 & 0.480 & 0.170 & 0.152 & 0.546 \\
+dense 0.7 & along risk & 0.25 & 0.194 & 0.282 & 0.134 & 0.102 & 0.556 \\
+dense 0.7 & along risk & 0.35 & 0.138 & 0.184 & 0.082 & 0.070 & 0.516 \\
+dense 0.7 & along risk & 0.45 & 0.124 & 0.138 & 0.100 & 0.044 & 0.506 \\
+\addlinespace
+dense 0.7 & one covariate & 0.05 & 0.058 & 0.102 & 0.858 & 0.706 & 0.128 \\
+dense 0.7 & one covariate & 0.10 & 0.066 & 0.094 & 0.770 & 0.626 & 0.074 \\
+dense 0.7 & one covariate & 0.25 & 0.054 & 0.046 & 0.538 & 0.356 & 0.052 \\
+dense 0.7 & one covariate & 0.35 & 0.056 & 0.052 & 0.324 & 0.230 & 0.066 \\
+dense 0.7 & one covariate & 0.45 & 0.038 & 0.048 & 0.294 & 0.128 & 0.086 \\
+\addlinespace
+dense 0.7 & interaction & 0.05 & 0.048 & 0.074 & 0.712 & 0.560 & 0.950 \\
+dense 0.7 & interaction & 0.10 & 0.038 & 0.052 & 0.530 & 0.428 & 0.920 \\
+dense 0.7 & interaction & 0.25 & 0.078 & 0.078 & 0.328 & 0.218 & 0.932 \\
+dense 0.7 & interaction & 0.35 & 0.052 & 0.036 & 0.142 & 0.138 & 0.910 \\
+dense 0.7 & interaction & 0.45 & 0.074 & 0.060 & 0.172 & 0.074 & 0.914 \\
+\addlinespace
+dense 0.8 & along risk & 0.05 & 0.534 & 0.820 & 0.526 & 0.338 & 0.746 \\
+dense 0.8 & along risk & 0.10 & 0.472 & 0.712 & 0.338 & 0.244 & 0.698 \\
+dense 0.8 & along risk & 0.25 & 0.382 & 0.626 & 0.240 & 0.152 & 0.614 \\
+dense 0.8 & along risk & 0.35 & 0.284 & 0.512 & 0.268 & 0.132 & 0.538 \\
+dense 0.8 & along risk & 0.45 & 0.232 & 0.378 & 0.170 & 0.100 & 0.562 \\
+\addlinespace
+dense 0.8 & one covariate & 0.05 & 0.092 & 0.152 & 0.900 & 0.698 & 0.166 \\
+dense 0.8 & one covariate & 0.10 & 0.076 & 0.092 & 0.780 & 0.574 & 0.090 \\
+dense 0.8 & one covariate & 0.25 & 0.078 & 0.070 & 0.664 & 0.484 & 0.078 \\
+dense 0.8 & one covariate & 0.35 & 0.050 & 0.056 & 0.514 & 0.330 & 0.052 \\
+dense 0.8 & one covariate & 0.45 & 0.062 & 0.050 & 0.502 & 0.266 & 0.092 \\
+\addlinespace
+dense 0.8 & interaction & 0.05 & 0.082 & 0.116 & 0.834 & 0.624 & 0.966 \\
+dense 0.8 & interaction & 0.10 & 0.068 & 0.094 & 0.672 & 0.418 & 0.972 \\
+dense 0.8 & interaction & 0.25 & 0.056 & 0.060 & 0.418 & 0.280 & 0.978 \\
+dense 0.8 & interaction & 0.35 & 0.060 & 0.048 & 0.302 & 0.158 & 0.970 \\
+dense 0.8 & interaction & 0.45 & 0.070 & 0.058 & 0.274 & 0.168 & 0.980 \\
+\addlinespace
+sparse 0.7 & along risk & 0.05 & 0.892 & 0.982 & 0.858 & 0.688 & 0.944 \\
+sparse 0.7 & along risk & 0.10 & 0.828 & 0.948 & 0.824 & 0.658 & 0.934 \\
+sparse 0.7 & along risk & 0.25 & 0.590 & 0.808 & 0.730 & 0.524 & 0.906 \\
+sparse 0.7 & along risk & 0.35 & 0.448 & 0.566 & 0.688 & 0.462 & 0.928 \\
+sparse 0.7 & along risk & 0.45 & 0.292 & 0.358 & 0.592 & 0.370 & 0.892 \\
+\addlinespace
+sparse 0.7 & one covariate & 0.05 & 0.196 & 0.392 & 0.824 & 0.714 & 0.330 \\
+sparse 0.7 & one covariate & 0.10 & 0.206 & 0.316 & 0.828 & 0.630 & 0.290 \\
+sparse 0.7 & one covariate & 0.25 & 0.100 & 0.226 & 0.666 & 0.496 & 0.264 \\
+sparse 0.7 & one covariate & 0.35 & 0.092 & 0.124 & 0.658 & 0.430 & 0.270 \\
+sparse 0.7 & one covariate & 0.45 & 0.090 & 0.068 & 0.578 & 0.354 & 0.282 \\
+\addlinespace
+sparse 0.7 & interaction & 0.05 & 0.206 & 0.452 & 0.732 & 0.586 & 0.812 \\
+sparse 0.7 & interaction & 0.10 & 0.220 & 0.354 & 0.638 & 0.500 & 0.840 \\
+sparse 0.7 & interaction & 0.25 & 0.132 & 0.214 & 0.450 & 0.302 & 0.824 \\
+sparse 0.7 & interaction & 0.35 & 0.076 & 0.098 & 0.410 & 0.272 & 0.850 \\
+sparse 0.7 & interaction & 0.45 & 0.088 & 0.082 & 0.360 & 0.208 & 0.852 \\
+\addlinespace
+25\% events & along risk & 0.05 & 0.394 & 0.602 & 0.186 & 0.140 & --- \\
+25\% events & along risk & 0.25 & 0.212 & 0.320 & 0.056 & 0.052 & --- \\
+25\% events & along risk & 0.45 & 0.146 & 0.188 & 0.044 & 0.046 & --- \\
+\addlinespace
+25\% events & one covariate & 0.05 & 0.106 & 0.188 & 0.944 & 0.846 & --- \\
+25\% events & one covariate & 0.25 & 0.054 & 0.062 & 0.680 & 0.480 & --- \\
+25\% events & one covariate & 0.45 & 0.084 & 0.082 & 0.464 & 0.234 & --- \\
+\addlinespace
+25\% events & interaction & 0.05 & 0.116 & 0.172 & 0.974 & 0.848 & --- \\
+25\% events & interaction & 0.25 & 0.046 & 0.040 & 0.704 & 0.442 & --- \\
+25\% events & interaction & 0.45 & 0.024 & 0.012 & 0.480 & 0.244 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
