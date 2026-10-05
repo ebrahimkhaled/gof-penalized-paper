@@ -1,4 +1,4 @@
-# Figure 5 for the paper -- THE VALIDITY MAP. EK house style.
+# Figure 4 for the paper -- THE VALIDITY MAP. EK house style.
 #
 # One question per panel: in this design, which tests reject correct models at the rate they claim, as p/n
 # grows? The shaded band is the pre-declared range [0.03, 0.08]. The rate axis is logarithmic because the
@@ -10,7 +10,7 @@
 #
 # Data: gof-penalized-paper/data/T40_validity_map.csv (T40_validity_map_data.py; T40, T41, T42 and the
 # Amendment 5/6 second blocks pooled, 1000-2000 replicates per point).
-## Run from this directory:  cd paper_seriesC/R && Rscript fig5_validity_map_ek.R
+## Run from this directory:  cd paper_seriesC/R && Rscript fig4_validity_map_ek.R
 suppressPackageStartupMessages({library(ggplot2)})
 source("_ek_theme.R")
 
@@ -68,8 +68,8 @@ pl <- ggplot(d, aes(kappa, y, colour = method, linetype = method, shape = method
 ## no rescaling and the 9pt base type prints at 9pt.
 OUP_W <- 6.181
 for (dir in c("../Fig", "../bimj/Fig")) if (dir.exists(dir))
-  ggsave(file.path(dir, "fig5_validity_map.pdf"), pl, width = OUP_W, height = OUP_W * 0.66, device = cairo_pdf)
-ggsave("../Fig/fig5_validity_map.png", pl, width = OUP_W, height = OUP_W * 0.66, dpi = 220)
+  ggsave(file.path(dir, "fig4_validity_map.pdf"), pl, width = OUP_W, height = OUP_W * 0.66, device = cairo_pdf)
+ggsave("../Fig/fig4_validity_map.png", pl, width = OUP_W, height = OUP_W * 0.66, dpi = 220)
 
 ## the claims the figure carries in the text (Section 5.4)
 r <- function(m, dsg, k) d$rate[d$method == m & grepl(dsg, d$design) & abs(d$kappa - k) < 1e-9]
@@ -80,4 +80,4 @@ for (dsg in c("correlation 0.4", "Dense signal, correlation 0.7", "correlation 0
 stopifnot(r("SC.HL", "Sparse", 0.25) > 0.08,                                             # but not sparse
           all(d$rate[d$method == "PLStests" & grepl("25%", d$design)] == 1),             # PLStests, intercept
           !any(d$method == "HL on MLE" & abs(d$kappa - 0.45) < 1e-9 & !is.na(d$rate)))   # no MLE at 0.45
-cat("figure 5 claims verified\n")
+cat("figure 4 claims verified\n")

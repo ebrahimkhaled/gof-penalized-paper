@@ -45,10 +45,9 @@ for c, (dsg, p) in cellmap.items():
                      lo=lo, hi=hi, mle_exists=ex.mean()))
 
 # BAGofT: dense design under correlation 0.7 only, 100 replicates per cell, p/n 0.05 and 0.25 (Amendments 1, 7)
-import glob
-bag = pd.concat([pd.read_csv(f) for f in glob.glob(os.path.join(D, "T40_bag_rows", "*.csv"))])
+bag = pd.read_csv(os.path.join(D, "T40_bagoft_pvalues.csv"))
 for c, p in ((1, 20), (15, 100)):
-    v = bag[bag.cell == c].p_bag.dropna(); k = int((v < .05).sum()); n = len(v)
+    v = bag[(bag.cell == c) & (bag.rep <= 100)].p_bag.dropna(); k = int((v < .05).sum()); n = len(v)
     if n < 100:
         continue
     lo, hi = ci(k, n)

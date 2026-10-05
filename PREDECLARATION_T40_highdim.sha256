@@ -21,3 +21,5 @@ eaba5e524268ce5310a55cdbc7110ae9d8cb2a9cdfc82128e865a1f18eab631b *.\PREDECLARATI
 c7bde3cfa6d5e5948c2e2961d6829b60c48a047c627d1239d54f7d69cc98867c *.\R\T40_chain_after_recheck.ps1
 # amendment 7 (2026-10-05): BAGofT reported at p/n 0.05 and 0.25 in the submitted paper
 78d12dfe1c52067179cd6ce40a9f41f1b8c232aa6451907aa82b4ad9a0d10a8b *.\PREDECLARATION_T40_highdim.md
+# 2026-10-06, not an amendment: T40_OUT output override added to R/T40_highdim_grid.R for spot checks (no computation changed)
+63befd4f80a2147e5a292ed4d41e10ddd5878ad643c430aa41cf0e3922e393a6 *.\R\T40_highdim_grid.R

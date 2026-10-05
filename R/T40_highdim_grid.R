@@ -11,7 +11,9 @@ suppressPackageStartupMessages({library(glmnet); library(parallel)})
 
 MODE <- commandArgs(TRUE)[1]; if (is.na(MODE)) MODE <- "smoke"
 NW   <- as.integer(Sys.getenv("T40_NW", "22"))
-OUT_MAIN <- file.path("..", "data", "T40_main_pvalues.csv")
+# T40_OUT redirects a run to a scratch file, so a replicator can recompute a few cells (T40_ONLY) without
+# touching the archived results, which a run would otherwise skip as already done
+OUT_MAIN <- Sys.getenv("T40_OUT", file.path("..", "data", "T40_main_pvalues.csv"))
 OUT_BAG  <- file.path("..", "data", "T40_bagoft_pvalues.csv")
 N <- 400L; G <- 10L; NB <- 499L; GAMMA <- 1.5
 
