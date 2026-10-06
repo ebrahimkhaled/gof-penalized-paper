@@ -71,13 +71,16 @@ for p in [20, 100, 180]:
         rows.append(r)
 s = pd.concat([s[["dsg", "kappa", "dep"] + list(M)], pd.DataFrame(rows)])
 DEPN = {"index": "along risk", "coord": "one covariate", "inter": "interaction"}
-out.append("\\begin{table}[htbp]\n\\centering\n\\caption{Size-adjusted power at departure strength $a = 1$ "
+# 69 rows do not fit on one page, so this table is a longtable that continues with its header repeated
+HEADP = ("Design & Departure & $p/n$ & \\texttt{SC.HL} & \\texttt{SC.EDGE} & GRP5 & GRP1 & PLS \\\\")
+out.append("\\begingroup\\small\\setlength{\\tabcolsep}{4pt}\n\\begin{longtable}{lllrrrrr}\n"
+           "\\caption{Size-adjusted power at departure strength $a = 1$ "
            "($500$ replicates per cell): each test is thresholded at the fifth percentile of its own $p$-values in "
            "the matching correct-model cell. In the design with $25\\%$ events PLStests rejects every correct model, "
            "so its $p$-values are all near zero and its size-adjusted power carries no information there "
-           "(shown as ---).}\n\\label{tab:t40power}\n\\small\n\\setlength{\\tabcolsep}{4pt}\n"
-           "\\begin{tabular}{lllrrrrr}\n\\toprule\nDesign & Departure & $p/n$ & \\texttt{SC.HL} & \\texttt{SC.EDGE} & "
-           "GRP5 & GRP1 & PLS \\\\\n\\midrule")
+           "(shown as ---).}\\label{tab:t40power}\\\\\n\\toprule\n" + HEADP + "\n\\midrule\n\\endfirsthead\n"
+           "\\multicolumn{8}{l}{\\small Table~\\thetable{} (continued)}\\\\\n\\toprule\n" + HEADP + "\n\\midrule\n"
+           "\\endhead\n\\bottomrule\n\\endlastfoot")
 order = ["dense 0.4", "dense 0.7", "dense 0.8", "sparse 0.7", "25\\% events"]
 first = True
 for dsg in order:
@@ -92,7 +95,7 @@ for dsg in order:
             pls = "---" if dsg.startswith("25") else "%.3f" % r["PLS"]
             out.append("%s & %s & %.2f & %.3f & %.3f & %.3f & %.3f & %s \\\\" % (
                 dsg, DEPN[dep], r.kappa, r["SC.HL"], r["SC.EDGE"], r["GRP5"], r["GRP1"], pls))
-out.append("\\bottomrule\n\\end{tabular}\n\\end{table}\n")
+out.append("\\end{longtable}\n\\endgroup\n")
 
 with open(os.path.join(D, "T40_si_tables.tex"), "w", encoding="utf-8") as fh:
     fh.write("\n".join(out))
